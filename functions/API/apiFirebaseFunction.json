@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "opticslab-8ae2b",
+  "private_key_id": "189ba879f9d206213037e15ab45f7ac39adbcbf8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCdHX82ET2RzkM8\ngWGmJrZmA4D2YiDOLa3Fgn4IykK6I2stgROlQ3HFhydO3NfjKgm3J1ZjPWjhZbaH\njeylfB9NrFiGetal2oPhM/aOqCtMpAingoo3Obiu+MJ7N8TbTgCsuvM5i+PoYoJi\nAKEcoAUMBNKkVY0sgZrNff5hM9jIqLRhxb8L8HbFaiv33kCFPYT8FSFPC2L65KiM\n6b+PlqC8FHR6asD8ZSKEuwR3xy9308Bj5nblG/6EErna2WGtofpdnZaK2IuZp4M+\nMfTotZzFdnxrgwJBFXcR6NrKAiuKJ7zH+6yWnVjFeTUaXLLm3gRj1qgCPx1uNz08\nj2XCxdVxAgMBAAECggEABtNENnYTRaU/OH6qXkxqOg5G6O0kXbCQTvc3QGyA75Mg\nUc68qr4+UAVqCLwBSOYHnARCdXcyejAv+L2KnTnCJl6pTdZCQtw2RG88c8AMeXza\nv2QlWvbP9hHqaO3oSFqgHuDUNhjEotC8t0MtvI+bCIWhHPB2fIt4zRp/FXvqG/Ve\nyDeDie8LYGJBEU00VWrDaDmuLjNDq75mENYyjrs6d8Upt49HZT7tu4KSnv3lyLAq\n5AOznX/jescZMjJm8CVBTqzQ2ZX9l8Mfd0w5b7aUPE7NqqJVByKs268fBhloPIfS\n5evopPkJ55BBnJmVlC9Db0dGzTy+nooDfTyJXxXuAQKBgQDQ6aqrEeYPZ8fWGU/S\nvqvslGl0nqqvpkIl763U8KVzx1pLtGuRumnGruYAkIwSXVJZDFWl9/09FNY0BNmF\np34ytDDnuoLFu1dg9qMfZTahZNSx+EExj3SYYziIg/r/BCcHj7fuMLL9t1m5XVfe\nUMui/4c7VqlJcBD8aRKHMJ2f0QKBgQDAhxh+CoiIU927P44DE1nceY6BFsF3FYFY\n3tn1gerdBJYOz8xiX+VUmjAueWSWLAtJpwBCYt53GfDnMR+twZqcxtEqU6GmDyoq\n37qmCruumLzy3+EutRJwOrHgU3omgSRHAHExJUrCloQWUolx9zLgIROe+pM7u+l3\nHWYntY7joQKBgBuXwUL3CjveqTZOAY0EQhDtSUBt9H1eqD36eis13aR9IB//pHWK\n+Y2UbCyG6vlB+i5owqc5Kel3ZxNX0KMmjDSGOC9jIwKay9+ys7jh1WVbu/wFnha9\nq9i0wjLFu9ES61TEVrbPF9UK8n7ZJVHnuf29Yk8kExfwBU5RUnEoqqkBAoGADuxp\n4Zs/ahHWJiWPBH4DgSuK+EajSG/KTvE3Q+iGJAuu9gb1eMqmJCCvi2qteVaAqXzg\ncETpqaHBIqqUIgvXyD9BB17kMNMMGbat6SD721TLkKf59HzkqP5ju1e9KC7qePZ3\nz69sVBkGtBRBwyu+LdFii/gwYXj3Z9xHhtxz7wECgYBZc1Dj3w0lxNFnDZwQcbDw\nAJ7scz4LlMvVFZR/gIeiOi3vQXISnbT4fmBUD7bkTpUt8D4k3l1GWJTlAhGHOeCr\nGUXieAniJZRwe9ses70z0/wfveR3+bM2O0NqdNNWaNpW2UyhgNz/gnsGJCRSZ9tS\nEjRNpw58VYWdWD9RtaeqWA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-y0bsx@opticslab-8ae2b.iam.gserviceaccount.com",
+  "client_id": "116213813219888157352",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-y0bsx%40opticslab-8ae2b.iam.gserviceaccount.com"
+}

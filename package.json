@@ -1,0 +1,33 @@
+{
+  "name": "coffee-cloud",
+  "version": "0.0.0",
+  "description": "Hello Expo!",
+  "author": null,
+  "main": "main.js",
+  "scripts": {
+    "test": "node node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "firebase": "^3.8.0",
+    "firebase-admin": "^4.2.1",
+    "lodash": "^4.17.4",
+    "react-native-animatable": "^1.1.1",
+    "react-native-elements": "^0.10.2",
+    "react-navigation": "^1.0.0-beta.7",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-persist": "^4.6.0",
+    "redux-thunk": "^2.2.0",
+    "expo": "16.0.0",
+    "react": "16.0.0-alpha.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-16.0.0.tar.gz"
+  },
+  "devDependencies": {
+    "jest-expo": "0.4.0"
+  }
+}
