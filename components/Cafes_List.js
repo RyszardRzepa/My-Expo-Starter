@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Image, View, Dimensions, Text, FlatList } from "react-native";
-import { Card, Button } from 'react-native-elements';
+import { View, Dimensions, Text, FlatList } from "react-native";
+import { Divider, Tile } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
 
@@ -13,10 +13,13 @@ class CafesList extends Component {
   renderItem (item) {
     return (
       <View>
-        <Card
+        <Tile
+          imageSrc={{ uri: item.image}}
           title={item.address}
-          image={{ uri: item.image }}>
-        </Card>
+          featured
+          caption="Some Caption Text"
+        />
+        <Divider style={{ backgroundColor: '#fff' }} />
       </View>
     )
   }

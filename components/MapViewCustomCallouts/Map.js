@@ -10,10 +10,9 @@ import {
   Image
 } from 'react-native';
 import { MapView } from "expo";
-import _ from 'lodash';
+import { Ionicons } from '@expo/vector-icons';
 
 import CafesList from '../Cafes_List';
-import FlatList from '../FlatList';
 import CustomCallout from './CustomCallout';
 
 const { width, height } = Dimensions.get('window');
@@ -129,11 +128,10 @@ class Map extends React.Component {
           <Animated.View style={[styles.card, offsetStyle]}>
             <TouchableOpacity onPress={this.toggleCard}>
               <View style={styles.header}>
-                <View>
-                  <Text style={styles.title}>Click here</Text>
-                </View>
                 <View style={styles.arrowContainer}>
-                  <Animated.Text style={[styles.arrow, arrowStyle]}>↓</Animated.Text>
+                  <Animated.Text style={[styles.arrow, arrowStyle,]}>
+                    ↓
+                  </Animated.Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -177,16 +175,15 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     flex: 1,
-    alignItems: "flex-end",
-    justifyContent: "center"
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  arrow: {
+    fontSize: 36
   },
   background: {
     width: width,
     height: height,
-  },
-  arrow: {
-    fontSize: 30,
-    color: "#333"
   },
   customView: {
     width: 140,
