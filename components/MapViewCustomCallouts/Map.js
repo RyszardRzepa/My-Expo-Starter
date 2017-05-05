@@ -15,9 +15,8 @@ const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 59.911491;
 const LONGITUDE = 10.757933;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 0.1122;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const SPACE = 0.01;
 
 class Callouts extends React.Component {
   constructor (props) {
@@ -53,14 +52,17 @@ class Callouts extends React.Component {
     }
     
     return <MapView
+      loadingBackgroundColor="#f9f5ed"
+      showsUserLocation
       provider={this.props.provider}
       style={styles.map}
       initialRegion={this.state.region}
     >
       {this.props.coordinates.map((marker) => {
-        console.log("markers", marker)
         return <MapView.Marker
           key={marker.latitude}
+          showsUserLocation
+          loadingBackgroundColor="#f9f5ed"
           coordinate={{
             latitude: marker.latitude,
             longitude: marker.longitude

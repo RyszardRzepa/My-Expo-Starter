@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import Map from '../components/MapViewCustomCallouts/Map';
 
-import * as actions from '../actions';
+import { FetchCafes } from '../actions';
 
 class MapScreen extends Component {
   static navigationOptions = {
@@ -12,10 +12,10 @@ class MapScreen extends Component {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="my-location" size={30} color={tintColor}/>;
     }
-  }
+  };
   
-  state = {
-    mapLoaded: false,
+  componentWillMount() {
+    this.props.FetchCafes();
   }
   
   componentDidMount () {
@@ -23,17 +23,6 @@ class MapScreen extends Component {
   }
   
   render () {
-    {
-      console.log(this.props)
-    }
-    if (!this.state.mapLoaded) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <ActivityIndicator size="large"/>
-        </View>
-      );
-    }
-    
     return (
       <View style={{ flex: 1 }}>
         <Map coordinates={this.props.coordinates}/>
@@ -48,4 +37,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, actions)(MapScreen);
+export default connect(mapStateToProps, { FetchCafes })(MapScreen);

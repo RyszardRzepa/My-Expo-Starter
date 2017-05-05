@@ -1,7 +1,6 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
-import { AppLoading } from 'expo';
+import { AsyncStorage } from 'react-native';
+
 import { connect } from 'react-redux';
 
 import { FetchCafes } from '../actions';
@@ -20,19 +19,16 @@ class WelcomeScreen extends Component {
     
     if (token) {
       this.props.navigation.navigate('map');
-      //this.setState({ token });
     } else {
       this.setState({ token: false });
     }
-    
-    this.props.FetchCafes();
+  }
+  
+  componentWillUnmount() {
+    this.setState({ token: null });
   }
   
   render () {
-    if (_.isNull(this.state.token)) {
-      return <AppLoading />;
-    }
-    
     return (
       //TODO Reduce login/register screen to one file
       <Auth navigate={() => this.props.navigation.navigate('map')}/>

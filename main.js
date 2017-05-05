@@ -13,6 +13,7 @@ import MapScreen from './screens/MapScreen';
 import DeckScreen from './screens/DeckScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ReviewScreen from './screens/ReviewScreen';
+
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
   authDomain: "weather-forecast-9a2a5.firebaseapp.com",
@@ -62,7 +63,7 @@ class App extends React.Component {
       navigationOptions: {
         tabBarVisible: false
       },
-      lazy: true
+      //lazy: true
     });
     
     return (

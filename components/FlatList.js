@@ -101,6 +101,7 @@ class FlatListDemo extends Component {
     return (
       <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
+          removeClippedSubviews={false}
           data={this.state.data}
           renderItem={({ item }) => (
             <ListItem
