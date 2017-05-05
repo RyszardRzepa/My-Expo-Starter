@@ -12,6 +12,7 @@ import {
 import { MapView } from "expo";
 import _ from 'lodash';
 
+import CafesList from '../Cafes_List';
 import FlatList from '../FlatList';
 import CustomCallout from './CustomCallout';
 
@@ -55,6 +56,14 @@ class Map extends React.Component {
     })
   }
   
+  renderCafesList () {
+    return (
+      <CafesList
+        data={this.props.cafesInfo}
+      />
+    )
+  }
+  
   render () {
     const offsetInterpolate = this.animated.interpolate({
       inputRange: [0, 1],
@@ -72,7 +81,7 @@ class Map extends React.Component {
     };
     
     {
-      if (!this.props.coordinates) {
+      if (!this.props.cafesInfo) {
         return <View
           style={{
             flex: 1,
@@ -95,8 +104,7 @@ class Map extends React.Component {
           style={styles.map}
           initialRegion={this.state.region}
         >
-          {_.map(this.props.coordinates, (item) => {
-            console.log("marker: ", item)
+          {this.props.cafesInfo.map((item) => {
             return <MapView.Marker
               key={item.location.latitude}
               showsUserLocation
@@ -105,15 +113,14 @@ class Map extends React.Component {
                 latitude: item.location.latitude,
                 longitude: item.location.longitude
               }}
-              
             >
               <MapView.Callout tooltip style={styles.customView}>
                 <CustomCallout>
                   <Image
-                    source={{ uri: item.image}}
+                    source={{ uri: item.image }}
                     style={{ height: 60 }}
                   />
-                  <Text style={{ color: '#27313c'}}>{item.address}</Text>
+                  <Text style={{ color: '#27313c' }}>{item.address}</Text>
                 </CustomCallout>
               </MapView.Callout>
             </MapView.Marker>
@@ -123,7 +130,7 @@ class Map extends React.Component {
             <TouchableOpacity onPress={this.toggleCard}>
               <View style={styles.header}>
                 <View>
-                  <Text style={styles.title}>Portland, Oregon</Text>
+                  <Text style={styles.title}>Click here</Text>
                 </View>
                 <View style={styles.arrowContainer}>
                   <Animated.Text style={[styles.arrow, arrowStyle]}>↓</Animated.Text>
@@ -131,10 +138,9 @@ class Map extends React.Component {
               </View>
             </TouchableOpacity>
             <Animated.View style={[styles.scrollViewWrap]}>
-              <FlatList/>
+              <CafesList data={this.props.cafesInfo}/>
             </Animated.View>
           </Animated.View>
-        
         </MapView>
       </View>
     );
@@ -160,11 +166,14 @@ const styles = StyleSheet.create({
     transform: [{ translateY: 191, }]
   },
   header: {
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
-    color: "#333"
+    color: "#333",
+    justifyContent: "center"
   },
   arrowContainer: {
     flex: 1,

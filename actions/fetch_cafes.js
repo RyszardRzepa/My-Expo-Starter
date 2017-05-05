@@ -5,8 +5,15 @@ import { FETCH_CAFES_SUCCESS} from './types';
 export const FetchCafes = () => {
   return (dispatch) => {
     firebase.database().ref('/cafes/name').once('value').then(function (snapshot) {
-      const cafesInfo = snapshot.val();
-      dispatch({ type: FETCH_CAFES_SUCCESS, payload: cafesInfo })
+      let items = [];
+      snapshot.forEach((child) => {
+        items.push({
+          location: child.val().location,
+          address: child.val().address,
+          image: child.val().image,
+        });
+      });
+      dispatch({ type: FETCH_CAFES_SUCCESS, payload: items })
     })
   }
 };

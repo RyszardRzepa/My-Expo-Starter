@@ -26,7 +26,7 @@ class MapScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Map
-          coordinates={this.props.coordinates}
+          cafesInfo={this.props.cafesInfo}
         />
       </View>
     );
@@ -35,7 +35,7 @@ class MapScreen extends Component {
 
 function mapStateToProps (state) {
   return {
-    coordinates: state.cafes.cafesInfo
+    cafesInfo: state.cafes.cafesInfo
   }
 }
 
