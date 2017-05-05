@@ -4,11 +4,9 @@ import { FETCH_CAFES_SUCCESS} from './types';
 
 export const FetchCafes = () => {
   return (dispatch) => {
-    firebase.database().ref('/coffeeshops/name').once('value').then(function (snapshot) {
-      const cafesName = _.map(snapshot.val(), (item) => {
-        return item.coordinates
-      });
-      dispatch({ type: FETCH_CAFES_SUCCESS, payload: cafesName })
+    firebase.database().ref('/cafes/name').once('value').then(function (snapshot) {
+      const cafesInfo = snapshot.val();
+      dispatch({ type: FETCH_CAFES_SUCCESS, payload: cafesInfo })
     })
   }
 };

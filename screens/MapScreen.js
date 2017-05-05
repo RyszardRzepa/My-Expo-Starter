@@ -35,7 +35,7 @@ class MapScreen extends Component {
 
 function mapStateToProps (state) {
   return {
-    coordinates: state.cafes.cafesName
+    coordinates: state.cafes.cafesInfo
   }
 }
 

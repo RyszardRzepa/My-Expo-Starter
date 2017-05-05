@@ -6,9 +6,11 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableOpacity,
-  Animated
+  Animated,
+  Image
 } from 'react-native';
 import { MapView } from "expo";
+import _ from 'lodash';
 
 import FlatList from '../FlatList';
 import CustomCallout from './CustomCallout';
@@ -21,7 +23,7 @@ const LONGITUDE = 10.757933;
 const LATITUDE_DELTA = 0.1122;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class Callouts extends React.Component {
+class Map extends React.Component {
   constructor (props) {
     super(props);
     
@@ -53,35 +55,21 @@ class Callouts extends React.Component {
     })
   }
   
-  renderMarkers () {
-  
-  }
-  
   render () {
     const offsetInterpolate = this.animated.interpolate({
       inputRange: [0, 1],
       outputRange: [351, 70]
-    })
+    });
     const arrowRotate = this.animated.interpolate({
       inputRange: [0, 1],
       outputRange: ["180deg", "0deg"]
-    })
-    
+    });
     const offsetStyle = {
-      transform: [
-        {
-          translateY: offsetInterpolate
-        }
-      ]
-    }
-    
+      transform: [{ translateY: offsetInterpolate }]
+    };
     const arrowStyle = {
-      transform: [
-        {
-          rotate: arrowRotate
-        }
-      ]
-    }
+      transform: [{ rotate: arrowRotate }]
+    };
     
     {
       if (!this.props.coordinates) {
@@ -107,21 +95,25 @@ class Callouts extends React.Component {
           style={styles.map}
           initialRegion={this.state.region}
         >
-          {this.props.coordinates.map((marker) => {
+          {_.map(this.props.coordinates, (item) => {
+            console.log("marker: ", item)
             return <MapView.Marker
-              key={marker.latitude}
+              key={item.location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
               coordinate={{
-                latitude: marker.latitude,
-                longitude: marker.longitude
+                latitude: item.location.latitude,
+                longitude: item.location.longitude
               }}
-              calloutOffset={{ x: -8, y: 28 }}
-              calloutAnchor={{ x: 0.5, y: 0.4 }}
+              
             >
               <MapView.Callout tooltip style={styles.customView}>
                 <CustomCallout>
-                  <Text>This is a custom callout bubble view</Text>
+                  <Image
+                    source={{ uri: item.image}}
+                    style={{ height: 60 }}
+                  />
+                  <Text style={{ color: '#27313c'}}>{item.address}</Text>
                 </CustomCallout>
               </MapView.Callout>
             </MapView.Marker>
@@ -149,7 +141,7 @@ class Callouts extends React.Component {
   }
 }
 
-Callouts.propTypes = {
+Map.propTypes = {
   provider: MapView.ProviderPropType,
 };
 
@@ -223,4 +215,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Callouts;
+export default Map;
