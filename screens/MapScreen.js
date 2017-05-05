@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import Map from '../components/MapViewCustomCallouts/Map';
-
 import { FetchCafes } from '../actions';
 
 class MapScreen extends Component {
+  
   static navigationOptions = {
     title: 'Map',
     tabBarIcon: ({ tintColor }) => {
@@ -14,7 +14,7 @@ class MapScreen extends Component {
     }
   };
   
-  componentWillMount() {
+  componentWillMount () {
     this.props.FetchCafes();
   }
   
@@ -25,7 +25,9 @@ class MapScreen extends Component {
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <Map coordinates={this.props.coordinates}/>
+        <Map
+          coordinates={this.props.coordinates}
+        />
       </View>
     );
   }
