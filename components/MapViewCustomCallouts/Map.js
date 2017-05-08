@@ -103,22 +103,27 @@ class Map extends React.Component {
           initialRegion={this.state.region}
         >
           {this.props.cafesInfo.map((item) => {
+            const { location, address, image } = item;
+            
             return <MapView.Marker
               key={item.location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
               coordinate={{
-                latitude: item.location.latitude,
-                longitude: item.location.longitude
+                latitude: location.latitude,
+                longitude: location.longitude
               }}
             >
               <MapView.Callout tooltip style={styles.customView}>
                 <CustomCallout>
-                  <Image
-                    source={{ uri: item.image }}
-                    style={{ height: 60 }}
-                  />
-                  <Text style={{ color: '#27313c' }}>{item.address}</Text>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation('details', { address, image })}>
+                    <Image
+                      source={{ uri: image }}
+                      style={{ height: 60 }}
+                    />
+                    <Text style={{ color: '#27313c' }}>{address}</Text>
+                  </TouchableOpacity>
                 </CustomCallout>
               </MapView.Callout>
             </MapView.Marker>
@@ -134,6 +139,7 @@ class Map extends React.Component {
                 </View>
               </View>
             </TouchableOpacity>
+            
             <Animated.View style={[styles.scrollViewWrap]}>
               <CafesList data={this.props.cafesInfo}/>
             </Animated.View>

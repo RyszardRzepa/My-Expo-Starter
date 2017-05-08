@@ -22,10 +22,15 @@ class MapScreen extends Component {
     this.setState({ mapLoaded: true });
   }
   
+  navigateCallback (route, prop) {
+    this.props.navigation.navigate(route, prop)
+  }
+  
   render () {
     return (
       <View style={{ flex: 1 }}>
         <Map
+          navigation={this.navigateCallback.bind(this)}
           cafesInfo={this.props.cafesInfo}
         />
       </View>

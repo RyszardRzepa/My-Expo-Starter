@@ -11,9 +11,9 @@ import store from './store';
 
 import WelcomeScreen from './screens/WelcomeScreen';
 import MapScreen from './screens/MapScreen';
-import DeckScreen from './screens/DeckScreen';
+import DeckScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import ReviewScreen from './screens/ReviewScreen';
+import DetailsScreen from './screens/DetailsScreen';
 
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
@@ -47,24 +47,19 @@ class App extends React.Component {
       main: {
         screen: TabNavigator({
           map: { screen: MapScreen },
-          deck: { screen: DeckScreen },
-          review: {
-            screen: StackNavigator({
-              review: { screen: ReviewScreen },
-              settings: { screen: SettingsScreen }
-            })
-          }
+          list: { screen: DeckScreen },
         }, {
           tabBarOptions: {
             labelStyle: { fontSize: 12 }
           }
         })
-      }
+      },
+      details: { screen: DetailsScreen }
     }, {
       navigationOptions: {
         tabBarVisible: false
       },
-      //lazy: true
+      lazy: true
     });
     
     return (
