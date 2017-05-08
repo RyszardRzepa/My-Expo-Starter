@@ -10,7 +10,6 @@ import {
   Image
 } from 'react-native';
 import { MapView } from "expo";
-import { Ionicons } from '@expo/vector-icons';
 
 import CafesList from '../Cafes_List';
 import CustomCallout from './CustomCallout';
@@ -97,8 +96,8 @@ class Map extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
+          showUSerLocation
           loadingBackgroundColor="#f9f5ed"
-          showsUserLocation
           provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}

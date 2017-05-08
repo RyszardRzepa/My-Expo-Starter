@@ -1,5 +1,4 @@
 import  firebase from 'firebase';
-import _ from 'lodash';
 import { FETCH_CAFES_SUCCESS} from './types';
 
 export const FetchCafes = () => {

@@ -1,3 +1,4 @@
+import './ReactotronConfig'
 import Expo, { Notifications } from 'expo';
 import React from 'react';
 import { Alert } from 'react-native';
