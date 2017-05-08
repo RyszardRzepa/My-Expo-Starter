@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import Details from '../components/Details';
+import Details from '../components/NavBarCollapse';
 
 class ReviewScreen extends Component {
   static navigationOptions = {
@@ -16,7 +15,7 @@ class ReviewScreen extends Component {
   render () {
     return (
       <Details
-        data={this.props.navigation.state}
+        data={this.props.navigation.state.params}
       />
     )
   }
