@@ -14,6 +14,7 @@ class CafesList extends Component {
     return (
       <View>
         <Tile
+          onPress={() => this.props.navigation('details', item)}
           imageSrc={{ uri: item.image}}
           title={item.address}
           featured

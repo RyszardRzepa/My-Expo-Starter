@@ -42,7 +42,7 @@ class MapScreen extends Component {
     this.setState({ mapLoaded: true });
   }
   
-  navigateCallback (route, prop) {
+  navigateCallback = (route, prop) => {
     this.props.navigation.navigate(route, prop)
   }
   
@@ -66,7 +66,10 @@ class MapScreen extends Component {
         </View>
         <Modal style={[styles.modal4]} position={"bottom"} ref={"modal6"} swipeArea={20}>
           <View style={{ flex: 1, width: screen.width }}>
-            <CafesList data={this.props.cafesInfo}/>
+            <CafesList
+              data={this.props.cafesInfo}
+              navigation={this.navigateCallback.bind(this)}
+            />
           </View>
         </Modal>
       </View>

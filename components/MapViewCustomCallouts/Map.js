@@ -106,7 +106,7 @@ class Map extends React.Component {
             const { location, address, image, menu } = item;
             
             return <MapView.Marker
-              key={item.location.latitude}
+              key={location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
               coordinate={{
