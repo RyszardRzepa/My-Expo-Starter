@@ -10,9 +10,8 @@ import {
   Image
 } from 'react-native';
 import { MapView } from "expo";
-import _ from 'lodash';
 
-import FlatList from '../FlatList';
+import CafesList from '../Cafes_List';
 import CustomCallout from './CustomCallout';
 
 const { width, height } = Dimensions.get('window');
@@ -55,6 +54,14 @@ class Map extends React.Component {
     })
   }
   
+  renderCafesList () {
+    return (
+      <CafesList
+        data={this.props.cafesInfo}
+      />
+    )
+  }
+  
   render () {
     const offsetInterpolate = this.animated.interpolate({
       inputRange: [0, 1],
@@ -72,7 +79,7 @@ class Map extends React.Component {
     };
     
     {
-      if (!this.props.coordinates) {
+      if (!this.props.cafesInfo) {
         return <View
           style={{
             flex: 1,
@@ -89,31 +96,34 @@ class Map extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
+          showUSerLocation
           loadingBackgroundColor="#f9f5ed"
-          showsUserLocation
           provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}
         >
-          {_.map(this.props.coordinates, (item) => {
-            console.log("marker: ", item)
+          {this.props.cafesInfo.map((item) => {
+            const { location, address, image, menu } = item;
+            
             return <MapView.Marker
               key={item.location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
               coordinate={{
-                latitude: item.location.latitude,
-                longitude: item.location.longitude
+                latitude: location.latitude,
+                longitude: location.longitude
               }}
-              
             >
               <MapView.Callout tooltip style={styles.customView}>
                 <CustomCallout>
-                  <Image
-                    source={{ uri: item.image}}
-                    style={{ height: 60 }}
-                  />
-                  <Text style={{ color: '#27313c'}}>{item.address}</Text>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation('details', { address, image, menu })}>
+                    <Image
+                      source={{ uri: image }}
+                      style={{ height: 60 }}
+                    />
+                    <Text style={{ color: '#27313c' }}>{address}</Text>
+                  </TouchableOpacity>
                 </CustomCallout>
               </MapView.Callout>
             </MapView.Marker>
@@ -122,19 +132,18 @@ class Map extends React.Component {
           <Animated.View style={[styles.card, offsetStyle]}>
             <TouchableOpacity onPress={this.toggleCard}>
               <View style={styles.header}>
-                <View>
-                  <Text style={styles.title}>Portland, Oregon</Text>
-                </View>
                 <View style={styles.arrowContainer}>
-                  <Animated.Text style={[styles.arrow, arrowStyle]}>↓</Animated.Text>
+                  <Animated.Text style={[styles.arrow, arrowStyle,]}>
+                    ↓
+                  </Animated.Text>
                 </View>
               </View>
             </TouchableOpacity>
+            
             <Animated.View style={[styles.scrollViewWrap]}>
-              <FlatList/>
+              <CafesList data={this.props.cafesInfo}/>
             </Animated.View>
           </Animated.View>
-        
         </MapView>
       </View>
     );
@@ -160,24 +169,26 @@ const styles = StyleSheet.create({
     transform: [{ translateY: 191, }]
   },
   header: {
-    flexDirection: "row"
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
-    color: "#333"
+    color: "#333",
+    justifyContent: "center"
   },
   arrowContainer: {
     flex: 1,
-    alignItems: "flex-end",
-    justifyContent: "center"
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  arrow: {
+    fontSize: 36
   },
   background: {
     width: width,
     height: height,
-  },
-  arrow: {
-    fontSize: 30,
-    color: "#333"
   },
   customView: {
     width: 140,

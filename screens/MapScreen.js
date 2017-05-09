@@ -22,11 +22,16 @@ class MapScreen extends Component {
     this.setState({ mapLoaded: true });
   }
   
+  navigateCallback (route, prop) {
+    this.props.navigation.navigate(route, prop)
+  }
+  
   render () {
     return (
       <View style={{ flex: 1 }}>
         <Map
-          coordinates={this.props.coordinates}
+          navigation={this.navigateCallback.bind(this)}
+          cafesInfo={this.props.cafesInfo}
         />
       </View>
     );
@@ -35,7 +40,7 @@ class MapScreen extends Component {
 
 function mapStateToProps (state) {
   return {
-    coordinates: state.cafes.cafesInfo
+    cafesInfo: state.cafes.cafesInfo
   }
 }
 

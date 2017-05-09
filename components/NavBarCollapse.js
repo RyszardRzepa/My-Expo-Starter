@@ -1,125 +1,108 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  Image,
-  Animated,
-  ScrollView,
+  Dimensions,
+  ScrollView
 } from "react-native";
+import { Tile, List, ListItem } from 'react-native-elements';
+import Accordion from 'react-native-collapsible/Accordion';
+import { Ionicons } from '@expo/vector-icons';
 
-import Egghead from "../assets/icons/app.png";
+const { width, height } = Dimensions.get('window');
 
 export default class realworld extends Component {
-  componentWillMount() {
-    this.animated = new Animated.Value(0);
-  }
-
-  render() {
-    const hideImageInterpolate = this.animated.interpolate({
-      inputRange: [0, 250],
-      outputRange: [50, 0],
-      extrapolate: "clamp",
-    })
-
-    const fontInterpolate = this.animated.interpolate({
-      inputRange: [0, 250],
-      outputRange: [24, 30],
-    })
-
-    const opacityInterpolate = this.animated.interpolate({
-      inputRange: [0, 250],
-      outputRange: [1, 0],
-      extrapolate: "clamp"
-    });
-
-    const collapseInterpolate = this.animated.interpolate({
-      inputRange: [0, 250],
-      outputRange: [50, 0],
-      extrapolate: "clamp"
-    })
-
-    const imageStyle = {
-      width: hideImageInterpolate,
-      height: hideImageInterpolate
-    }
-
-    const titleStyle = {
-      fontSize: fontInterpolate
-    }
-
-    const fadeButtonStyle = {
-      opacity: opacityInterpolate,
-      height: collapseInterpolate
-    }
-
+  
+  renderBackground = (image, address) => {
+    return <Tile
+      imageSrc={{ uri: image }}
+      title={address}
+      featured
+      caption="Some Caption Text"
+    />
+  };
+  
+  renderMenu = () => {
+    console.log(this.props.data)
+    
+  };
+  
+  _renderHeader (coffee) {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Animated.Image source={Egghead} style={[styles.image, imageStyle]} />
-          <Animated.Text style={[styles.titleStyle, titleStyle]}>Egghead</Animated.Text>
-          <Animated.View style={[styles.buttons, fadeButtonStyle]}>
-            <View style={styles.button}>
-              <Text>Button 1</Text>
-            </View>
-            <View style={styles.button}>
-              <Text>Button 2</Text>
-            </View>
-          </Animated.View>
-        </View>
-        <View style={styles.scrollView}>
-          <ScrollView
-            scrollEventThrottle={16}
-            onScroll={Animated.event([
-              { nativeEvent: { contentOffset: { y: this.animated }}}
-            ])}
-          >
-            <View style={styles.fakeContent}>
-              <Text style={styles.fakeText}>Top</Text>
+      <View style={styles.header}>
+        <View style={styles.content}>
+          <ScrollView>
+            <View style={{ flex: 1 }}>
+              <List containerStyle={{ marginTop: 0, marginBottom: 0, flex: 1 }}>
+                <ListItem
+                  containerStyle={{ width }}
+                  roundAvatar={false}
+                  avatarStyle={{ height: 60, width: 60 }}
+                  avatar={{ uri: coffee.image }}
+                  key={coffee.name}
+                  title={coffee.name}
+                />
+              </List>
             </View>
           </ScrollView>
         </View>
       </View>
     );
   }
+  
+  _renderContent ({ price, size }) {
+    const priceMedium = price.medium;
+    const sizeMedium = size.medium;
+    
+    const priceSmall = price.small;
+    const sizeSmall = size.small;
+    
+    return (
+      <View>
+        <List containerStyle={{ marginTop: 0, marginBottom: 0, flex: 1 }}>
+          <ListItem
+            rightIcon={{ name: 'add-box' }}
+            key={priceMedium}
+            title={priceMedium}
+            subtitle={sizeMedium}
+          />
+          <ListItem
+            rightIcon={{ name: 'add-box' }}
+            key={priceSmall}
+            title={priceSmall}
+            subtitle={sizeSmall}
+          />
+        </List>
+      </View>
+    );
+  }
+  
+  render () {
+    const { image, address } = this.props.data;
+    
+    return (
+      <View style={{ flex: 1 }}>
+        {this.renderBackground(image, address)}
+        <Accordion
+          sections={this.props.data.menu}
+          renderHeader={this._renderHeader}
+          renderContent={this._renderContent}
+        />
+      </View>
+    );
+  }
 }
 
+realworld.defaultProps = {
+  image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvgg44VLOc_bE1c4GN9Do2FR0mP48klnWbfg6aZ_vTPpgO5icLl1AtBP-P',
+  address: 'test'
+};
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  titleStyle: {
-    marginBottom: 10,
-  },
-  fakeContent: {
-    height: 1000,
-    backgroundColor: "#4A89DC"
-  },
-  fakeText: {
-    padding: 15,
-    textAlign: "center",
-    color: "#FFF",
-  },
-  buttons: {
-    flexDirection: "row",
-  },
-  image: {
-    width: 50,
-    height: 50,
-  },
-  button: {
+  contentContainer: {
+    alignItems: 'center',
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
   },
-  header: {
-    paddingTop: 30,
-    alignItems: "center"
-  },
-  scrollView: {
-    flex: 1
-  }
 });
 
-AppRegistry.registerComponent("realworld", () => realworld);
