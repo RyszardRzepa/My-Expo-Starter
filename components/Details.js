@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
   Dimensions,
   ScrollView
 } from "react-native";
 import { Tile, List, ListItem } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
-import { Ionicons } from '@expo/vector-icons';
+
+import styles from './styles/details';
 
 const { width, height } = Dimensions.get('window');
 
-export default class realworld extends Component {
+export default class Details extends Component {
   
   renderBackground = (image, address) => {
     return <Tile
@@ -94,15 +93,10 @@ export default class realworld extends Component {
   }
 }
 
-realworld.defaultProps = {
+Details.defaultProps = {
   image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvgg44VLOc_bE1c4GN9Do2FR0mP48klnWbfg6aZ_vTPpgO5icLl1AtBP-P',
-  address: 'test'
+  address: 'Test address'
 };
 
-const styles = StyleSheet.create({
-  contentContainer: {
-    alignItems: 'center',
-    flex: 1,
-  },
-});
+
 

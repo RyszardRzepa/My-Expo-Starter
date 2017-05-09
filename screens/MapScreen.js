@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import Map from '../components/MapViewCustomCallouts/Map';
+import Modal from 'react-native-modalbox';
+
+import CafesList from '../components/Cafes_List';
 import { FetchCafes } from '../actions';
+
+const screen = Dimensions.get('window');
 
 class MapScreen extends Component {
   
@@ -13,6 +22,16 @@ class MapScreen extends Component {
       return <Icon name="my-location" size={30} color={tintColor}/>;
     }
   };
+  
+  constructor () {
+    super();
+    this.state = {
+      isOpen: false,
+      isDisabled: false,
+      swipeToClose: true,
+      sliderValue: 0.3
+    };
+  }
   
   componentWillMount () {
     this.props.FetchCafes();
@@ -33,10 +52,43 @@ class MapScreen extends Component {
           navigation={this.navigateCallback.bind(this)}
           cafesInfo={this.props.cafesInfo}
         />
+        <View style={styles.icon}>
+          <Icon
+            size={26}
+            raised
+            name='free-breakfast'
+            underlayColor="#EFEBE9"
+            color='#c0392b'
+            onPress={() => this.refs.modal6.open()}
+          />
+        
+        </View>
+        <Modal style={[styles.modal4]} position={"bottom"} ref={"modal6"} swipeArea={20}>
+          <View style={{ flex: 1, width: screen.width }}>
+            <CafesList data={this.props.cafesInfo}/>
+          </View>
+        </Modal>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modal4: {
+    height: 380
+  },
+  icon: {
+    position: "absolute",
+    bottom: 100,
+    right: 50,
+    width: 50,
+    height: 50,
+  },
+});
 
 function mapStateToProps (state) {
   return {

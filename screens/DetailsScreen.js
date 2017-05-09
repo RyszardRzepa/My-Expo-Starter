@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import Details from '../components/NavBarCollapse';
+import Details from '../components/Details';
 
 class ReviewScreen extends Component {
   static navigationOptions = {

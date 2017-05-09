@@ -128,22 +128,6 @@ class Map extends React.Component {
               </MapView.Callout>
             </MapView.Marker>
           })}
-          
-          <Animated.View style={[styles.card, offsetStyle]}>
-            <TouchableOpacity onPress={this.toggleCard}>
-              <View style={styles.header}>
-                <View style={styles.arrowContainer}>
-                  <Animated.Text style={[styles.arrow, arrowStyle,]}>
-                    ↓
-                  </Animated.Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            
-            <Animated.View style={[styles.scrollViewWrap]}>
-              <CafesList data={this.props.cafesInfo}/>
-            </Animated.View>
-          </Animated.View>
         </MapView>
       </View>
     );
