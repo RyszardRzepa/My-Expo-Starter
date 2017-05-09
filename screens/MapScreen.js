@@ -9,6 +9,7 @@ import { Icon } from 'react-native-elements';
 import Map from '../components/MapViewCustomCallouts/Map';
 import Modal from 'react-native-modalbox';
 
+import styles from './styles/map_screen';
 import CafesList from '../components/Cafes_List';
 import { FetchCafes } from '../actions';
 
@@ -72,23 +73,6 @@ class MapScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  modal: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  modal4: {
-    height: 380
-  },
-  icon: {
-    position: "absolute",
-    bottom: 100,
-    right: 50,
-    width: 50,
-    height: 50,
-  },
-});
 
 function mapStateToProps (state) {
   return {

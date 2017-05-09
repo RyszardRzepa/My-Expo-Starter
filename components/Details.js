@@ -22,22 +22,17 @@ export default class Details extends Component {
     />
   };
   
-  renderMenu = () => {
-    console.log(this.props.data)
-    
-  };
-  
   _renderHeader (coffee) {
     return (
       <View style={styles.header}>
         <View style={styles.content}>
           <ScrollView>
             <View style={{ flex: 1 }}>
-              <List containerStyle={{ marginTop: 0, marginBottom: 0, flex: 1 }}>
+              <List containerStyle={styles.listStyle }>
                 <ListItem
                   containerStyle={{ width }}
                   roundAvatar={false}
-                  avatarStyle={{ height: 60, width: 60 }}
+                  avatarStyle={styles.avatarStyle}
                   avatar={{ uri: coffee.image }}
                   key={coffee.name}
                   title={coffee.name}
@@ -59,7 +54,7 @@ export default class Details extends Component {
     
     return (
       <View>
-        <List containerStyle={{ marginTop: 0, marginBottom: 0, flex: 1 }}>
+        <List containerStyle={ styles.listStyle }>
           <ListItem
             rightIcon={{ name: 'add-box' }}
             key={priceMedium}
