@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Tile, List, ListItem } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,48 +25,58 @@ export default class realworld extends Component {
   
   renderMenu = () => {
     console.log(this.props.data)
-    const list = [
-      {
-        name: 'Amy Farha',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Vice President'
-      },
-      {
-        name: 'Chris Jackson',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Vice Chairman'
-      },
-      {
-        name: 'Amy Farha',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        subtitle: 'Vice President'
-      },
-      {
-        name: 'Chris Jackson',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        subtitle: 'Vice Chairman'
-      },
-    ]
     
-    return <ScrollView>
-      <View style={{ flex: 1 }}>
+  };
+  
+  _renderHeader (coffee) {
+    return (
+      <View style={styles.header}>
+        <View style={styles.content}>
+          <ScrollView>
+            <View style={{ flex: 1 }}>
+              <List containerStyle={{ marginTop: 0, marginBottom: 0, flex: 1 }}>
+                <ListItem
+                  containerStyle={{ width }}
+                  roundAvatar={false}
+                  avatarStyle={{ height: 60, width: 60 }}
+                  avatar={{ uri: coffee.image }}
+                  key={coffee.name}
+                  title={coffee.name}
+                />
+              </List>
+            </View>
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
+  
+  _renderContent ({ price, size }) {
+    const priceMedium = price.medium;
+    const sizeMedium = size.medium;
+    
+    const priceSmall = price.small;
+    const sizeSmall = size.small;
+    
+    return (
+      <View>
         <List containerStyle={{ marginTop: 0, marginBottom: 0, flex: 1 }}>
-          {
-            list.map((l, i) => (
-              <ListItem
-                containerStyle={{ width }}
-                roundAvatar={false}
-                avatarStyle={{ height: 60, width: 60 }}
-                avatar={{ uri: l.avatar_url }}
-                key={i}
-                title={l.name}
-              />
-            ))
-          }
+          <ListItem
+            rightIcon={{ name: 'add-box' }}
+            key={priceMedium}
+            title={priceMedium}
+            subtitle={sizeMedium}
+          />
+          <ListItem
+            rightIcon={{ name: 'add-box' }}
+            key={priceSmall}
+            title={priceSmall}
+            subtitle={sizeSmall}
+          />
         </List>
       </View>
-      </ScrollView>
-  };
+    );
+  }
   
   render () {
     const { image, address } = this.props.data;
@@ -73,9 +84,11 @@ export default class realworld extends Component {
     return (
       <View style={{ flex: 1 }}>
         {this.renderBackground(image, address)}
-        <View style={ styles.contentContainer}>
-          {this.renderMenu()}
-        </View>
+        <Accordion
+          sections={this.props.data.menu}
+          renderHeader={this._renderHeader}
+          renderContent={this._renderContent}
+        />
       </View>
     );
   }

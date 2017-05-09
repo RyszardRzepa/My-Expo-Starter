@@ -13,14 +13,15 @@ export const FetchCafes = () => {
           menu.push({
             name: item.name,
             image: item.image,
-            price: item.price
+            price: item.price,
+            size: item.size
           })
         });
         items.push({
           location: child.val().location,
           address: child.val().address,
           image: child.val().image,
-          menu
+          menu,
         });
       });
       dispatch({ type: FETCH_CAFES_SUCCESS, payload: items })
