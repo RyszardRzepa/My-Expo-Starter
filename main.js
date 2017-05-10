@@ -5,7 +5,6 @@ import { Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
-
 import registerForNotifications from './services/push_notifications';
 import store from './store';
 
