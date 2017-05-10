@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {
   View,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Text
 } from "react-native";
 import { Tile, List, ListItem } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -46,30 +47,35 @@ export default class Details extends Component {
   }
   
   _renderContent ({ price, size }) {
-    const priceMedium = price.medium;
-    const sizeMedium = size.medium;
-    
-    const priceSmall = price.small;
-    const sizeSmall = size.small;
-    
-    return (
-      <View>
-        <List containerStyle={ styles.listStyle }>
-          <ListItem
-            rightIcon={{ name: 'add-box' }}
-            key={priceMedium}
-            title={priceMedium}
-            subtitle={sizeMedium}
-          />
-          <ListItem
-            rightIcon={{ name: 'add-box' }}
-            key={priceSmall}
-            title={priceSmall}
-            subtitle={sizeSmall}
-          />
-        </List>
-      </View>
-    );
+    if(size) {
+      const priceMedium = price.medium;
+      const sizeMedium = size.medium;
+  
+      const priceSmall = price.small;
+      const sizeSmall = size.small;
+  
+      return (
+        <View>
+          <List containerStyle={ styles.listStyle }>
+            <ListItem
+              rightIcon={{ name: 'add-box' }}
+              key={priceMedium}
+              title={priceMedium}
+              subtitle={sizeMedium}
+            />
+            <ListItem
+              rightIcon={{ name: 'add-box' }}
+              key={priceSmall}
+              title={priceSmall}
+              subtitle={sizeSmall}
+            />
+          </List>
+        </View>
+      );
+    }
+    return <Text>
+      Not size provided
+    </Text>
   }
   
   render () {
@@ -91,7 +97,6 @@ export default class Details extends Component {
 Details.defaultProps = {
   image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvgg44VLOc_bE1c4GN9Do2FR0mP48klnWbfg6aZ_vTPpgO5icLl1AtBP-P',
   address: 'Test address',
-  data: {}
 };
 
 
