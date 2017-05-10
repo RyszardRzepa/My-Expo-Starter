@@ -90,7 +90,8 @@ export default class Details extends Component {
 
 Details.defaultProps = {
   image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvgg44VLOc_bE1c4GN9Do2FR0mP48klnWbfg6aZ_vTPpgO5icLl1AtBP-P',
-  address: 'Test address'
+  address: 'Test address',
+  data: {}
 };
 
 

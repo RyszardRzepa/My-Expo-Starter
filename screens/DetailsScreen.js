@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Details from '../components/Details';
 
-class ReviewScreen extends Component {
+class DetailsScreen extends Component {
   static navigationOptions = {
     title: 'Details',
     tabBarIcon: ({ tintColor }) => {
@@ -21,4 +21,4 @@ class ReviewScreen extends Component {
   }
 }
 
-export default connect(null)(ReviewScreen);
+export default connect(null)(DetailsScreen);

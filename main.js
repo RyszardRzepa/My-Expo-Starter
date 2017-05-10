@@ -41,7 +41,7 @@ class App extends React.Component {
   }
   
   render () {
-    const MainNavigator = TabNavigator({
+    const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
       main: {
         screen: TabNavigator({
@@ -53,12 +53,17 @@ class App extends React.Component {
           }
         })
       },
-      details: { screen: DetailsScreen }
+      details: { screen: DetailsScreen },
     }, {
+      initialRouteName: 'welcome',
       navigationOptions: {
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#00adf5',
+        },
+        lazy: true,
         tabBarVisible: false
       },
-      lazy: true
     });
     
     return (

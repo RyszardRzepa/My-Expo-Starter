@@ -7,6 +7,10 @@ import { FetchCafes } from '../actions';
 import Auth from '../components/Auth';
 
 class WelcomeScreen extends Component {
+  static navigationOptions = {
+   header:false,
+  };
+  
   constructor (props) {
     super(props);
     this.state = {

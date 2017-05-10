@@ -21,7 +21,8 @@ class MapScreen extends Component {
     title: 'Map',
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="my-location" size={30} color={tintColor}/>;
-    }
+    },
+    header: false
   };
   
   constructor () {
