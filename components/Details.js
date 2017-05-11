@@ -11,27 +11,17 @@ import Accordion from 'react-native-collapsible/Accordion';
 import _ from 'lodash';
 import Modal from 'react-native-modalbox';
 
+import { addDrink, removeItemFromCart } from '../actions'
 import styles from './styles/details';
 
 const { width, height } = Dimensions.get('window');
 
 class Details extends Component {
-  static navigationOptions = {
-    title: "Buba",
-    headerRight: (<Icon
-        containerStyle={{ position: 'absolute', top: 0, right: 10 }}
-        raised
-        name='shopping-cart'
-        color='#f50'
-        onPress={() => this.refs.cartModal.open()}
-      />
-    )
-  };
-  
   state = {
-    total: [],
+    total: 1,
     order: []
   };
+  
   
   renderHeader = (coffee) => {
     return (
@@ -54,31 +44,6 @@ class Details extends Component {
     );
   };
   
-  addDrink = async (priceMedium, sizeMedium, name) => {
-    await this.setState({
-      order: [...this.state.order,
-        {
-          price: priceMedium,
-          size: sizeMedium,
-          name: name,
-          id: this.state.order.length + 1
-        }
-      ],
-      total: [...this.state.total, priceMedium],
-      updateOrder: {}
-    })
-    console.log(this.state.order)
-  };
-  
-  removeDrink = async (name) => {
-    const { order } = this.state;
-    await this.setState({
-      updateOrder: this.state.order.filter(item => item[name]).slice(0, -1)
-    });
-    
-    console.log("filtered order after", this.state.updateOrder)
-  };
-  
   renderContent ({ price, size, name }) {
     const priceMedium = price.medium;
     const sizeMedium = size.medium;
@@ -91,14 +56,14 @@ class Details extends Component {
         <View>
           <List containerStyle={ styles.listStyle }>
             <ListItem
-              onPress={() => this.addDrink(priceMedium, sizeMedium, name)}
+              onPress={() => this.props.addDrink(name, priceMedium, 1)}
               rightIcon={{ name: 'add-box' }}
               key={priceMedium}
               title={priceMedium}
               subtitle={sizeMedium}
             />
             <ListItem
-              onPress={() => this.removeDrink(name)}
+              onPress={() => this.props.removeItemFromCart(name)}
               rightIcon={{ name: 'add-box' }}
               key={priceSmall}
               title={priceSmall}
@@ -177,6 +142,6 @@ class Details extends Component {
   }
 }
 
-export default connect(null)(Details);
+export default connect(null, { addDrink, removeItemFromCart })(Details);
 
 
