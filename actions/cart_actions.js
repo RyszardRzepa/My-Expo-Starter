@@ -2,35 +2,35 @@ import { ADD_TO_CART, REMOVE_ITEM_FROM_CART, CLEAR_CART } from './types';
 
 let cart = [];
 
-let Item = function (name, price, count) {
+let Item = function (name, price, count, size) {
   this.count = count;
   this.price = price;
   this.name = name;
+  this.size = size;
 };
 
-export const addDrink = (name, price, count) => {
+export const addDrink = (name, price, count, size) => {
   return (dispatch) => {
     for (let i in cart) {
-      if (cart[i].name === name) {
+      if (cart[i].name === name && cart[i].size === size) {
         cart[i].count += count;
         
         dispatch({ type: ADD_TO_CART, payload: cart })
         return;
       }
     }
-    
-    let item = new Item(name, price, count);
+    let item = new Item(name, price, count, size);
     cart = [...cart, item]
     
     dispatch({ type: ADD_TO_CART, payload: cart })
   }
 };
 
-export const removeItemFromCart = (name) => {
+export const removeItemFromCart = (name, size) => {
   return dispatch => {
     if (name) {
       for (let i in cart) {
-        if (cart[i].name === name) {
+        if (cart[i].name === name && cart[i].size === size) {
           cart[i].count--;
           
           dispatch({ type: REMOVE_ITEM_FROM_CART, payload: cart });
