@@ -28,7 +28,8 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-persist": "^4.6.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "seamless-immutable": "^7.1.2"
   },
   "devDependencies": {
     "jest-expo": "0.4.0",

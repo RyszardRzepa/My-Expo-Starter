@@ -1,3 +1,4 @@
+import Immutable from 'seamless-immutable';
 import {
   ADD_TO_CART,
   REMOVE_ITEM_FROM_CART,
@@ -5,19 +6,21 @@ import {
 } from '../actions/types';
 
 const Initial_State = {
-  cartItems: []
+  cartItems: [
+    {count: 0}
+  ]
 };
 
 export default cartReducer = (state = Initial_State, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       return Object.assign({}, state, {
-        cartItems: action.payload
+        cartItems: Immutable(action.payload)
       });
     case REMOVE_ITEM_FROM_CART:
-      return { cartItems: action.payload };
+      return { cartItems: Immutable(action.payload) };
     case CLEAR_CART:
-      return { cartItems: action.payload };
+      return { cartItems: Immutable(action.payload) };
     default:
       return state;
   }

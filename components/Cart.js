@@ -56,7 +56,7 @@ class Details extends Component {
   };
   
   //TODO simplify renderAddToCart function
-  renderAddToCart = ({ small, medium }, size, name) => {
+  renderAddToCart = ({ small, medium }, size, name, count) => {
     if (small && medium) {
       return (
         <View>
@@ -81,14 +81,11 @@ class Details extends Component {
                   this.props.addDrink(name, small, 1, size.small);
                 }}
               />
-              
-              
               {this.props.cart.map((item, i) => {
-                if (i === 0 && item.name === name && item.price === small) {
+                if ( item.name === name && item.price === small) {
                   return <Text key={Math.random()}>{item.count}</Text>
                 }
               })}
-              
               <Icon
                 size={25}
                 name='remove-circle-outline'
@@ -121,7 +118,7 @@ class Details extends Component {
                 }}
               />
               {this.props.cart.map((item, i) => {
-                if (i === 1 && item.name === name && item.price === medium) {
+                if (item.name === name && item.price === medium) {
                   return <Text key={Math.random()}>{item.count}</Text>
                 }
               })}
@@ -141,10 +138,10 @@ class Details extends Component {
     return <Text> only one size</Text>
   };
   
-  renderContentCafeList ({ price, size, name }) {
+  renderContentCafeList ({ price, size, name, count }) {
     return (
       <ScrollView>
-        {this.renderAddToCart(price, size, name)}
+        {this.renderAddToCart(price, size, name, count)}
       </ScrollView>
     );
   }
