@@ -11,7 +11,9 @@ const Initial_State = {
 export default cartReducer = (state = Initial_State, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      return { ...state, cartItems: action.payload };
+      return Object.assign({}, state, {
+        cartItems: action.payload
+      });
     case REMOVE_ITEM_FROM_CART:
       return { cartItems: action.payload };
     case CLEAR_CART:

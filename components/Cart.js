@@ -16,6 +16,19 @@ const { width, height } = Dimensions.get('window');
 
 class Details extends Component {
   
+  componentWillMount () {
+    console.log("mounting component", this.props.cart)
+  }
+  
+  shouldComponentUpdate (nextProps, nextState) {
+    if(nextProps.cart[0] !== this.state.cart[0]) {
+      console.log("componnet updates", "next props",  nextProps.cart[0], "this.props.cart:", this.props.cart)
+      return true;
+    }
+    console.log("componnet not updates")
+    return false
+  }
+  
   state = {
     cart: this.props.cart,
     countItem: 0
@@ -66,13 +79,11 @@ class Details extends Component {
                 color='green'
                 onPress={() => {
                   this.props.addDrink(name, small, 1, size.small);
-                  this.forceUpdate()
                 }}
               />
               
               
               {this.props.cart.map((item, i) => {
-                console.log("cart item", item, i);
                 if (i === 0 && item.name === name && item.price === small) {
                   return <Text key={Math.random()}>{item.count}</Text>
                 }
@@ -84,7 +95,6 @@ class Details extends Component {
                 color='red'
                 onPress={() => {
                   this.props.removeItemFromCart(name, size.small);
-                  this.forceUpdate()
                 }}
               />
             </View>
@@ -108,7 +118,6 @@ class Details extends Component {
                 color='green'
                 onPress={() => {
                   this.props.addDrink(name, medium, 1, size.medium);
-                  this.forceUpdate()
                 }}
               />
               {this.props.cart.map((item, i) => {
@@ -122,7 +131,6 @@ class Details extends Component {
                 color='red'
                 onPress={() => {
                   this.props.removeItemFromCart(name, size.medium);
-                  this.forceUpdate()
                 }}
               />
             </View>
@@ -157,13 +165,14 @@ class Details extends Component {
               <Text>{item.count}</Text>
             </View>
           })}
-          <Button raised icon={{name: 'cached'}} title='BUTTON WITH ICON'/>
+          <Button raised icon={{ name: 'cached' }} title='BUTTON WITH ICON'/>
         </View>
       </Modal>
     )
   };
   
   render () {
+    console.log("compnent rerender")
     const { image, address } = this.props.data;
     return (
       <View style={{ flex: 1 }}>

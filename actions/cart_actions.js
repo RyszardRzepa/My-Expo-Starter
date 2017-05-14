@@ -20,7 +20,7 @@ export const addDrink = (name, price, count, size) => {
       }
     }
     let item = new Item(name, price, count, size);
-    cart = [...cart, item]
+    cart = [...cart, item];
     
     dispatch({ type: ADD_TO_CART, payload: cart })
   }
