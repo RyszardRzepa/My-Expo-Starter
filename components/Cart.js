@@ -10,29 +10,11 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 
-import styles from './styles/details';
+import styles from './styles/cart_styles';
 
 const { width, height } = Dimensions.get('window');
 
 class Details extends Component {
-  
-  componentWillMount () {
-    console.log("mounting component", this.props.cart)
-  }
-  
-  shouldComponentUpdate (nextProps, nextState) {
-    if(nextProps.cart[0] !== this.state.cart[0]) {
-      console.log("componnet updates", "next props",  nextProps.cart[0], "this.props.cart:", this.props.cart)
-      return true;
-    }
-    console.log("componnet not updates")
-    return false
-  }
-  
-  state = {
-    cart: this.props.cart,
-    countItem: 0
-  };
   
   renderHeaderCafeList = (coffee) => {
     return (
@@ -56,66 +38,43 @@ class Details extends Component {
   };
   
   //TODO simplify renderAddToCart function
-  renderAddToCart = ({ small, medium }, size, name, count) => {
+  renderAddToCart = ({ small, medium }, size, name) => {
     if (small && medium) {
       return (
-        <View>
-          <View
-            style={{
-              margin: 10,
-              marginVertical: 10,
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between'
-            }}
-          >
-            <Text>{size.small}</Text>
-            <Text>{small} kr</Text>
-            
-            <View style={{ flexDirection: 'row' }}>
+        <View style={{ backgroundColor: '#ecf0f1' }}>
+          <View style={styles.productTypeRow}>
+            <Text style={styles.drinkText}>{size.small}</Text>
+            <Text style={styles.drinkPrice}>{small} kr</Text>
+            <View style={{ flexDirection: 'row', flex: 1 }}>
               <Icon
-                size={25}
+                size={30}
                 name='add-circle-outline'
-                color='green'
-                onPress={() => {
-                  this.props.addDrink(name, small, 1, size.small);
-                }}
+                color='#2ecc71'
+                onPress={() => this.props.addDrink(name, small, 1, size.small)}
               />
               {this.props.cart.map((item, i) => {
-                if ( item.name === name && item.price === small) {
+                if (item.name === name && item.price === small) {
                   return <Text key={Math.random()}>{item.count}</Text>
                 }
               })}
               <Icon
-                size={25}
+                size={30}
                 name='remove-circle-outline'
-                color='red'
-                onPress={() => {
-                  this.props.removeItemFromCart(name, size.small);
-                }}
+                color='#e74c3c'
+                onPress={() => this.props.removeItemFromCart(name, size.small)}
               />
             </View>
           </View>
           
-          <View
-            style={{
-              margin: 10,
-              marginVertical: 10,
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between'
-            }}
-          >
+          <View style={styles.productTypeRow}>
             <Text>{size.medium}</Text>
             <Text>{medium} kr</Text>
             <View style={{ flexDirection: 'row' }}>
               <Icon
-                size={25}
+                size={30}
                 name='add-circle-outline'
-                color='green'
-                onPress={() => {
-                  this.props.addDrink(name, medium, 1, size.medium);
-                }}
+                color='#2ecc71'
+                onPress={() => this.props.addDrink(name, medium, 1, size.medium)}
               />
               {this.props.cart.map((item, i) => {
                 if (item.name === name && item.price === medium) {
@@ -123,12 +82,10 @@ class Details extends Component {
                 }
               })}
               <Icon
-                size={25}
+                size={30}
                 name='remove-circle-outline'
-                color='red'
-                onPress={() => {
-                  this.props.removeItemFromCart(name, size.medium);
-                }}
+                color='#e74c3c'
+                onPress={() => this.props.removeItemFromCart(name, size.medium)}
               />
             </View>
           </View>
@@ -138,31 +95,46 @@ class Details extends Component {
     return <Text> only one size</Text>
   };
   
-  renderContentCafeList ({ price, size, name, count }) {
+  renderContentCafeList ({ price, size, name }) {
     return (
       <ScrollView>
-        {this.renderAddToCart(price, size, name, count)}
+        {this.renderAddToCart(price, size, name)}
       </ScrollView>
     );
   }
   
   renderBasket = () => {
     return (
-      <Modal style={{ height: 400, width: 300, justifyContent: 'center', alignItems: 'center' }}
-             position={"center"}
-             ref={"cartModal"}
-             swipeArea={500}
-      >
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
+      <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={500}>
+        <View style={styles.basketContentContainer}>
           <Text>Check the order!</Text>
-          {this.props.cart.map((item) => {
-            return <View key={Math.random()} style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+          {this.props.cart.map((item, i) => {
+            if(item.count)
+            return <View key={i} style={styles.basketContent}>
               <Text>{item.name}</Text>
               <Text>{item.size}</Text>
               <Text>{item.count}</Text>
+              <Icon
+                size={32}
+                name='add-circle'
+                color='#2ecc71'
+                onPress={() => this.props.addDrink(item.name, item.price, 1, item.size)}
+              />
+              <Icon
+                size={32}
+                name='remove-circle'
+                color='#e74c3c'
+                onPress={() => this.props.removeItemFromCart(item.name, item.size)}
+              />
             </View>
           })}
-          <Button raised icon={{ name: 'cached' }} title='BUTTON WITH ICON'/>
+        </View>
+        <View style={{ margin: 10, bottom: 0, flexDirection: 'column' }}>
+          <View style={{ margin: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text> 1</Text>
+            <Text> 634kr</Text>
+          </View>
+          <Button buttonStyle={{ width: 150 }} raised title='Pay'/>
         </View>
       </Modal>
     )
