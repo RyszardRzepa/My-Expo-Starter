@@ -13,8 +13,6 @@ const styles = {
     width: 60
   },
   productTypeRow: {
-    borderRadius: 0.5,
-    borderTopWidth: 1,
     margin: 10,
     marginVertical: 10,
     flex: 1,

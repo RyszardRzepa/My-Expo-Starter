@@ -14,7 +14,9 @@ import styles from './styles/cart_styles';
 
 const { width, height } = Dimensions.get('window');
 
-class Details extends Component {
+import { addDrinkToCart, removeItemFromCart, clearCart, cartCountTotalItems, cartCountTotalPrice } from '../actions'
+
+class Cart extends Component {
   
   renderHeaderCafeList = (coffee) => {
     return (
@@ -50,7 +52,7 @@ class Details extends Component {
                 size={30}
                 name='add-circle-outline'
                 color='#2ecc71'
-                onPress={() => this.props.addDrink(name, small, 1, size.small)}
+                onPress={() => this.props.addDrinkToCart(name, small, 1, size.small)}
               />
               {this.props.cart.map((item, i) => {
                 if (item.name === name && item.price === small) {
@@ -74,7 +76,7 @@ class Details extends Component {
                 size={30}
                 name='add-circle-outline'
                 color='#2ecc71'
-                onPress={() => this.props.addDrink(name, medium, 1, size.medium)}
+                onPress={() => this.props.addDrinkToCart(name, medium, 1, size.medium)}
               />
               {this.props.cart.map((item, i) => {
                 if (item.name === name && item.price === medium) {
@@ -106,33 +108,39 @@ class Details extends Component {
   renderBasket = () => {
     return (
       <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={500}>
+        <Icon
+          size={32}
+          name='clear'
+          color='#e74c3c'
+          onPress={() => this.props.clearCart()}
+        />
         <View style={styles.basketContentContainer}>
           <Text>Check the order!</Text>
           {this.props.cart.map((item, i) => {
-            if(item.count)
-            return <View key={i} style={styles.basketContent}>
-              <Text>{item.name}</Text>
-              <Text>{item.size}</Text>
-              <Text>{item.count}</Text>
-              <Icon
-                size={32}
-                name='add-circle'
-                color='#2ecc71'
-                onPress={() => this.props.addDrink(item.name, item.price, 1, item.size)}
-              />
-              <Icon
-                size={32}
-                name='remove-circle'
-                color='#e74c3c'
-                onPress={() => this.props.removeItemFromCart(item.name, item.size)}
-              />
-            </View>
+            if (item.count)
+              return <View key={i} style={styles.basketContent}>
+                <Text>{item.name}</Text>
+                <Text>{item.size}</Text>
+                <Text>{item.count}</Text>
+                <Icon
+                  size={32}
+                  name='add-circle'
+                  color='#2ecc71'
+                  onPress={() => this.props.addDrinkToCart(item.name, item.price, 1, item.size)}
+                />
+                <Icon
+                  size={32}
+                  name='remove-circle'
+                  color='#e74c3c'
+                  onPress={() => this.props.removeItemFromCart(item.name, item.size)}
+                />
+              </View>
           })}
         </View>
         <View style={{ margin: 10, bottom: 0, flexDirection: 'column' }}>
           <View style={{ margin: 5, flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text> 1</Text>
-            <Text> 634kr</Text>
+            <Text> {this.props.totalCartItems}</Text>
+            <Text>{this.props.totalCartPrice}kr</Text>
           </View>
           <Button buttonStyle={{ width: 150 }} raised title='Pay'/>
         </View>
@@ -141,7 +149,6 @@ class Details extends Component {
   };
   
   render () {
-    console.log("compnent rerender")
     const { image, address } = this.props.data;
     return (
       <View style={{ flex: 1 }}>
@@ -157,7 +164,7 @@ class Details extends Component {
             raised
             name='shopping-cart'
             color='#f50'
-            onPress={() => this.refs.cartModal.open()}
+            onPress={() => {this.refs.cartModal.open()}}
           />
         </View>
         <ScrollView>
@@ -176,26 +183,28 @@ class Details extends Component {
   }
 }
 
-Details.propTypes = {
+Cart.propTypes = {
   cart: React.PropTypes.array
 };
 
-Details.defaultProps = {
-  cart: [
-    {
-      name: 'Empty',
-      price: 0,
-      count: 0
-    }
-  ]
+Cart.defaultProps = {
+  cart: []
 };
 
-function mapStateToProps ({ cart }, ownProps) {
+function mapStateToProps ({ cart }) {
   return {
-    cart: cart.cartItems
+    cart: cart.cartItems,
+    totalCartItems: cart.totalCartItems,
+    totalCartPrice: cart.totalCartPrice
   }
 }
-
-export default connect(mapStateToProps)(Details);
+export default connect(mapStateToProps, {
+  addDrinkToCart,
+  removeItemFromCart,
+  clearCart,
+  cartCountTotalItems,
+  cartCountTotalPrice
+})
+(Cart);
 
 

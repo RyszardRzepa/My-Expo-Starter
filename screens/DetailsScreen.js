@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import Details from '../components/Details';
+import Cart from '../components/Cart';
 
 class DetailsScreen extends Component {
   static navigationOptions = {
@@ -14,7 +14,7 @@ class DetailsScreen extends Component {
   
   render () {
     return (
-      <Details
+      <Cart
         data={this.props.navigation.state.params}
       />
     )
