@@ -5,14 +5,12 @@ import { Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
-
 import registerForNotifications from './services/push_notifications';
 import store from './store';
 
 import WelcomeScreen from './screens/WelcomeScreen';
 import MapScreen from './screens/MapScreen';
 import DeckScreen from './screens/ListScreen';
-import SettingsScreen from './screens/SettingsScreen';
 import DetailsScreen from './screens/DetailsScreen';
 
 const config = {
@@ -42,7 +40,7 @@ class App extends React.Component {
   }
   
   render () {
-    const MainNavigator = TabNavigator({
+    const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
       main: {
         screen: TabNavigator({
@@ -54,12 +52,17 @@ class App extends React.Component {
           }
         })
       },
-      details: { screen: DetailsScreen }
+      details: { screen: DetailsScreen },
     }, {
+      initialRouteName: 'welcome',
       navigationOptions: {
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#00adf5',
+        },
+        lazy: true,
         tabBarVisible: false
       },
-      lazy: true
     });
     
     return (

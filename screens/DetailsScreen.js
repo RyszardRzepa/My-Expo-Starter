@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import Details from '../components/NavBarCollapse';
+import Cart from '../components/Cart';
 
-class ReviewScreen extends Component {
+class DetailsScreen extends Component {
   static navigationOptions = {
     title: 'Details',
     tabBarIcon: ({ tintColor }) => {
@@ -14,11 +14,11 @@ class ReviewScreen extends Component {
   
   render () {
     return (
-      <Details
+      <Cart
         data={this.props.navigation.state.params}
       />
     )
   }
 }
 
-export default connect(null)(ReviewScreen);
+export default connect(null)(DetailsScreen);

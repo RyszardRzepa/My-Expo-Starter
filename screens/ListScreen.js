@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Platform } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import * as actions from '../actions';
@@ -10,8 +10,8 @@ class DeckScreen extends Component {
     title: 'List',
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="description" size={30} color={tintColor}/>;
-    }
-  }
+    },
+  };
   
   render () {
     return (

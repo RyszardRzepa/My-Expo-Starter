@@ -1,12 +1,13 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 import logger from 'redux-logger';
-
+import Reactotron from 'reactotron-react-native'
 import reducers from '../reducers';
 
-const store = createStore(
+
+const store = Reactotron.createStore(
   reducers,
   {},
   compose(
