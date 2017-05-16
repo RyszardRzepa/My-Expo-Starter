@@ -8,14 +8,15 @@ import {
 
 let cart = [];
 
-let Item = function (name, price, count, size) {
+let Item = function (name, price, count, size, image) {
   this.count = count;
   this.price = price;
   this.name = name;
   this.size = size;
+  this.image = image;
 };
 
-export const addDrinkToCart = (name, price, count, size) => {
+export const addDrinkToCart = (name, price, count, size, image) => {
   return (dispatch) => {
     for (let i in cart) {
       if (cart[i].name === name && cart[i].size === size) {
@@ -26,7 +27,7 @@ export const addDrinkToCart = (name, price, count, size) => {
         return;
       }
     }
-    let item = new Item(name, price, count, size);
+    let item = new Item(name, price, count, size, image);
     cart = [...cart, item];
     dispatch({ type: ADD_TO_CART, payload: cart });
     dispatch(cartCountTotalItems());
