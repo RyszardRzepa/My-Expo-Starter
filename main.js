@@ -12,6 +12,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import MapScreen from './screens/MapScreen';
 import DeckScreen from './screens/ListScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import CashierScreen from './screens/CashierScreen';
 
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
@@ -53,6 +54,7 @@ class App extends React.Component {
         })
       },
       details: { screen: DetailsScreen },
+      cashier: { screen: CashierScreen }
     }, {
       initialRouteName: 'welcome',
       navigationOptions: {

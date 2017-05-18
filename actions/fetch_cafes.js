@@ -22,6 +22,7 @@ export const FetchCafes = () => {
           address: child.val().address,
           image: child.val().image,
           menu,
+          pinCode: child.val().pinCode
         });
       });
       dispatch({ type: FETCH_CAFES_SUCCESS, payload: items })

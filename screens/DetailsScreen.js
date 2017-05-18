@@ -12,10 +12,15 @@ class DetailsScreen extends Component {
     }
   };
   
+  navigateCallback = (route, prop) => {
+    this.props.navigation.navigate(route, prop)
+  };
+  
   render () {
     return (
       <Cart
         data={this.props.navigation.state.params}
+        navigation={this.navigateCallback}
       />
     )
   }

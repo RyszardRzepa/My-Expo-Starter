@@ -189,10 +189,14 @@ class Cart extends Component {
               <Text style={styles.name}> {this.props.totalCartPrice || 0} kr</Text>
             </Text>
           </View>
-          <Button raised title='Confirm Order'/>
+          <Button onPress={() => this.onConfirmOrder()} raised title='Confirm Order'/>
         </View>
       </Modal>
     )
+  };
+  
+  onConfirmOrder = () => {
+    this.props.navigation('cashier', {cart: this.props.cart, pinCode: this.props.data.pinCode})
   };
   
   render () {
