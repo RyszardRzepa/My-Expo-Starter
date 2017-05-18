@@ -7,9 +7,11 @@ const styles = {
     flex: 1,
   },
   listStyle: {
-    marginTop: 0,
-    marginBottom: 0,
-    flex: 1
+    marginTop: 2.5,
+    marginBottom: 2,
+    marginHorizontal: 5,
+    flex: 1,
+    backgroundColor: '#fff'
   },
   avatarStyle: {
     height: 60,
