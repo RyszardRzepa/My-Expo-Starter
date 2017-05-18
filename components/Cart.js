@@ -131,7 +131,7 @@ class Cart extends Component {
     return (
       <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={150}>
         <View
-          style={{ marginRight: 15, marginTop: 15, width: 280, flexDirection: 'row', justifyContent: 'space-between' }}>
+          style={styles.clearBasket}>
           <View />
           <Icon
             size={iconSize}
@@ -196,7 +196,8 @@ class Cart extends Component {
   };
   
   onConfirmOrder = () => {
-    this.props.navigation('cashier', {cart: this.props.cart, pinCode: this.props.data.pinCode})
+    const { address, name, pinCode } = this.props.data;
+    this.props.navigation('cashier', {cart: this.props.cart, pinCode, name, address })
   };
   
   render () {

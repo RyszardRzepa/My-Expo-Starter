@@ -61,8 +61,7 @@ class Map extends React.Component {
           initialRegion={this.state.region}
         >
           {this.props.cafesInfo.map((item) => {
-            console.log("props from the map", item);
-            const { location, address, image, menu, pinCode } = item;
+            const { location, address, image, menu, pinCode, name } = item;
             
             return <MapView.Marker
               key={location.latitude}
@@ -76,7 +75,7 @@ class Map extends React.Component {
               <MapView.Callout tooltip style={styles.customView}>
                 <CustomCallout>
                   <TouchableOpacity
-                    onPress={() => this.props.navigation('details', { address, image, menu, pinCode })}>
+                    onPress={() => this.props.navigation('details', { address, image, menu, pinCode, name })}>
                     <Image
                       source={{ uri: image }}
                       style={{ height: 60 }}

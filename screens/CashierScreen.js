@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Alert } from 'react-native';
+import { View, Text, Dimensions, ScrollView, Alert } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
+import styles from './styles/cashier_screen';
 
 const { height, width } = Dimensions.get('window');
 
 class CashierScreen extends Component {
   state = {
     pinCode: '',
-  };
-  
-  onPinCodeSuccess = () => {
-    if (this.state.pinCode === this.props.navigation.state.params.pinCode.toString()) {
-      console.log("pinCode success");
-    }
   };
   
   onPinCodeClick = async (pin) => {
@@ -22,7 +17,7 @@ class CashierScreen extends Component {
         'Pin code Success',
         'Transaction completed',
         [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
         ],
         { cancelable: false }
       )
@@ -33,7 +28,7 @@ class CashierScreen extends Component {
         'Pin Code',
         'Wrong pin code try again',
         [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
         ],
         { cancelable: false }
       )
@@ -42,9 +37,7 @@ class CashierScreen extends Component {
   };
   
   render () {
-    {
-      console.log("pinCoe state render", this.state.pinCode)
-    }
+    const { name, address } = this.props.navigation.state.params;
     return (
       <View style={{
         backgroundColor: '#fff',
@@ -53,14 +46,32 @@ class CashierScreen extends Component {
         flexDirection: 'column',
         alignItems: 'center'
       }}>
-        <View>
-          <Text>
-            order details
-            {/*{console.log("cart props cashier", this.props.navigation.state.params)}*/}
-          </Text>
+        <View style={styles.basketContentContainer}>
+          
+          <Text style={styles.cafeName}>{name}</Text>
+          <Text style={styles.cafeAddress}>{address}</Text>
+          <ScrollView style={{ width: 280 }}>
+            {this.props.navigation.state.params.cart.map((item, i) => {
+              return <View key={i} style={styles.orderContainer}>
+                <View style={styles.info}>
+                  <Text style={styles.name}>{item.name}</Text>
+                </View>
+                <View style={styles.info}>
+                  <Text style={styles.size}>{item.size}</Text>
+                </View>
+                <View style={styles.countContainer}>
+                  <Text style={styles.count}>{item.count}</Text>
+                </View>
+              </View>
+            })}
+          </ScrollView>
         </View>
-        <View style={{ marginBottom: height * 0.08 }}>
+        
+        <View style={{ flex: 3, marginBottom: height * 0.08 }}>
           <Divider style={{ height: 1, backgroundColor: '#ccc5c9', margin: 20 }}/>
+          <Text style={styles.pinCodeInfo}>
+            Show your phone to the cashier to enter pin code
+          </Text>
           <View style={{
             marginBottom: height * 0.05,
             flexDirection: 'row', justifyContent: 'space-between'
@@ -128,12 +139,4 @@ class CashierScreen extends Component {
   }
 }
 
-const styles = {
-  buttonStyle: {
-    width: 80,
-    height: 80,
-    borderWidth: 2,
-    borderColor: '#59bcfe'
-  }
-};
 export default CashierScreen;
