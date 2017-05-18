@@ -10,6 +10,7 @@ import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
+import ElevatedView from 'react-native-elevated-view'
 
 import styles from './styles/cart_styles';
 
@@ -23,21 +24,23 @@ class Cart extends Component {
   
   renderHeaderCafeList = (coffee) => {
     return (
-      <View style={styles.header}>
-        <View style={styles.content}>
-          <View style={{ flex: 1 }}>
-            <List containerStyle={styles.listStyle }>
-              <ListItem
-                containerStyle={{ width }}
-                roundAvatar={false}
-                avatarStyle={styles.avatarStyle}
-                avatar={{ uri: coffee.image }}
-                key={coffee.name}
-                title={coffee.name}
-              />
-            </List>
-          </View>
-        </View>
+      <View style={{ backgroundColor: '#fff' }}>
+        <List containerStyle={styles.listStyle }>
+          <ElevatedView
+            elevation={3}
+          >
+            <ListItem
+              containerStyle={{ width: width * 0.9 }}
+              roundAvatar={false}
+              avatarStyle={styles.avatarStyle}
+              avatar={{ uri: coffee.image }}
+              key={coffee.name}
+              title={coffee.name}
+              rightIcon={{ name: 'keyboard-arrow-down' }}
+              titleContainerStyle={{ alignItems: 'center' }}
+            />
+          </ElevatedView>
+        </List>
       </View>
     );
   };
@@ -46,7 +49,7 @@ class Cart extends Component {
   renderAddToCart = ({ small, medium }, size, name, image) => {
     if (small && medium) {
       return (
-        <View style={{ backgroundColor: '#fff' }}>
+        <View style={{ marginHorizontal: 5, backgroundColor: '#fff' }}>
           <View style={styles.productTypeRow}>
             <Text style={styles.drinkName}>{size.small}</Text>
             <Text style={styles.drinkPrice}>{small} kr</Text>
@@ -127,7 +130,8 @@ class Cart extends Component {
   renderBasket = () => {
     return (
       <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={150}>
-        <View style={{ marginRight: 15, marginTop: 15, width: 280, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View
+          style={{ marginRight: 15, marginTop: 15, width: 280, flexDirection: 'row', justifyContent: 'space-between' }}>
           <View />
           <Icon
             size={iconSize}
@@ -195,8 +199,9 @@ class Cart extends Component {
     const { image, address } = this.props.data;
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ height: 200 }}>
+        <View>
           <Tile
+            height={200}
             imageSrc={{ uri: image }}
             title={address}
             featured
@@ -212,7 +217,7 @@ class Cart extends Component {
             }}
           />
         </View>
-        <ScrollView>
+        <ScrollView style={{ position: 'relative' }}>
           <Accordion
             sections={this.props.data.menu}
             renderHeader={this.renderHeaderCafeList.bind(this)}
