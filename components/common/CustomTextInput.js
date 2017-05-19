@@ -31,7 +31,6 @@ export default class AuthTextInput extends Component {
             maxLength={32}
             underlineColorAndroid={'transparent'}
             placeholderTextColor={'rgba(255,255,255,0.4)'}
-            selectionColor={'white'}
             onFocus={() => this.setState({ isFocused: true })}
             onBlur={() => this.setState({ isFocused: false })}
             {...otherProps}

@@ -6,6 +6,7 @@ import { Button } from 'react-native-elements';
 
 import CustomButton from '../common/CustomButton'
 import CustomTextInput from '../common/CustomTextInput'
+import { Spinner } from '../common/Spinner'
 import metrics from '../../config/metrics'
 import { RegisterUser } from '../../actions';
 

@@ -11,6 +11,7 @@ class DeckScreen extends Component {
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="description" size={30} color={tintColor}/>;
     },
+    header: false
   };
   
   render () {

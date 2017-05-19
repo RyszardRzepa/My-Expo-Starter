@@ -6,11 +6,12 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import registerForNotifications from './services/push_notifications';
+
 import store from './store';
 
 import WelcomeScreen from './screens/WelcomeScreen';
 import MapScreen from './screens/MapScreen';
-import DeckScreen from './screens/ListScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import CashierScreen from './screens/CashierScreen';
 
@@ -40,13 +41,14 @@ class App extends React.Component {
     });
   }
   
+  
   render () {
     const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
       main: {
         screen: TabNavigator({
           map: { screen: MapScreen },
-          list: { screen: DeckScreen },
+          list: { screen: ProfileScreen },
         }, {
           tabBarOptions: {
             labelStyle: { fontSize: 12 }
@@ -58,7 +60,7 @@ class App extends React.Component {
     }, {
       initialRouteName: 'welcome',
       navigationOptions: {
-        headerTintColor: '#fff',
+         headerTintColor: '#fff',
         headerStyle: {
           backgroundColor: '#00adf5',
         },

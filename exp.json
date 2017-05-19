@@ -3,7 +3,7 @@
   "description": "No description",
   "slug": "coffee-cloud",
   "privacy": "public",
-  "sdkVersion": "16.0.0",
+  "sdkVersion": "17.0.0",
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
@@ -17,7 +17,7 @@
     "hideExponentText": false
   },
   "packagerOpts": {
-    "assetExts": ["ttf"]
+    "assetExts": ["ttf", "mp4"]
   },
   "ios": {
     "supportsTablet": true

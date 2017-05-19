@@ -36,6 +36,26 @@ class CashierScreen extends Component {
     }
   };
   
+  renderButton = (from, to) => {
+    let buttons = [];
+     for (let i = from; i <= to; i++) {
+      buttons.push(<Button
+        key={i}
+        buttonStyle={styles.buttonStyle}
+        containerViewStyle={{ borderRadius: 45 }}
+        large
+        fontSize={30}
+        borderRadius={40}
+        raised
+        title={i.toString()}
+        onPress={() => this.onPinCodeClick(i.toString())}
+      />)
+    }
+     return buttons.map(item => {
+       return item;
+     })
+  };
+  
   render () {
     const { name, address } = this.props.navigation.state.params;
     return (
@@ -76,62 +96,10 @@ class CashierScreen extends Component {
             marginBottom: height * 0.05,
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              large
-              fontSize={30}
-              borderRadius={40}
-              raised
-              title='1'
-              onPress={() => this.onPinCodeClick('1')}
-            />
-            <Button
-              buttonStyle={styles.buttonStyle}
-              large
-              fontSize={30}
-              borderRadius={45}
-              raised
-              title='2'
-              onPress={() => this.onPinCodeClick('2')}
-            />
-            <Button
-              buttonStyle={styles.buttonStyle}
-              large
-              fontSize={30}
-              borderRadius={50}
-              raised
-              title='3'
-              onPress={() => this.onPinCodeClick('3')}
-            />
+            {this.renderButton(1,3)}
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              large
-              fontSize={30}
-              borderRadius={45}
-              raised
-              title='4'
-              onPress={() => this.onPinCodeClick('4')}
-            />
-            <Button
-              buttonStyle={styles.buttonStyle}
-              large
-              fontSize={30}
-              borderRadius={45}
-              raised
-              title='5'
-              onPress={() => this.onPinCodeClick('5')}
-            />
-            <Button
-              buttonStyle={styles.buttonStyle}
-              large
-              fontSize={30}
-              borderRadius={45}
-              raised
-              title='6'
-              onPress={() => this.onPinCodeClick('6')}
-            />
+            {this.renderButton(4,6)}
           </View>
         </View>
       </View>
