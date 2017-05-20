@@ -9,7 +9,7 @@ class DetailsScreen extends Component {
     title: 'Details',
     tabBarIcon: ({ tintColor }) => {
       return <Icon name="favorite" size={30} color={tintColor}/>;
-    }
+    },
   };
   
   navigateCallback = (route, prop) => {

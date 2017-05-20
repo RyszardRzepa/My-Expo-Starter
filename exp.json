@@ -21,5 +21,13 @@
   },
   "ios": {
     "supportsTablet": true
+  },
+  "android": {
+    "package": "coffee.cloud",
+    "config": {
+      "googleMaps": {
+        "apiKey": "AIzaSydB3-XSuQE0-OSgDdbogYfOSd_8D-PfMVHc22"
+      }
+    }
   }
 }

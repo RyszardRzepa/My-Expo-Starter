@@ -10,7 +10,15 @@ import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
-import ElevatedView from 'react-native-elevated-view'
+import ElevatedView from 'react-native-elevated-view';
+
+import {
+  addDrinkToCart,
+  removeItemFromCart,
+  clearCart,
+  cartCountTotalItems,
+  cartCountTotalPrice
+} from '../actions';
 
 import styles from './styles/cart_styles';
 
@@ -18,7 +26,8 @@ const { width, height } = Dimensions.get('window');
 const iconSize = 30;
 const iconColorMinus = '#f94057';
 const iconColorPlus = '#2cc860';
-import { addDrinkToCart, removeItemFromCart, clearCart, cartCountTotalItems, cartCountTotalPrice } from '../actions'
+
+
 
 class Cart extends Component {
   
@@ -253,6 +262,7 @@ function mapStateToProps ({ cart }) {
     totalCartPrice: cart.totalCartPrice
   }
 }
+
 export default connect(mapStateToProps, {
   addDrinkToCart,
   removeItemFromCart,

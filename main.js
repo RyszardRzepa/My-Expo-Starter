@@ -1,8 +1,8 @@
 import './ReactotronConfig'
 import Expo, { Notifications } from 'expo';
 import React from 'react';
-import { Alert } from 'react-native';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Alert, Platform } from 'react-native';
+import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import registerForNotifications from './services/push_notifications';
@@ -24,6 +24,7 @@ const config = {
   messagingSenderId: "317335334484"
 };
 firebase.initializeApp(config);
+console.ignoredYellowBox = ['Setting a timer', 'Back android'];
 
 class App extends React.Component {
   componentDidMount () {
@@ -53,7 +54,8 @@ class App extends React.Component {
           tabBarOptions: {
             labelStyle: { fontSize: 12 }
           }
-        })
+        }, {tabBarComponent: TabBarBottom,
+          tabBarPosition: 'bottom',})
       },
       details: { screen: DetailsScreen },
       cashier: { screen: CashierScreen }

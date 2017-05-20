@@ -29,7 +29,7 @@ class WelcomeScreen extends Component {
   
   async componentWillMount () {
     let token = await AsyncStorage.getItem('token');
-    this.props.navigation.navigate('map');
+    
     if (token) {
       this.props.navigation.navigate('map');
     } else {
