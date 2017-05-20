@@ -49,7 +49,7 @@ class App extends React.Component {
       main: {
         screen: TabNavigator({
           map: { screen: MapScreen },
-          list: { screen: ProfileScreen },
+          profile: { screen: ProfileScreen },
         }, {
           tabBarOptions: {
             labelStyle: { fontSize: 12 }

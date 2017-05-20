@@ -15,7 +15,7 @@ export const LoginUser = (email, password, redirect) => async dispatch => {
 
     const user = await firebase.auth().signInWithEmailAndPassword(email, password);
     dispatch({ type: LOGIN_SUCCESS, payload: user });
-   
+    
     const token = await firebase.auth().currentUser.getToken();
 
     await AsyncStorage.setItem('token', token);
