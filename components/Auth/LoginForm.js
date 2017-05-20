@@ -4,7 +4,7 @@ import { Text, View } from 'react-native-animatable'
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 
-import { Spinner } from '../common'
+import { Spinner } from '../common/Spinner'
 import CustomTextInput from '../common/CustomTextInput'
 import metrics from '../../config/metrics'
 import { LoginUser } from '../../actions';

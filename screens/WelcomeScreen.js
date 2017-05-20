@@ -17,7 +17,6 @@ class WelcomeScreen extends Component {
       'lato-black': require('../assets/fonts/Lato-Black.ttf'),
       'raleway-light': require('../assets/fonts/Raleway-Light.ttf'),
       'raleway-medium': require('../assets/fonts/Raleway-Medium.ttf'),
-      'raleway-regular': require('../assets/fonts/Raleway-Regular.ttf'),
       'raleway-semibold': require('../assets/fonts/Raleway-SemiBold.ttf'),
     });
   }
@@ -30,7 +29,7 @@ class WelcomeScreen extends Component {
   
   async componentWillMount () {
     let token = await AsyncStorage.getItem('token');
-    this.props.navigation.navigate('map');
+    
     if (token) {
       this.props.navigation.navigate('map');
     } else {

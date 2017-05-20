@@ -7,7 +7,7 @@ import {
   Image,
   Dimensions
 } from 'react-native';
-import { MapView } from "expo";
+import { Components } from "expo";
 import styles from './styles';
 
 import CustomCallout from './CustomCallout';
@@ -53,7 +53,7 @@ class Map extends React.Component {
     
     return (
       <View style={styles.container}>
-        <MapView
+        <Components.MapView
           showUSerLocation
           loadingBackgroundColor="#f9f5ed"
           provider={this.props.provider}
@@ -61,9 +61,9 @@ class Map extends React.Component {
           initialRegion={this.state.region}
         >
           {this.props.cafesInfo.map((item) => {
-            const { location, address, image, menu } = item;
+            const { location, address, image, menu, pinCode, name } = item;
             
-            return <MapView.Marker
+            return <Components.MapView.Marker
               key={location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
@@ -72,10 +72,10 @@ class Map extends React.Component {
                 longitude: location.longitude
               }}
             >
-              <MapView.Callout tooltip style={styles.customView}>
+              <Components.MapView.Callout tooltip style={styles.customView}>
                 <CustomCallout>
                   <TouchableOpacity
-                    onPress={() => this.props.navigation('details', { address, image, menu })}>
+                    onPress={() => this.props.navigation('details', { address, image, menu, pinCode, name })}>
                     <Image
                       source={{ uri: image }}
                       style={{ height: 60 }}
@@ -83,17 +83,17 @@ class Map extends React.Component {
                     <Text style={{ color: '#27313c' }}>{address}</Text>
                   </TouchableOpacity>
                 </CustomCallout>
-              </MapView.Callout>
-            </MapView.Marker>
+              </Components.MapView.Callout>
+            </Components.MapView.Marker>
           })}
-        </MapView>
+        </Components.MapView>
       </View>
     );
   }
 }
 
 Map.propTypes = {
-  provider: MapView.ProviderPropType,
+  provider: Components.MapView.ProviderPropType,
 };
 
 export default Map;

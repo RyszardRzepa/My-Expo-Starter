@@ -1,17 +1,19 @@
 import './ReactotronConfig'
 import Expo, { Notifications } from 'expo';
 import React from 'react';
-import { Alert } from 'react-native';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Alert, Platform } from 'react-native';
+import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import registerForNotifications from './services/push_notifications';
+
 import store from './store';
 
 import WelcomeScreen from './screens/WelcomeScreen';
 import MapScreen from './screens/MapScreen';
-import DeckScreen from './screens/ListScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import CashierScreen from './screens/CashierScreen';
 
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
@@ -22,6 +24,7 @@ const config = {
   messagingSenderId: "317335334484"
 };
 firebase.initializeApp(config);
+console.ignoredYellowBox = ['Setting a timer', 'Back android'];
 
 class App extends React.Component {
   componentDidMount () {
@@ -39,24 +42,27 @@ class App extends React.Component {
     });
   }
   
+  
   render () {
     const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
       main: {
         screen: TabNavigator({
           map: { screen: MapScreen },
-          list: { screen: DeckScreen },
+          list: { screen: ProfileScreen },
         }, {
           tabBarOptions: {
             labelStyle: { fontSize: 12 }
           }
-        })
+        }, {tabBarComponent: TabBarBottom,
+          tabBarPosition: 'bottom',})
       },
       details: { screen: DetailsScreen },
+      cashier: { screen: CashierScreen }
     }, {
       initialRouteName: 'welcome',
       navigationOptions: {
-        headerTintColor: '#fff',
+         headerTintColor: '#fff',
         headerStyle: {
           backgroundColor: '#00adf5',
         },

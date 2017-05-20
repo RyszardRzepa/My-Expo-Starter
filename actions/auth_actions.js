@@ -31,11 +31,11 @@ export const LoginUser = (email, password, redirect) => async dispatch => {
 export const RegisterUser = (email, password, redirect) => async dispatch => {
   try {
     dispatch({ type: REGISTER_USER_START })
-    const user = firebase.auth().createUserWithEmailAndPassword(email, password);
+    const user = await firebase.auth().createUserWithEmailAndPassword(email, password);
     dispatch({ type: REGISTER_USER_SUCCESS, payload: user });
   
-    firebase.database().ref('users/' + user.uid).push({
-      Office_Phone: 9890011,
+    firebase.database().ref('users/').push({
+      Office_Phone: Math.floor(Math.random()*90000) + 10000,
       email: email,
       name: email,
       uid: user.uid

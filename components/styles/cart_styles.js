@@ -6,6 +6,13 @@ const styles = {
     alignItems: 'center',
     flex: 1,
   },
+  clearBasket: {
+    marginRight: 15,
+    marginTop: 15,
+    width: 280,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   listStyle: {
     marginTop: 2.5,
     marginBottom: 2,

@@ -10,7 +10,15 @@ import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
-import ElevatedView from 'react-native-elevated-view'
+import ElevatedView from 'react-native-elevated-view';
+
+import {
+  addDrinkToCart,
+  removeItemFromCart,
+  clearCart,
+  cartCountTotalItems,
+  cartCountTotalPrice
+} from '../actions';
 
 import styles from './styles/cart_styles';
 
@@ -18,7 +26,8 @@ const { width, height } = Dimensions.get('window');
 const iconSize = 30;
 const iconColorMinus = '#f94057';
 const iconColorPlus = '#2cc860';
-import { addDrinkToCart, removeItemFromCart, clearCart, cartCountTotalItems, cartCountTotalPrice } from '../actions'
+
+
 
 class Cart extends Component {
   
@@ -131,7 +140,7 @@ class Cart extends Component {
     return (
       <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={150}>
         <View
-          style={{ marginRight: 15, marginTop: 15, width: 280, flexDirection: 'row', justifyContent: 'space-between' }}>
+          style={styles.clearBasket}>
           <View />
           <Icon
             size={iconSize}
@@ -189,10 +198,15 @@ class Cart extends Component {
               <Text style={styles.name}> {this.props.totalCartPrice || 0} kr</Text>
             </Text>
           </View>
-          <Button raised title='Confirm Order'/>
+          <Button onPress={() => this.onConfirmOrder()} raised title='Confirm Order'/>
         </View>
       </Modal>
     )
+  };
+  
+  onConfirmOrder = () => {
+    const { address, name, pinCode } = this.props.data;
+    this.props.navigation('cashier', {cart: this.props.cart, pinCode, name, address })
   };
   
   render () {
@@ -248,6 +262,7 @@ function mapStateToProps ({ cart }) {
     totalCartPrice: cart.totalCartPrice
   }
 }
+
 export default connect(mapStateToProps, {
   addDrinkToCart,
   removeItemFromCart,
