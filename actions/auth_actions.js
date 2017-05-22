@@ -35,10 +35,12 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
     dispatch({ type: REGISTER_USER_SUCCESS, payload: user });
   
     firebase.database().ref('users/').push({
+      uid: user.uid,
       Office_Phone: Math.floor(Math.random()*90000) + 10000,
       email: email,
       name: email,
-      uid: user.uid
+      credit_card_registered: false,
+      credits: 0
     });
     
     const token = await firebase.auth().currentUser.getToken();

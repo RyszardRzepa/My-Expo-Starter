@@ -14,6 +14,7 @@ import MapScreen from './screens/MapScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import CashierScreen from './screens/CashierScreen';
+import CreditCard from './components/CreditCard';
 
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
@@ -58,7 +59,8 @@ class App extends React.Component {
           tabBarPosition: 'bottom',})
       },
       details: { screen: DetailsScreen },
-      cashier: { screen: CashierScreen }
+      cashier: { screen: CashierScreen },
+      credit_card: { screen: CreditCard }
     }, {
       initialRouteName: 'welcome',
       navigationOptions: {

@@ -5,13 +5,24 @@ import { Icon, Button, List, ListItem } from 'react-native-elements';
 
 const list = [
   {
-    title: 'Fill your coffee wallet',
-    icon: 'account-balance-wallet'
+    title: 'Fill your coffee card',
+    icon: 'account-balance-wallet',
+    navigate: 'map',
+    color: '#3c3c3c'
+  },
+  {
+    title: 'Register credit card',
+    icon: 'credit-card',
+    navigate: 'credit_card',
+    color: '#3c3c3c'
   },
   {
     title: 'Receipt',
-    icon: 'receipt'
+    icon: 'receipt',
+    navigate: 'map',
+    color: '#3c3c3c'
   },
+  
 ];
 
 class DeckScreen extends Component {
@@ -29,7 +40,6 @@ class DeckScreen extends Component {
   };
   
   render () {
-    console.log("props profile", this.props.user);
     return (
       <View style={{ marginVertical: 50, flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
@@ -44,11 +54,13 @@ class DeckScreen extends Component {
                 <ListItem
                   key={i}
                   title={item.title}
-                  leftIcon={{name: item.icon}}
+                  leftIcon={{ name: item.icon, color: item.color }}
+                  onPress={() => this.props.navigation.navigate(item.navigate)}
                 />
               ))
             }
           </List>
+          
           <Button
             light
             title="Logout"
