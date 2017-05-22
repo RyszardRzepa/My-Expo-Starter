@@ -54,13 +54,12 @@ class DeckScreen extends Component {
                 <ListItem
                   key={i}
                   title={item.title}
-                  leftIcon={{ name: item.icon, color: item.color }}
+                  leftIcon={{ name: item.icon }}
                   onPress={() => this.props.navigation.navigate(item.navigate)}
                 />
               ))
             }
           </List>
-          
           <Button
             light
             title="Logout"

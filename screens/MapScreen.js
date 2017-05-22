@@ -3,8 +3,6 @@ import {
   StyleSheet,
   View,
   Dimensions,
-  Platform,
-  ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
@@ -22,16 +20,14 @@ class MapScreen extends Component {
   static navigationOptions = {
     title: 'Map',
     tabBarIcon: ({ tintColor }) => {
-      return <Icon name="place" size={30} color={tintColor}/>;
+      return <Icon name="my-location" size={30} color={tintColor}/>;
     },
-    header: false,
+    header: false
   };
   
   constructor () {
     super();
-    
     this.state = {
-      mapLoaded: false,
       isOpen: false,
       isDisabled: false,
       swipeToClose: true,
@@ -52,13 +48,6 @@ class MapScreen extends Component {
   }
   
   render () {
-    if (!this.state.mapLoaded) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <ActivityIndicator size="large" />
-        </View>
-      );
-    }
     return (
       <View style={{ flex: 1 }}>
         <Map

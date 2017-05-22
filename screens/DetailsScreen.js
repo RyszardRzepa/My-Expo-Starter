@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+import { Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
+import { FetchUserData } from '../actions'
 import Cart from '../components/Cart';
 
 class DetailsScreen extends Component {
+  componentWillMount () {
+    this.props.FetchUserData()
+  }
+  
   static navigationOptions = {
-    title: 'Details',
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="favorite" size={30} color={tintColor}/>;
-    },
+    title: 'Cafe Details',
+    headerRight: (<Text>0</Text>)
   };
   
   navigateCallback = (route, prop) => {
@@ -26,4 +30,16 @@ class DetailsScreen extends Component {
   }
 }
 
-export default connect(null)(DetailsScreen);
+DetailsScreen.defaultProps = {
+  userData: {
+    credits: 0
+  }
+};
+
+mapStateToProps = ({ auth }) => {
+  return {
+    userData: auth.userData
+  }
+};
+
+export default connect(mapStateToProps, { FetchUserData })(DetailsScreen);
