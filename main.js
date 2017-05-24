@@ -1,8 +1,8 @@
 import './ReactotronConfig'
 import Expo, { Notifications } from 'expo';
 import React from 'react';
-import { Alert, Platform, StatusBar } from 'react-native';
-import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
+import { Alert } from 'react-native';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import registerForNotifications from './services/push_notifications';
@@ -56,10 +56,11 @@ class App extends React.Component {
     
     const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
-      main: {screen : TabNav},
+      main: { screen: TabNav },
       details: { screen: DetailsScreen },
       cashier: { screen: CashierScreen },
-      credit_card: { screen: CreditCard }
+      credit_card: { screen: CreditCard },
+      fill_credit_card: { screen: FillCreditCard }
     }, {
       navigationOptions: {
         headerTintColor: '#fff',

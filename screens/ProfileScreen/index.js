@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, Button, List, ListItem } from 'react-native-elements';
 
