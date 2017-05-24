@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FlatList, TouchableWithoutFeedback, View, Text, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 
+import styles from './styles';
+
 class LibraryList extends Component {
   componentWillUpdate () {
     LayoutAnimation.spring();
@@ -61,15 +63,5 @@ class LibraryList extends Component {
     );
   }
 }
-
-const styles = {
-  titleStyle: {
-    fontSize: 18,
-  },
-  descriptionStyle: {
-    paddingLeft: 10,
-    paddingRight: 10
-  }
-};
 
 export default connect(null)(LibraryList);

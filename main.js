@@ -1,8 +1,8 @@
 import './ReactotronConfig'
 import Expo, { Notifications } from 'expo';
 import React from 'react';
-import { Alert, Platform } from 'react-native';
-import { TabNavigator, StackNavigator, TabBarBottom } from 'react-navigation';
+import { Alert } from 'react-native';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import registerForNotifications from './services/push_notifications';
@@ -14,6 +14,8 @@ import MapScreen from './screens/MapScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import CashierScreen from './screens/CashierScreen';
+import CreditCard from './components/CreditCard';
+import FillCreditCard from './screens/CreditCardScreen';
 
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
@@ -42,27 +44,26 @@ class App extends React.Component {
     });
   }
   
-  
   render () {
+    
+    const TabNav = TabNavigator({
+      map: { screen: MapScreen },
+      profile: { screen: ProfileScreen },
+    }, {
+      tabBarPosition: 'bottom',
+      animationEnabled: true,
+    });
+    
     const MainNavigator = StackNavigator({
       welcome: { screen: WelcomeScreen },
-      main: {
-        screen: TabNavigator({
-          map: { screen: MapScreen },
-          list: { screen: ProfileScreen },
-        }, {
-          tabBarOptions: {
-            labelStyle: { fontSize: 12 }
-          }
-        }, {tabBarComponent: TabBarBottom,
-          tabBarPosition: 'bottom',})
-      },
+      main: { screen: TabNav },
       details: { screen: DetailsScreen },
-      cashier: { screen: CashierScreen }
+      cashier: { screen: CashierScreen },
+      credit_card: { screen: CreditCard },
+      fill_credit_card: { screen: FillCreditCard }
     }, {
-      initialRouteName: 'welcome',
       navigationOptions: {
-         headerTintColor: '#fff',
+        headerTintColor: '#fff',
         headerStyle: {
           backgroundColor: '#00adf5',
         },

@@ -4,12 +4,14 @@ import {
   LOGIN_USER_START,
   REGISTER_USER_START,
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAIL
+  REGISTER_USER_FAIL,
+  LOAD_USER_DATA_SUCCESS
 } from '../actions/types';
 
 const Initial_State = {
   isLoading: false,
   user: {},
+  userData: {}
 };
 
 export default function(state = Initial_State, action) {
@@ -26,6 +28,8 @@ export default function(state = Initial_State, action) {
       return { user: action.payload, isLoading: false };
     case REGISTER_USER_FAIL:
       return { err: action.payload, isLoading: false };
+    case LOAD_USER_DATA_SUCCESS:
+      return { userData: action.payload };
     default:
       return state;
   }

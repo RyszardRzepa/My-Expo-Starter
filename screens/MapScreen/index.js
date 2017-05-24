@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   View,
   Dimensions,
-  Platform,
-  ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-import Map from '../components/MapViewCustomCallouts/Map';
+import Map from '../../components/MapViewCustomCallouts/Map';
 import Modal from 'react-native-modalbox';
 
-import styles from './styles/map_screen';
-import CafesList from '../components/Cafes_List';
-import { FetchCafes } from '../actions';
+import styles from './styles';
+import CafesList from '../../components/Cafe_List';
+import { FetchCafes } from '../../actions';
 
 const screen = Dimensions.get('window');
 
@@ -25,13 +22,12 @@ class MapScreen extends Component {
       return <Icon name="my-location" size={30} color={tintColor}/>;
     },
     header: false,
+    tabBarPosition: 'bottom',
   };
   
   constructor () {
     super();
-    
     this.state = {
-      mapLoaded: false,
       isOpen: false,
       isDisabled: false,
       swipeToClose: true,
@@ -52,13 +48,6 @@ class MapScreen extends Component {
   }
   
   render () {
-    if (!this.state.mapLoaded) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <ActivityIndicator size="large" />
-        </View>
-      );
-    }
     return (
       <View style={{ flex: 1 }}>
         <Map
