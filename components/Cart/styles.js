@@ -36,9 +36,10 @@ const styles = {
   },
   basketModal: {
     height: height * 0.8,
-    width: width * 0.9,
+    width: width,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'absolute'
   },
   basketContentContainer: {
     flex: 1,

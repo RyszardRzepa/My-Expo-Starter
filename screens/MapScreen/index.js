@@ -25,16 +25,6 @@ class MapScreen extends Component {
     tabBarPosition: 'bottom',
   };
   
-  constructor () {
-    super();
-    this.state = {
-      isOpen: false,
-      isDisabled: false,
-      swipeToClose: true,
-      sliderValue: 0.3
-    };
-  }
-  
   componentWillMount () {
     this.props.FetchCafes();
   }
@@ -61,11 +51,10 @@ class MapScreen extends Component {
             name='free-breakfast'
             underlayColor="#EFEBE9"
             color='#c0392b'
-            onPress={() => this.refs.modal6.open()}
+            onPress={() => this.refs.modal.open()}
           />
-        
         </View>
-        <Modal style={[styles.modal4]} position={"bottom"} ref={"modal6"} swipeArea={20}>
+        <Modal style={styles.modal} position={"bottom"} ref={"modal"} swipeArea={20}>
           <View style={{ flex: 1, width: screen.width }}>
             <CafesList
               data={this.props.cafesInfo}

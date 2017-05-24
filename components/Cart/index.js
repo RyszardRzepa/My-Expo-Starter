@@ -4,7 +4,8 @@ import {
   Dimensions,
   ScrollView,
   Text,
-  Image
+  Image,
+  LayoutAnimation
 } from "react-native";
 import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -27,9 +28,14 @@ const iconSize = 30;
 const iconColorMinus = '#f94057';
 const iconColorPlus = '#2cc860';
 
-
-
 class Cart extends Component {
+  state = {
+    toggle: true
+  };
+  
+  componentWillUpdate() {
+    LayoutAnimation.spring();
+  }
   
   renderHeaderCafeList = (coffee) => {
     return (
@@ -138,7 +144,7 @@ class Cart extends Component {
   
   renderBasket = () => {
     return (
-      <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={150}>
+      <Modal onClosed={() => this.setState({ toggle: true })} style={styles.basketModal} position={"bottom"} ref={"modal"} swipeArea={150}>
         <View
           style={styles.clearBasket}>
           <View />
@@ -148,9 +154,6 @@ class Cart extends Component {
             color={iconColorMinus}
             onPress={() => this.props.clearCart()}
           />
-        </View>
-        <View>
-          {/*<Text>kr{this.props.userData.credits || 0}</Text>*/}
         </View>
         <View style={styles.basketContentContainer}>
           <Text style={styles.orderTitel}>Check the order!</Text>
@@ -209,9 +212,23 @@ class Cart extends Component {
   
   onConfirmOrder = () => {
     const { address, name, pinCode } = this.props.data;
-    this.props.navigation('cashier', {cart: this.props.cart, pinCode, name, address })
+    this.props.navigation('cashier', { cart: this.props.cart, pinCode, name, address })
   };
   
+  showFooter = () => {
+    if(this.state.toggle) {
+      return <View style={{ width, backgroundColor: 'blue' }}>
+        <Icon
+          size={26}
+          raised
+          name='free-breakfast'
+          underlayColor="#EFEBE9"
+          color='#c0392b'
+          onPress={() => {this.refs.modal.open(); this.setState({ toggle: false })}}
+        />
+      </View>
+    }
+  };
   render () {
     const { image, address } = this.props.data;
     return (
@@ -224,15 +241,6 @@ class Cart extends Component {
             featured
             caption="Some Caption Text"
           />
-          <Icon
-            containerStyle={{ position: 'absolute', top: 50, right: 20 }}
-            raised
-            name='shopping-cart'
-            color='#f50'
-            onPress={() => {
-              this.refs.cartModal.open()
-            }}
-          />
         </View>
         <ScrollView style={{ position: 'relative' }}>
           <Accordion
@@ -241,10 +249,8 @@ class Cart extends Component {
             renderContent={this.renderContentCafeList.bind(this)}
           />
         </ScrollView>
-        
-        <View style={{ position: 'absolute', top: 0, marginBottom: 150 }}>
-          {this.renderBasket()}
-        </View>
+        {this.renderBasket()}
+        {this.showFooter()}
       </View>
     );
   }
