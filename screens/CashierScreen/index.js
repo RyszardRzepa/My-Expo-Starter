@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, ScrollView, Alert } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
-import styles from './styles/cashier_screen';
+import styles from './styles';
 
 const { height, width } = Dimensions.get('window');
 
@@ -38,7 +38,7 @@ class CashierScreen extends Component {
   
   renderButton = (from, to) => {
     let buttons = [];
-     for (let i = from; i <= to; i++) {
+    for (let i = from; i <= to; i++) {
       buttons.push(<Button
         key={i}
         buttonStyle={styles.buttonStyle}
@@ -51,9 +51,9 @@ class CashierScreen extends Component {
         onPress={() => this.onPinCodeClick(i.toString())}
       />)
     }
-     return buttons.map(item => {
-       return item;
-     })
+    return buttons.map(item => {
+      return item;
+    })
   };
   
   render () {

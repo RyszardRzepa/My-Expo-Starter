@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { SearchBar, Button } from 'react-native-elements'
-import { FillCreditCard } from '../actions'
+import { FillCreditCard } from '../../actions'
 
 class CreditCard extends Component {
   state = {

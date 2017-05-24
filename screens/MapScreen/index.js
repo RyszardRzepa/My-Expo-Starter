@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   View,
   Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-import Map from '../components/MapViewCustomCallouts/Map';
+import Map from '../../components/MapViewCustomCallouts/Map';
 import Modal from 'react-native-modalbox';
 
-import styles from './styles/map_screen';
-import CafesList from '../components/Cafes_List';
-import { FetchCafes } from '../actions';
+import styles from './styles';
+import CafesList from '../../components/Cafe_List';
+import { FetchCafes } from '../../actions';
 
 const screen = Dimensions.get('window');
 

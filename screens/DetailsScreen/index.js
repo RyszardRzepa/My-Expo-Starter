@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { FetchUserData } from '../actions'
-import Cart from '../components/Cart';
+import { FetchUserData } from '../../actions'
+import Cart from '../../components/Cart';
 
 class DetailsScreen extends Component {
   componentWillMount () {

@@ -18,9 +18,9 @@ import {
   clearCart,
   cartCountTotalItems,
   cartCountTotalPrice
-} from '../actions';
+} from '../../actions';
 
-import styles from './styles/cart_styles';
+import styles from './styles';
 
 const { width, height } = Dimensions.get('window');
 const iconSize = 30;

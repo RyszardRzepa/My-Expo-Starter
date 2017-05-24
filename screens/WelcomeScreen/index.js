@@ -3,8 +3,8 @@ import { AsyncStorage, StatusBar, View, Platform } from 'react-native';
 import { Font } from 'expo';
 import { connect } from 'react-redux';
 
-import { FetchCafes } from '../actions';
-import Auth from '../components/Auth';
+import { FetchCafes } from '../../actions';
+import Auth from '../../components/Auth';
 
 class WelcomeScreen extends Component {
   static navigationOptions = {
@@ -13,11 +13,11 @@ class WelcomeScreen extends Component {
   
   componentDidMount () {
     Font.loadAsync({
-      'lato-light': require('../assets/fonts/Lato-Light.ttf'),
-      'lato-black': require('../assets/fonts/Lato-Black.ttf'),
-      'raleway-light': require('../assets/fonts/Raleway-Light.ttf'),
-      'raleway-medium': require('../assets/fonts/Raleway-Medium.ttf'),
-      'raleway-semibold': require('../assets/fonts/Raleway-SemiBold.ttf'),
+      'lato-light': require('../../assets/fonts/Lato-Light.ttf'),
+      'lato-black': require('../../assets/fonts/Lato-Black.ttf'),
+      'raleway-light': require('../../assets/fonts/Raleway-Light.ttf'),
+      'raleway-medium': require('../../assets/fonts/Raleway-Medium.ttf'),
+      'raleway-semibold': require('../../assets/fonts/Raleway-SemiBold.ttf'),
     });
   }
   
@@ -45,12 +45,12 @@ class WelcomeScreen extends Component {
   render () {
     console.tron.log(`props${this.props}`)
     return (
-    <View style={{ flex: 1 }}>
-      <StatusBar
-        hidden={Platform.OS === 'android'}
-      />
-      <Auth navigate={() => this.props.navigation.navigate('map')}/>
-    </View>
+      <View style={{ flex: 1 }}>
+        <StatusBar
+          hidden={Platform.OS === 'android'}
+        />
+        <Auth navigate={() => this.props.navigation.navigate('map')}/>
+      </View>
     );
   }
 }

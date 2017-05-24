@@ -52,34 +52,34 @@ export default class CreditCard extends Component {
   render() {
     return (
       <View>
-      <View style={s.container}>
-        { USE_LITE_CREDIT_CARD_INPUT ?
-          (<LiteCreditCardInput
-            autoFocus
-            inputStyle={s.input}
-            
-            validColor={"black"}
-            invalidColor={"red"}
-            placeholderColor={"darkgray"}
-            
-            onFocus={this._onFocus}
-            onChange={this._onChange} />) :
-          (<CreditCardInput
-            autoFocus
-            
-            requiresName
-            requiresCVC
-            
-            labelStyle={s.label}
-            inputStyle={s.input}
-            validColor={"black"}
-            invalidColor={"red"}
-            placeholderColor={"darkgray"}
-            
-            onFocus={this._onFocus}
-            onChange={this._onChange} />)
-        }
-      </View>
+        <View style={s.container}>
+          { USE_LITE_CREDIT_CARD_INPUT ?
+            (<LiteCreditCardInput
+              autoFocus
+              inputStyle={s.input}
+              
+              validColor={"black"}
+              invalidColor={"red"}
+              placeholderColor={"darkgray"}
+              
+              onFocus={this._onFocus}
+              onChange={this._onChange} />) :
+            (<CreditCardInput
+              autoFocus
+              
+              requiresName
+              requiresCVC
+              
+              labelStyle={s.label}
+              inputStyle={s.input}
+              validColor={"black"}
+              invalidColor={"red"}
+              placeholderColor={"darkgray"}
+              
+              onFocus={this._onFocus}
+              onChange={this._onChange} />)
+          }
+        </View>
         <Button
           containerViewStyle={{ marginTop: 30 }}
           title="Register card"

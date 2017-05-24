@@ -22,7 +22,7 @@ const list = [
     navigate: 'map',
     color: '#3c3c3c'
   },
-  
+
 ];
 
 class DeckScreen extends Component {
