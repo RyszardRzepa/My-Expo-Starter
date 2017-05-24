@@ -149,6 +149,9 @@ class Cart extends Component {
             onPress={() => this.props.clearCart()}
           />
         </View>
+        <View>
+          {/*<Text>kr{this.props.userData.credits || 0}</Text>*/}
+        </View>
         <View style={styles.basketContentContainer}>
           <Text style={styles.orderTitel}>Check the order!</Text>
           <ScrollView style={{ width: 280 }}>
@@ -255,11 +258,12 @@ Cart.defaultProps = {
   cart: []
 };
 
-function mapStateToProps ({ cart }) {
+function mapStateToProps ({ cart, auth }) {
   return {
     cart: cart.cartItems,
     totalCartItems: cart.totalCartItems,
-    totalCartPrice: cart.totalCartPrice
+    totalCartPrice: cart.totalCartPrice,
+    userData: auth.userData
   }
 }
 

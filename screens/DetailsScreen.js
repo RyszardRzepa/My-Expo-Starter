@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import { FetchUserData } from '../actions'
@@ -13,7 +12,8 @@ class DetailsScreen extends Component {
   
   static navigationOptions = {
     title: 'Cafe Details',
-    headerRight: (<Text>0</Text>)
+    headerRight: (<Text>0</Text>),
+    headerTitleStyle: { alignSelf: 'center'}
   };
   
   navigateCallback = (route, prop) => {

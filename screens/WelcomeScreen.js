@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, StatusBar, View, Platform } from 'react-native';
 import { Font } from 'expo';
 import { connect } from 'react-redux';
 
@@ -8,10 +8,10 @@ import Auth from '../components/Auth';
 
 class WelcomeScreen extends Component {
   static navigationOptions = {
-   header:false,
+    header: false,
   };
   
-  componentDidMount() {
+  componentDidMount () {
     Font.loadAsync({
       'lato-light': require('../assets/fonts/Lato-Light.ttf'),
       'lato-black': require('../assets/fonts/Lato-Black.ttf'),
@@ -20,6 +20,7 @@ class WelcomeScreen extends Component {
       'raleway-semibold': require('../assets/fonts/Raleway-SemiBold.ttf'),
     });
   }
+  
   constructor (props) {
     super(props);
     this.state = {
@@ -37,14 +38,19 @@ class WelcomeScreen extends Component {
     }
   }
   
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.setState({ token: null });
   }
   
   render () {
+    console.tron.log(`props${this.props}`)
     return (
-      //TODO Reduce login/register screen to one file
+    <View style={{ flex: 1 }}>
+      <StatusBar
+        hidden={Platform.OS === 'android'}
+      />
       <Auth navigate={() => this.props.navigation.navigate('map')}/>
+    </View>
     );
   }
 }

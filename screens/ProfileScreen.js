@@ -7,7 +7,7 @@ const list = [
   {
     title: 'Fill your coffee card',
     icon: 'account-balance-wallet',
-    navigate: 'map',
+    navigate: 'fill_credit_card',
     color: '#3c3c3c'
   },
   {
