@@ -72,18 +72,19 @@ class Cart extends Component {
     );
   };
   
-  checkCredits = (name, small, num, size, image) => {
-    if (this.props.userData.credits < this.props.totalCartPrice) {
+  checkCredits = (name, small, num, size, image, callback) => {
+    const { credits } = this.props.userData;
+    if (credits <= this.props.totalCartPrice || credits < small ) {
       Alert.alert(
-        'Alert Title',
-        "woo",
+        'Add Credits',
+        `you have only ${credits} credits left`,
         [
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-          {text: 'OK', onPress: () => console.log('OK Pressed!')},
+          { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+          { text: 'OK', onPress: () => console.log('OK Pressed!') },
         ]
-      )
+      );
     } else {
-      this.props.addDrinkToCart(name, small, num, size, image)
+      return callback(name, small, num, size, image);
     }
   };
   
@@ -102,7 +103,8 @@ class Cart extends Component {
                   name='add-circle-outline'
                   color={iconColorPlus}
                   onPress={
-                    () => this.checkCredits(name, small, 1, size.small, image)
+                    () => this.checkCredits
+                    (name, small, 1, size.small, image, this.props.addDrinkToCart)
                   }
                 />
               </View>
@@ -134,7 +136,8 @@ class Cart extends Component {
                   name='add-circle-outline'
                   color={iconColorPlus}
                   onPress={
-                    () => this.props.addDrinkToCart(name, medium, 1, size.medium, image)
+                    () => this.checkCredits
+                    (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
                   }
                 />
               </View>

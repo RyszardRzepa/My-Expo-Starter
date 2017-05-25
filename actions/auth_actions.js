@@ -37,7 +37,7 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
     const user = await firebase.auth().createUserWithEmailAndPassword(email, password);
     dispatch({ type: REGISTER_USER_SUCCESS, payload: user });
     
-    const userRef = firebase.database().ref('users/');
+    const userRef = firebase.database().ref('users/accounts');
     const userLoginRef = userRef.child(user.uid);
     userLoginRef.set({
       uid: user.uid,
@@ -45,7 +45,8 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
       email: email,
       name: email,
       credit_card_registered: false,
-      credits: 0
+      credits: 0,
+      date: Date.now()
     });
     
     const token = await firebase.auth().currentUser.getToken();
