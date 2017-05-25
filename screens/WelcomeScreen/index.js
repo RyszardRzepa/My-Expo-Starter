@@ -43,7 +43,6 @@ class WelcomeScreen extends Component {
   }
   
   render () {
-    console.tron.log(`props${this.props}`)
     return (
       <View style={{ flex: 1 }}>
         <StatusBar

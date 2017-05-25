@@ -65,7 +65,7 @@ export const FetchUserData = () => async dispatch => {
     dispatch({ type: LOAD_USER_DATA_START });
     userRef.once('value')
       .then(data => {
-        dispatch({ type: LOAD_USER_DATA_SUCCESS, payload: data })
+        dispatch({ type: LOAD_USER_DATA_SUCCESS, payload: data.val() })
       })
   }
   catch (err) {

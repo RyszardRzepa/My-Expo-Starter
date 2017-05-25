@@ -15,7 +15,6 @@ class CashierScreen extends Component {
     if (this.state.pinCode === this.props.navigation.state.params.pinCode.toString()) {
       Alert.alert(
         'Pin code Success',
-        'Transaction completed',
         [
           { text: 'OK', onPress: () => console.log('OK Pressed') },
         ],

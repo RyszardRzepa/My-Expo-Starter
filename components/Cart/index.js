@@ -5,7 +5,8 @@ import {
   ScrollView,
   Text,
   Image,
-  LayoutAnimation
+  LayoutAnimation,
+  Alert
 } from "react-native";
 import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -28,13 +29,24 @@ const iconSize = 30;
 const iconColorMinus = '#f94057';
 const iconColorPlus = '#2cc860';
 
+const CustomLayoutAnimation = {
+  duration: 200,
+  create: {
+    type: LayoutAnimation.Types.linear,
+    property: LayoutAnimation.Properties.opacity,
+  },
+  update: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+  },
+};
+
 class Cart extends Component {
   state = {
     toggle: true
   };
   
-  componentWillUpdate() {
-    LayoutAnimation.spring();
+  componentWillUpdate () {
+    LayoutAnimation.configureNext(CustomLayoutAnimation);
   }
   
   renderHeaderCafeList = (coffee) => {
@@ -60,6 +72,21 @@ class Cart extends Component {
     );
   };
   
+  checkCredits = (name, small, num, size, image) => {
+    if (this.props.userData.credits < this.props.totalCartPrice) {
+      Alert.alert(
+        'Alert Title',
+        "woo",
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+          {text: 'OK', onPress: () => console.log('OK Pressed!')},
+        ]
+      )
+    } else {
+      this.props.addDrinkToCart(name, small, num, size, image)
+    }
+  };
+  
   //TODO simplify renderAddToCart function
   renderAddToCart = ({ small, medium }, size, name, image) => {
     if (small && medium) {
@@ -75,7 +102,7 @@ class Cart extends Component {
                   name='add-circle-outline'
                   color={iconColorPlus}
                   onPress={
-                    () => this.props.addDrinkToCart(name, small, 1, size.small, image)
+                    () => this.checkCredits(name, small, 1, size.small, image)
                   }
                 />
               </View>
@@ -144,7 +171,8 @@ class Cart extends Component {
   
   renderBasket = () => {
     return (
-      <Modal onClosed={() => this.setState({ toggle: true })} style={styles.basketModal} position={"bottom"} ref={"modal"} swipeArea={150}>
+      <Modal onClosed={() => this.setState({ toggle: true })} style={styles.basketModal} position={"bottom"}
+             ref={"modal"} swipeArea={150}>
         <View
           style={styles.clearBasket}>
           <View />
@@ -216,7 +244,7 @@ class Cart extends Component {
   };
   
   showFooter = () => {
-    if(this.state.toggle) {
+    if (this.state.toggle) {
       return <View style={{ width, backgroundColor: 'blue' }}>
         <Icon
           size={26}
@@ -224,11 +252,15 @@ class Cart extends Component {
           name='free-breakfast'
           underlayColor="#EFEBE9"
           color='#c0392b'
-          onPress={() => {this.refs.modal.open(); this.setState({ toggle: false })}}
+          onPress={() => {
+            this.refs.modal.open();
+            this.setState({ toggle: false })
+          }}
         />
       </View>
     }
   };
+  
   render () {
     const { image, address } = this.props.data;
     return (
@@ -257,7 +289,11 @@ class Cart extends Component {
 }
 
 Cart.propTypes = {
-  cart: React.PropTypes.array
+  cart: React.PropTypes.array,
+  userData: React.PropTypes.object,
+  totalCartItems: React.PropTypes.number,
+  totalCartPrice: React.PropTypes.number,
+  data: React.PropTypes.object,
 };
 
 Cart.defaultProps = {
