@@ -8,7 +8,7 @@ import {
   LayoutAnimation,
   Alert
 } from "react-native";
-import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
+import { Tile, List, ListItem, Icon, Button, CheckBox } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
@@ -41,8 +41,10 @@ const CustomLayoutAnimation = {
 };
 
 class Cart extends Component {
+  
   state = {
-    toggle: true
+    checked: true,
+    toggleFooter: true,
   };
   
   componentWillUpdate () {
@@ -76,10 +78,10 @@ class Cart extends Component {
     const { credits } = this.props.userData;
     const { totalCartPrice } = this.props;
     
-    if (credits <= totalCartPrice || (credits - totalCartPrice) < price ) {
+    if (credits <= totalCartPrice || (credits - totalCartPrice) < price) {
       Alert.alert(
         'Add Credits',
-        `you have only ${credits-totalCartPrice} credits left`,
+        `you have only ${credits - totalCartPrice} credits left`,
         [
           { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
           { text: 'OK', onPress: () => console.log('OK Pressed!') },
@@ -176,7 +178,7 @@ class Cart extends Component {
   
   renderBasket = () => {
     return (
-      <Modal onClosed={() => this.setState({ toggle: true })} style={styles.basketModal} position={"bottom"}
+      <Modal onClosed={() => this.setState({ toggleFooter: true })} style={styles.basketModal} position={"bottom"}
              ref={"modal"} swipeArea={150}>
         <View
           style={styles.clearBasket}>
@@ -190,7 +192,7 @@ class Cart extends Component {
         </View>
         <View style={styles.basketContentContainer}>
           <Text style={styles.orderTitel}>Check the order!</Text>
-          <ScrollView style={{ width: 280 }}>
+          <ScrollView style={{ width: width * 0.9 }}>
             {this.props.cart.map((item, i) => {
               if (item.count)
                 return <View key={i} style={styles.driver}>
@@ -228,6 +230,23 @@ class Cart extends Component {
             })}
           </ScrollView>
         </View>
+        <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <CheckBox
+              center
+              title='Yes'
+              checked={this.state.checked}
+              onPress={() => this.setState({ checked: !this.state.checked })}
+            />
+            <Text> Take away? </Text>
+            <CheckBox
+              center
+              title='No'
+              checked={!this.state.checked}
+              onPress={() => this.setState({ checked: !this.state.checked })}
+            />
+          </View>
+        </View>
         <View style={styles.basketSummaryContainer}>
           <View style={styles.basketSummary}>
             <Text style={styles.size}> Items
@@ -245,21 +264,33 @@ class Cart extends Component {
   
   onConfirmOrder = () => {
     const { address, name, pinCode } = this.props.data;
-    this.props.navigation('cashier', { cart: this.props.cart, pinCode, name, address })
+    if(!this.props.totalCartItems) {
+      Alert.alert(
+        'Empty Cart',
+        `Add drink to the cart first`,
+        [
+          { text: 'OK', onPress: () => this.refs.modal.close() },
+        ]
+      );
+      return;
+    }
+    this.props.navigation('cashier',
+      { cart: this.props.cart, pinCode, name, address, takeAway: this.state.checked }
+    )
   };
   
   showFooter = () => {
-    if (this.state.toggle) {
-      return <View style={{ width, backgroundColor: 'blue' }}>
+    if (this.state.toggleFooter) {
+      return <View style={{ width, backgroundColor: '#59bcfe' }}>
         <Icon
-          size={26}
+          size={14}
           raised
           name='free-breakfast'
           underlayColor="#EFEBE9"
           color='#c0392b'
           onPress={() => {
             this.refs.modal.open();
-            this.setState({ toggle: false })
+            this.setState({ toggleFooter: false })
           }}
         />
       </View>

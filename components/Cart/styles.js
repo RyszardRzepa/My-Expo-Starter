@@ -44,7 +44,10 @@ const styles = {
   basketContentContainer: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: '#dcd5d9',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5
   },
   orderTitel: {
     fontFamily: 'raleway-semibold',
@@ -124,12 +127,12 @@ const styles = {
   },
   basketSummaryContainer: {
     margin: 10,
-    bottom: 10,
+    bottom: 20,
     flexDirection: 'column',
-    width: width * 0.7
+    width: width * 0.9
   },
   basketSummary: {
-    margin: 15,
+    margin: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
