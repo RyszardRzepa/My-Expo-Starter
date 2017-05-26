@@ -7,7 +7,7 @@ import { Button } from 'react-native-elements';
 import { Spinner } from '../common/Spinner'
 import CustomTextInput from '../common/CustomTextInput'
 import metrics from '../../config/metrics'
-import { LoginUser } from '../../actions';
+import { loginUser } from '../../actions';
 
 class LoginForm extends Component {
   static propTypes = {}
@@ -34,7 +34,7 @@ class LoginForm extends Component {
   onButtonPress () {
     const { email, password } = this.state;
 
-    this.props.LoginUser(email, password, this.goToMapView);
+    this.props.loginUser(email, password, this.goToMapView);
   }
 
   renderError () {
@@ -144,4 +144,4 @@ const mapStateToProps = ({ auth }) => {
   return { error, isLoading };
 };
 
-export default connect(mapStateToProps, { LoginUser })(LoginForm);
+export default connect(mapStateToProps, { loginUser })(LoginForm);

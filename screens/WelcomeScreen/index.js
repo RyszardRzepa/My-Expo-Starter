@@ -3,7 +3,7 @@ import { AsyncStorage, StatusBar, View, Platform } from 'react-native';
 import { Font } from 'expo';
 import { connect } from 'react-redux';
 
-import { FetchCafes } from '../../actions';
+import { fetchCafes } from '../../actions';
 import Auth from '../../components/Auth';
 
 class WelcomeScreen extends Component {
@@ -54,4 +54,4 @@ class WelcomeScreen extends Component {
   }
 }
 
-export default connect(null, { FetchCafes })(WelcomeScreen);
+export default connect(null, { fetchCafes })(WelcomeScreen);

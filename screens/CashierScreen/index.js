@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, ScrollView, Alert } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { cashierConfirmOrder } from '../../actions';
 import styles from './styles';
 
 const { height, width } = Dimensions.get('window');
@@ -10,17 +12,31 @@ class CashierScreen extends Component {
     pinCode: '',
   };
   
+  navigateTo = () => {
+    this.props.navigation.goBack()
+  };
+  
   onPinCodeClick = async (pin) => {
+    const { total } = this.props.navigation.state.params;
+    
     await this.setState({ pinCode: this.state.pinCode.concat(pin) });
+    
     if (this.state.pinCode === this.props.navigation.state.params.pinCode.toString()) {
       Alert.alert(
         'Pin code Success',
+        'loading...',
         [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
+          {
+            text: 'OK', onPress: () =>
+          {
+            this.props.cashierConfirmOrder(total, this.props.navigation.state.params,
+            this.navigateTo);
+          }
+          },
         ],
         { cancelable: false }
-      )
-      this.setState({ pinCode: '' });
+      );
+      await this.setState({ pinCode: '' });
     }
     if (this.state.pinCode.length > 3) {
       Alert.alert(
@@ -56,15 +72,10 @@ class CashierScreen extends Component {
   };
   
   render () {
+    console.tron.log(this.props.navigation.state.params)
     const { name, address } = this.props.navigation.state.params;
     return (
-      <View style={{
-        backgroundColor: '#fff',
-        flex: 1,
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
+      <View style={styles.container}>
         <View style={styles.basketContentContainer}>
           
           <Text style={styles.cafeName}>{name}</Text>
@@ -95,10 +106,10 @@ class CashierScreen extends Component {
             marginBottom: height * 0.05,
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
-            {this.renderButton(1,3)}
+            {this.renderButton(1, 3)}
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            {this.renderButton(4,6)}
+            {this.renderButton(4, 6)}
           </View>
         </View>
       </View>
@@ -106,4 +117,4 @@ class CashierScreen extends Component {
   }
 }
 
-export default CashierScreen;
+export default connect(null, { cashierConfirmOrder })(CashierScreen);

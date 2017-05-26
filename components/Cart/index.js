@@ -30,7 +30,7 @@ const iconColorMinus = '#f94057';
 const iconColorPlus = '#2cc860';
 
 const CustomLayoutAnimation = {
-  duration: 200,
+  duration: 100,
   create: {
     type: LayoutAnimation.Types.linear,
     property: LayoutAnimation.Properties.opacity,
@@ -275,7 +275,11 @@ class Cart extends Component {
       return;
     }
     this.props.navigation('cashier',
-      { cart: this.props.cart, pinCode, name, address, takeAway: this.state.checked }
+      { cart: this.props.cart,
+        pinCode, name, address,
+        takeAway: this.state.checked,
+        total: this.props.totalCartPrice
+      }
     )
   };
   

@@ -10,7 +10,7 @@ import Modal from 'react-native-modalbox';
 
 import styles from './styles';
 import CafesList from '../../components/Cafe_List';
-import { FetchCafes } from '../../actions';
+import { fetchCafes } from '../../actions';
 
 const screen = Dimensions.get('window');
 
@@ -26,7 +26,7 @@ class MapScreen extends Component {
   };
   
   componentWillMount () {
-    this.props.FetchCafes();
+    this.props.fetchCafes();
   }
   
   componentDidMount () {
@@ -73,4 +73,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, { FetchCafes })(MapScreen);
+export default connect(mapStateToProps, { fetchCafes })(MapScreen);

@@ -7,7 +7,7 @@ import {
   REGISTER_CREDIT_CARD_SUCCESS
 } from './types';
 
-export const FillCreditCard = (amount) => async dispatch => {
+export const fillCreditCard = (amount) => async dispatch => {
   try {
     const userId = await firebase.auth().currentUser.uid;
     
@@ -36,7 +36,7 @@ export const FillCreditCard = (amount) => async dispatch => {
   }
 };
 
-export const RegisterCreditCard = () => async dispatch => {
+export const registerCreditCard = () => async dispatch => {
   try {
     const userId = await firebase.auth().currentUser.uid;
     const userAccount = await firebase.database().ref('/users/accounts/' + userId);

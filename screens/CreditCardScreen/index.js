@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Picker, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements'
-import { FillCreditCard } from '../../actions'
+import { fillCreditCard } from '../../actions'
 
 const Item = Picker.Item;
 const { width, height } = Dimensions.get('window');
@@ -19,7 +19,7 @@ class CreditCard extends Component {
   
   addCredits = () => {
     console.tron.log("button clicked addCredits")
-    this.props.FillCreditCard(this.state.credits)
+    this.props.fillCreditCard(this.state.credits)
   };
   
   onValueChange = (key, value) => {
@@ -49,4 +49,4 @@ class CreditCard extends Component {
   }
 }
 
-export default connect(null, { FillCreditCard })(CreditCard)
+export default connect(null, { fillCreditCard })(CreditCard)

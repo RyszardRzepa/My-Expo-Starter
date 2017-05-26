@@ -14,7 +14,7 @@ const Initial_State = {
   userData: {}
 };
 
-export default function(state = Initial_State, action) {
+export default function authReducer (state = Initial_State, action) {
   switch (action.type) {
     case LOGIN_USER_START:
       return { isLoading: true };

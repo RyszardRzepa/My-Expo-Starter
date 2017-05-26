@@ -12,7 +12,7 @@ import {
   LOAD_USER_DATA_FAIL
 } from './types';
 
-export const LoginUser = (email, password, redirect) => async dispatch => {
+export const loginUser = (email, password, redirect) => async dispatch => {
   try {
     dispatch({ type: LOGIN_USER_START });
     
@@ -31,7 +31,7 @@ export const LoginUser = (email, password, redirect) => async dispatch => {
 };
 
 //TODO create login/register in one auth action creator
-export const RegisterUser = (email, password, redirect) => async dispatch => {
+export const registerUser = (email, password, redirect) => async dispatch => {
   try {
     dispatch({ type: REGISTER_USER_START })
     const user = await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -59,7 +59,7 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
   }
 };
 
-export const FetchUserData = () => async dispatch => {
+export const fetchUserData = () => async dispatch => {
   const userId = firebase.auth().currentUser.uid;
   const userRef = await firebase.database().ref(`/users/accounts/${userId}`);
   try {
