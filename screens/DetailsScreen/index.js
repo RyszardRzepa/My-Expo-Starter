@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { FetchUserData } from '../../actions'
+import { fetchUserData } from '../../actions'
 import Cart from '../../components/Cart';
 
 class DetailsScreen extends Component {
   componentWillMount () {
-    this.props.FetchUserData()
+    this.props.fetchUserData()
   }
   
   static navigationOptions = {
@@ -42,4 +42,4 @@ mapStateToProps = ({ auth }) => {
   }
 };
 
-export default connect(mapStateToProps, { FetchUserData })(DetailsScreen);
+export default connect(mapStateToProps, { fetchUserData })(DetailsScreen);

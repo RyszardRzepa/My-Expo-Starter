@@ -8,7 +8,7 @@ import { Spinner } from '../common/Spinner';
 import CustomButton from '../common/CustomButton'
 import CustomTextInput from '../common/CustomTextInput'
 import metrics from '../../config/metrics'
-import { RegisterUser } from '../../actions';
+import { registerUser } from '../../actions';
 
 class SignupForm extends Component {
   static propTypes = {}
@@ -47,7 +47,7 @@ class SignupForm extends Component {
 
   onHandleRegister = () => {
     const { email, password } = this.state;
-    this.props.RegisterUser(email, password, this.goToMapView)
+    this.props.registerUser(email, password, this.goToMapView)
   }
 
   render () {
@@ -138,4 +138,4 @@ const mapStateToProps = ({ auth }) => {
   return { error, isLoading };
 };
 
-export default connect(mapStateToProps, { RegisterUser })(SignupForm);
+export default connect(mapStateToProps, { registerUser })(SignupForm);

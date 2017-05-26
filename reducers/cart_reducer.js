@@ -4,7 +4,8 @@ import {
   REMOVE_ITEM_FROM_CART,
   CLEAR_CART,
   COUNT_TOTAL_PRODUCT_CART,
-  COUNT_TOTAL_PRICE_CART
+  COUNT_TOTAL_PRICE_CART,
+  CASHIER_CONFIRM_ORDER_SUCCESS
 } from '../actions/types';
 
 const Initial_State = {
@@ -25,6 +26,8 @@ export default cartReducer = (state = Initial_State, action) => {
       return { ...state, totalCartItems: Immutable(action.payload) };
     case COUNT_TOTAL_PRICE_CART:
       return { ...state, totalCartPrice: action.payload };
+    case CASHIER_CONFIRM_ORDER_SUCCESS:
+      return { Initial_State };
     default:
       return state;
   }

@@ -1,9 +1,5 @@
 const styles = {
   modal: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  modal4: {
     height: 380
   },
   icon: {

@@ -2,6 +2,13 @@ import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 const styles = {
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
   orderContainer: {
     flexDirection: 'row',
     marginLeft: 10,

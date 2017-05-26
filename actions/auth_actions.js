@@ -12,7 +12,7 @@ import {
   LOAD_USER_DATA_FAIL
 } from './types';
 
-export const LoginUser = (email, password, redirect) => async dispatch => {
+export const loginUser = (email, password, redirect) => async dispatch => {
   try {
     dispatch({ type: LOGIN_USER_START });
     
@@ -31,13 +31,13 @@ export const LoginUser = (email, password, redirect) => async dispatch => {
 };
 
 //TODO create login/register in one auth action creator
-export const RegisterUser = (email, password, redirect) => async dispatch => {
+export const registerUser = (email, password, redirect) => async dispatch => {
   try {
     dispatch({ type: REGISTER_USER_START })
     const user = await firebase.auth().createUserWithEmailAndPassword(email, password);
     dispatch({ type: REGISTER_USER_SUCCESS, payload: user });
     
-    const userRef = firebase.database().ref('users/');
+    const userRef = firebase.database().ref('users/accounts');
     const userLoginRef = userRef.child(user.uid);
     userLoginRef.set({
       uid: user.uid,
@@ -45,7 +45,8 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
       email: email,
       name: email,
       credit_card_registered: false,
-      credits: 0
+      credits: 0,
+      date: Date.now()
     });
     
     const token = await firebase.auth().currentUser.getToken();
@@ -58,14 +59,14 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
   }
 };
 
-export const FetchUserData = () => async dispatch => {
+export const fetchUserData = () => async dispatch => {
   const userId = firebase.auth().currentUser.uid;
-  const userRef = await firebase.database().ref(`/users/${userId}`);
+  const userRef = await firebase.database().ref(`/users/accounts/${userId}`);
   try {
     dispatch({ type: LOAD_USER_DATA_START });
     userRef.once('value')
       .then(data => {
-        dispatch({ type: LOAD_USER_DATA_SUCCESS, payload: data })
+        dispatch({ type: LOAD_USER_DATA_SUCCESS, payload: data.val() })
       })
   }
   catch (err) {

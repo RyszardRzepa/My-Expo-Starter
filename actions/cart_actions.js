@@ -87,4 +87,8 @@ export const cartCountTotalPrice = () => {
   }
 };
 
+export const ConfirmOrder = () => {
+
+}
+
 

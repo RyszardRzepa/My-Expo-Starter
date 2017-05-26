@@ -2,7 +2,7 @@ import  firebase from 'firebase';
 import { FETCH_CAFES_SUCCESS} from './types';
 import _ from 'lodash';
 
-export const FetchCafes = () => {
+export const fetchCafes = () => {
   return (dispatch) => {
     firebase.database().ref('/cafes/name').once('value').then(function (snapshot) {
       let items = [];

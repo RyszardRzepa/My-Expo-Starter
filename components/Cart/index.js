@@ -4,9 +4,11 @@ import {
   Dimensions,
   ScrollView,
   Text,
-  Image
+  Image,
+  LayoutAnimation,
+  Alert
 } from "react-native";
-import { Tile, List, ListItem, Icon, Button } from 'react-native-elements';
+import { Tile, List, ListItem, Icon, Button, CheckBox } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
@@ -27,9 +29,27 @@ const iconSize = 30;
 const iconColorMinus = '#f94057';
 const iconColorPlus = '#2cc860';
 
-
+const CustomLayoutAnimation = {
+  duration: 100,
+  create: {
+    type: LayoutAnimation.Types.linear,
+    property: LayoutAnimation.Properties.opacity,
+  },
+  update: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+  },
+};
 
 class Cart extends Component {
+  
+  state = {
+    checked: true,
+    toggleFooter: true,
+  };
+  
+  componentWillUpdate () {
+    LayoutAnimation.configureNext(CustomLayoutAnimation);
+  }
   
   renderHeaderCafeList = (coffee) => {
     return (
@@ -54,6 +74,24 @@ class Cart extends Component {
     );
   };
   
+  checkCredits = (name, price, num, size, image, callback) => {
+    const { credits } = this.props.userData;
+    const { totalCartPrice } = this.props;
+    
+    if (credits <= totalCartPrice || (credits - totalCartPrice) < price) {
+      Alert.alert(
+        'Add Credits',
+        `you have only ${credits - totalCartPrice} credits left`,
+        [
+          { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+          { text: 'OK', onPress: () => console.log('OK Pressed!') },
+        ]
+      );
+    } else {
+      return callback(name, price, num, size, image);
+    }
+  };
+  
   //TODO simplify renderAddToCart function
   renderAddToCart = ({ small, medium }, size, name, image) => {
     if (small && medium) {
@@ -69,7 +107,8 @@ class Cart extends Component {
                   name='add-circle-outline'
                   color={iconColorPlus}
                   onPress={
-                    () => this.props.addDrinkToCart(name, small, 1, size.small, image)
+                    () => this.checkCredits
+                    (name, small, 1, size.small, image, this.props.addDrinkToCart)
                   }
                 />
               </View>
@@ -101,7 +140,8 @@ class Cart extends Component {
                   name='add-circle-outline'
                   color={iconColorPlus}
                   onPress={
-                    () => this.props.addDrinkToCart(name, medium, 1, size.medium, image)
+                    () => this.checkCredits
+                    (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
                   }
                 />
               </View>
@@ -138,7 +178,8 @@ class Cart extends Component {
   
   renderBasket = () => {
     return (
-      <Modal style={styles.basketModal} position={"center"} ref={"cartModal"} swipeArea={150}>
+      <Modal onClosed={() => this.setState({ toggleFooter: true })} style={styles.basketModal} position={"bottom"}
+             ref={"modal"} swipeArea={150}>
         <View
           style={styles.clearBasket}>
           <View />
@@ -149,12 +190,9 @@ class Cart extends Component {
             onPress={() => this.props.clearCart()}
           />
         </View>
-        <View>
-          {/*<Text>kr{this.props.userData.credits || 0}</Text>*/}
-        </View>
         <View style={styles.basketContentContainer}>
           <Text style={styles.orderTitel}>Check the order!</Text>
-          <ScrollView style={{ width: 280 }}>
+          <ScrollView style={{ width: width * 0.9 }}>
             {this.props.cart.map((item, i) => {
               if (item.count)
                 return <View key={i} style={styles.driver}>
@@ -192,6 +230,23 @@ class Cart extends Component {
             })}
           </ScrollView>
         </View>
+        <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <CheckBox
+              center
+              title='Yes'
+              checked={this.state.checked}
+              onPress={() => this.setState({ checked: !this.state.checked })}
+            />
+            <Text> Take away? </Text>
+            <CheckBox
+              center
+              title='No'
+              checked={!this.state.checked}
+              onPress={() => this.setState({ checked: !this.state.checked })}
+            />
+          </View>
+        </View>
         <View style={styles.basketSummaryContainer}>
           <View style={styles.basketSummary}>
             <Text style={styles.size}> Items
@@ -209,7 +264,41 @@ class Cart extends Component {
   
   onConfirmOrder = () => {
     const { address, name, pinCode } = this.props.data;
-    this.props.navigation('cashier', {cart: this.props.cart, pinCode, name, address })
+    if(!this.props.totalCartItems) {
+      Alert.alert(
+        'Empty Cart',
+        `Add drink to the cart first`,
+        [
+          { text: 'OK', onPress: () => this.refs.modal.close() },
+        ]
+      );
+      return;
+    }
+    this.props.navigation('cashier',
+      { cart: this.props.cart,
+        pinCode, name, address,
+        takeAway: this.state.checked,
+        total: this.props.totalCartPrice
+      }
+    )
+  };
+  
+  showFooter = () => {
+    if (this.state.toggleFooter) {
+      return <View style={{ width, backgroundColor: '#59bcfe' }}>
+        <Icon
+          size={14}
+          raised
+          name='free-breakfast'
+          underlayColor="#EFEBE9"
+          color='#c0392b'
+          onPress={() => {
+            this.refs.modal.open();
+            this.setState({ toggleFooter: false })
+          }}
+        />
+      </View>
+    }
   };
   
   render () {
@@ -224,15 +313,6 @@ class Cart extends Component {
             featured
             caption="Some Caption Text"
           />
-          <Icon
-            containerStyle={{ position: 'absolute', top: 50, right: 20 }}
-            raised
-            name='shopping-cart'
-            color='#f50'
-            onPress={() => {
-              this.refs.cartModal.open()
-            }}
-          />
         </View>
         <ScrollView style={{ position: 'relative' }}>
           <Accordion
@@ -241,17 +321,19 @@ class Cart extends Component {
             renderContent={this.renderContentCafeList.bind(this)}
           />
         </ScrollView>
-        
-        <View style={{ position: 'absolute', top: 0, marginBottom: 150 }}>
-          {this.renderBasket()}
-        </View>
+        {this.renderBasket()}
+        {this.showFooter()}
       </View>
     );
   }
 }
 
 Cart.propTypes = {
-  cart: React.PropTypes.array
+  cart: React.PropTypes.array,
+  userData: React.PropTypes.object,
+  totalCartItems: React.PropTypes.number,
+  totalCartPrice: React.PropTypes.number,
+  data: React.PropTypes.object,
 };
 
 Cart.defaultProps = {
