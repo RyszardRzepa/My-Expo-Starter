@@ -61,7 +61,7 @@ export const RegisterUser = (email, password, redirect) => async dispatch => {
 
 export const FetchUserData = () => async dispatch => {
   const userId = firebase.auth().currentUser.uid;
-  const userRef = await firebase.database().ref(`/users/${userId}`);
+  const userRef = await firebase.database().ref(`/users/accounts/${userId}`);
   try {
     dispatch({ type: LOAD_USER_DATA_START });
     userRef.once('value')

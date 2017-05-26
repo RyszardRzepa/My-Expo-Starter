@@ -72,19 +72,21 @@ class Cart extends Component {
     );
   };
   
-  checkCredits = (name, small, num, size, image, callback) => {
+  checkCredits = (name, price, num, size, image, callback) => {
     const { credits } = this.props.userData;
-    if (credits <= this.props.totalCartPrice || credits < small ) {
+    const { totalCartPrice } = this.props;
+    
+    if (credits <= totalCartPrice || (credits - totalCartPrice) < price ) {
       Alert.alert(
         'Add Credits',
-        `you have only ${credits} credits left`,
+        `you have only ${credits-totalCartPrice} credits left`,
         [
           { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
           { text: 'OK', onPress: () => console.log('OK Pressed!') },
         ]
       );
     } else {
-      return callback(name, small, num, size, image);
+      return callback(name, price, num, size, image);
     }
   };
   
