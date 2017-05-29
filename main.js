@@ -17,6 +17,8 @@ import CashierScreen from './screens/CashierScreen';
 import CreditCard from './components/CreditCard';
 import FillCreditCard from './screens/CreditCardScreen';
 
+import colors from './theme/colors';
+
 const config = {
   apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
   authDomain: "weather-forecast-9a2a5.firebaseapp.com",
@@ -52,6 +54,9 @@ class App extends React.Component {
     }, {
       tabBarPosition: 'bottom',
       animationEnabled: true,
+      tabBarOptions: {
+        activeTintColor: colors.lightBlue,
+      }
     });
     
     const MainNavigator = StackNavigator({

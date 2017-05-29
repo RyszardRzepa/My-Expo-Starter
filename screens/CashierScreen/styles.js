@@ -21,7 +21,8 @@ const styles = {
     width: 80,
     height: 80,
     borderWidth: 1,
-    borderColor: '#dcd5d9'
+    borderColor: '#dcd5d9',
+    backgroundColor: '#3c3c3c'
   },
   basketContentContainer: {
     flex: 2,

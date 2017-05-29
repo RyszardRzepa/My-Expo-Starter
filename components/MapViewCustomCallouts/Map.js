@@ -8,6 +8,9 @@ import {
   Dimensions
 } from 'react-native';
 import { Components } from "expo";
+import { Icon } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
+
 import styles from './styles';
 
 import CustomCallout from './CustomCallout';
@@ -25,6 +28,7 @@ class Map extends React.Component {
     super(props);
     
     this.state = {
+      isReadyMedia: true,
       open: false,
       region: {
         latitude: LATITUDE,
@@ -36,19 +40,31 @@ class Map extends React.Component {
   }
   
   render () {
-    {
-      if (!this.props.cafesInfo) {
-        return <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ActivityIndicator animating size="large"/>
+    if (!this.props.cafesInfo) {
+      return <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#5dbdff'
+        }}
+      >
+        <View style={styles.block}>
+          <Animatable.View
+            animation="pulse"
+            easing="ease-out"
+            iterationCount="infinite"
+            ref="view"
+          >
+            <Icon
+              name="map"
+              size={110}
+              iconStyle={{ color: '#468dbf' }}
+            />
+          </Animatable.View>
         </View>
-      }
+      </View>
     }
     
     return (
