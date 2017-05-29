@@ -6,7 +6,8 @@ import {
   Text,
   Image,
   LayoutAnimation,
-  Alert
+  Alert,
+  TouchableOpacity
 } from "react-native";
 import { Tile, List, ListItem, Icon, Button, CheckBox } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -22,6 +23,7 @@ import {
   cartCountTotalPrice
 } from '../../actions';
 
+import colors from '../../theme/colors';
 import styles from './styles';
 
 const { width, height } = Dimensions.get('window');
@@ -53,10 +55,10 @@ class Cart extends Component {
   
   renderHeaderCafeList = (coffee) => {
     return (
-      <View style={{ backgroundColor: '#fff' }}>
+      <View style={{ backgroundColor: '#f1f2f3' }}>
         <List containerStyle={styles.listStyle }>
           <ElevatedView
-            elevation={3}
+            elevation={5}
           >
             <ListItem
               containerStyle={{ width: width * 0.9 }}
@@ -97,71 +99,75 @@ class Cart extends Component {
     if (small && medium) {
       return (
         <View style={{ marginHorizontal: 5, backgroundColor: '#fff' }}>
-          <View style={styles.productTypeRow}>
-            <Text style={styles.drinkName}>{size.small}</Text>
-            <Text style={styles.drinkPrice}>{small} kr</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <View>
-                <Icon
-                  size={iconSize}
-                  name='add-circle-outline'
-                  color={iconColorPlus}
-                  onPress={
-                    () => this.checkCredits
-                    (name, small, 1, size.small, image, this.props.addDrinkToCart)
-                  }
-                />
-              </View>
-              <View style={styles.pointsBox}>
-                {this.props.cart.map((item, i) => {
-                  if (item.name === name && item.price === small) {
-                    return <Text style={styles.points} key={i}>{item.count}</Text>
-                  }
-                })}
-              </View>
-              <View>
-                <Icon
-                  size={iconSize}
-                  name='remove-circle-outline'
-                  color={iconColorMinus}
-                  onPress={() => this.props.removeItemFromCart(name, size.small)}
-                />
-              </View>
-            </View>
-          </View>
-          
-          <View style={styles.productTypeRow}>
-            <Text style={styles.drinkName}>{size.medium}</Text>
-            <Text style={styles.drinkPrice}>{medium} kr</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <View>
-                <Icon
-                  size={iconSize}
-                  name='add-circle-outline'
-                  color={iconColorPlus}
-                  onPress={
-                    () => this.checkCredits
-                    (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
-                  }
-                />
-              </View>
-              <View style={styles.pointsBox}>
-                {this.props.cart.map((item, i) => {
-                  if (item.name === name && item.price === medium) {
-                    return <Text style={styles.points} key={i}>{item.count}</Text>
-                  }
-                })}
-              </View>
-              <View>
-                <Icon
-                  size={iconSize}
-                  name='remove-circle-outline'
-                  color={iconColorMinus}
-                  onPress={() => this.props.removeItemFromCart(name, size.medium)}
-                />
+          <ElevatedView
+            elevation={5}
+          >
+            <View style={styles.productTypeRow}>
+              <Text style={styles.drinkName}>{size.small}</Text>
+              <Text style={styles.drinkPrice}>{small} kr</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View>
+                  <Icon
+                    size={iconSize}
+                    name='add-circle-outline'
+                    color={iconColorPlus}
+                    onPress={
+                      () => this.checkCredits
+                      (name, small, 1, size.small, image, this.props.addDrinkToCart)
+                    }
+                  />
+                </View>
+                <View style={styles.pointsBox}>
+                  {this.props.cart.map((item, i) => {
+                    if (item.name === name && item.price === small) {
+                      return <Text style={styles.points} key={i}>{item.count}</Text>
+                    }
+                  })}
+                </View>
+                <View>
+                  <Icon
+                    size={iconSize}
+                    name='remove-circle-outline'
+                    color={iconColorMinus}
+                    onPress={() => this.props.removeItemFromCart(name, size.small)}
+                  />
+                </View>
               </View>
             </View>
-          </View>
+            
+            <View style={styles.productTypeRow}>
+              <Text style={styles.drinkName}>{size.medium}</Text>
+              <Text style={styles.drinkPrice}>{medium} kr</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View>
+                  <Icon
+                    size={iconSize}
+                    name='add-circle-outline'
+                    color={iconColorPlus}
+                    onPress={
+                      () => this.checkCredits
+                      (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
+                    }
+                  />
+                </View>
+                <View style={styles.pointsBox}>
+                  {this.props.cart.map((item, i) => {
+                    if (item.name === name && item.price === medium) {
+                      return <Text style={styles.points} key={i}>{item.count}</Text>
+                    }
+                  })}
+                </View>
+                <View>
+                  <Icon
+                    size={iconSize}
+                    name='remove-circle-outline'
+                    color={iconColorMinus}
+                    onPress={() => this.props.removeItemFromCart(name, size.medium)}
+                  />
+                </View>
+              </View>
+            </View>
+          </ElevatedView>
         </View>
       )
     }
@@ -264,7 +270,7 @@ class Cart extends Component {
   
   onConfirmOrder = () => {
     const { address, name, pinCode } = this.props.data;
-    if(!this.props.totalCartItems) {
+    if (!this.props.totalCartItems) {
       Alert.alert(
         'Empty Cart',
         `Add drink to the cart first`,
@@ -275,7 +281,8 @@ class Cart extends Component {
       return;
     }
     this.props.navigation('cashier',
-      { cart: this.props.cart,
+      {
+        cart: this.props.cart,
         pinCode, name, address,
         takeAway: this.state.checked,
         total: this.props.totalCartPrice
@@ -285,26 +292,33 @@ class Cart extends Component {
   
   showFooter = () => {
     if (this.state.toggleFooter) {
-      return <View style={{ width, backgroundColor: '#59bcfe' }}>
-        <Icon
-          size={14}
-          raised
-          name='free-breakfast'
-          underlayColor="#EFEBE9"
-          color='#c0392b'
-          onPress={() => {
-            this.refs.modal.open();
-            this.setState({ toggleFooter: false })
-          }}
-        />
-      </View>
+      return <TouchableOpacity onPress={() => {
+        this.refs.modal.open();
+        this.setState({ toggleFooter: false })
+      }}>
+        <View
+          style={{ justifyContent: 'center', height: height * 0.07, width, backgroundColor: colors.superLightGrey, flexDirection: 'row' }}>
+          <Icon
+            containerStyle={{ padding: 5 }}
+            size={24}
+            name='shopping-basket'
+            color={colors.lightBlack}
+          />
+          <View style={{ justifyContent: 'center',  padding: 5 }}>
+            <Text style={{ fontSize: 16 }}> Total:</Text>
+          </View>
+          <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
+            <Text style={{ fontSize: 16 }}> {this.props.totalCartPrice || 0} kr </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     }
   };
   
   render () {
     const { image, address } = this.props.data;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#f1f2f3' }}>
         <View>
           <Tile
             height={200}

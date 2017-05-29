@@ -2,3 +2,4 @@ node_modules/**/*
 .expo/**/*
 /.idea/
 .idea/workspace.xml
+config.js

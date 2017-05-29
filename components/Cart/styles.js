@@ -21,8 +21,8 @@ const styles = {
     backgroundColor: '#fff'
   },
   avatarStyle: {
-    height: 60,
-    width: 60
+    height: 45,
+    width: 45
   },
   productTypeRow: {
     margin: 10,
