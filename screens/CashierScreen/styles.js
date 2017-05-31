@@ -41,9 +41,11 @@ const styles = {
     margin: 5,
   },
   pinCodeInfo: {
+    color: '#fff',
     fontFamily: 'raleway-semibold',
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 15,
+    marginTop: 15,
     marginHorizontal: 10,
     textAlign: 'center'
   },

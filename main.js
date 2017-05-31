@@ -5,8 +5,9 @@ import { Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
-import registerForNotifications from './services/push_notifications';
 
+import registerForNotifications from './services/push_notifications';
+import configKey from './config';
 import store from './store';
 
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -20,12 +21,12 @@ import FillCreditCard from './screens/CreditCardScreen';
 import colors from './theme/colors';
 
 const config = {
-  apiKey: "AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA",
-  authDomain: "weather-forecast-9a2a5.firebaseapp.com",
-  databaseURL: "https://weather-forecast-9a2a5.firebaseio.com",
-  projectId: "weather-forecast-9a2a5",
-  storageBucket: "weather-forecast-9a2a5.appspot.com",
-  messagingSenderId: "317335334484"
+  apiKey: configKey.apiKey,
+  authDomain: configKey.authDomain,
+  databaseURL: configKey.databaseURL,
+  projectId: configKey.projectId,
+  storageBucket: configKey.storageBucket,
+  messagingSenderId: configKey.messagingSenderId
 };
 firebase.initializeApp(config);
 console.ignoredYellowBox = ['Setting a timer', 'Back android'];

@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, ScrollView, Alert } from 'react-native';
+import { View,
+  Text,
+  Dimensions,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+  Platform
+} from 'react-native';
 import { Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { cashierConfirmOrder } from '../../actions';
@@ -8,6 +15,12 @@ import styles from './styles';
 const { height, width } = Dimensions.get('window');
 
 class CashierScreen extends Component {
+  static navigationOptions = {
+    title: 'Type Pin Code',
+    headerRight: (<Text />),
+    headerTitleStyle: { alignSelf: 'center' },
+  };
+  
   state = {
     pinCode: '',
   };
@@ -57,11 +70,11 @@ class CashierScreen extends Component {
       buttons.push(<Button
         key={i}
         buttonStyle={styles.buttonStyle}
+        Component={TouchableOpacity}
         containerViewStyle={{ borderRadius: 45 }}
         large
         fontSize={30}
         borderRadius={40}
-        raised
         title={i.toString()}
         onPress={() => this.onPinCodeClick(i.toString())}
       />)
@@ -97,13 +110,14 @@ class CashierScreen extends Component {
           </ScrollView>
         </View>
         
-        <View style={{ flex: 3, marginBottom: height * 0.08 }}>
-          <Divider style={{ height: 1, backgroundColor: '#ccc5c9', margin: 20 }}/>
+        <Divider style={{ height: 1, backgroundColor: '#ccc5c9', margin: 20 }}/>
+        
+        <View style={{ backgroundColor: '#484848', flex: 3 }}>
           <Text style={styles.pinCodeInfo}>
             Show your phone to the cashier to enter pin code
           </Text>
           <View style={{
-            marginBottom: height * 0.05,
+            marginBottom: 20,
             flexDirection: 'row', justifyContent: 'space-between'
           }}>
             {this.renderButton(1, 3)}

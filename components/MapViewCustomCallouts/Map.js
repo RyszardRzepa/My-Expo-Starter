@@ -79,7 +79,7 @@ class Map extends React.Component {
           {this.props.cafesInfo.map((item) => {
             const { location, address, image, menu, pinCode, name } = item;
             
-            return <Components.MapView.Marker
+            return <Components.MapView.Marker.Animated
               key={location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
@@ -87,20 +87,18 @@ class Map extends React.Component {
                 latitude: location.latitude,
                 longitude: location.longitude
               }}
+              image={require('../../assets/icons/ccLogo.png')}
             >
-              <Components.MapView.Callout tooltip style={styles.customView}>
+              <Components.MapView.Callout onPress={ () => this.props.navigation('details', { address, image, menu, pinCode, name })} tooltip style={styles.customView}>
                 <CustomCallout>
-                  <TouchableOpacity
-                    onPress={() => this.props.navigation('details', { address, image, menu, pinCode, name })}>
-                    <Image
-                      source={{ uri: image }}
-                      style={{ height: 60 }}
-                    />
-                    <Text style={{ color: '#27313c' }}>{address}</Text>
-                  </TouchableOpacity>
+                  <Image
+                    source={{ uri: image }}
+                    style={{ height: 60 }}
+                  />
+                  <Text numberOfLines={1} style={{ color: '#27313c' }}>{address}</Text>
                 </CustomCallout>
               </Components.MapView.Callout>
-            </Components.MapView.Marker>
+            </Components.MapView.Marker.Animated>
           })}
         </Components.MapView>
       </View>
