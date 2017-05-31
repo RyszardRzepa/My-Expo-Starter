@@ -8,6 +8,7 @@ import { Icon } from 'react-native-elements';
 import Map from '../../components/MapViewCustomCallouts/Map';
 import Modal from 'react-native-modalbox';
 
+import colors from '../../theme/colors';
 import styles from './styles';
 import CafesList from '../../components/Cafe_List';
 import { fetchCafes } from '../../actions';
@@ -18,9 +19,8 @@ class MapScreen extends Component {
   
   static navigationOptions = {
     title: 'Map',
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="my-location" size={30} color={tintColor}/>;
-    },
+    titleColor: { color: colors.lightBlue },
+    tabBarIcon: ({ tintColor }) => <Icon name="map" size={30} color={tintColor}/>,
     header: false,
     tabBarPosition: 'bottom',
   };
@@ -46,11 +46,12 @@ class MapScreen extends Component {
         />
         <View style={styles.icon}>
           <Icon
+            containerStyle={{ backgroundColor: colors.darkWhite }}
             size={26}
             raised
             name='free-breakfast'
             underlayColor="#EFEBE9"
-            color='#c0392b'
+            color={colors.darkBrown}
             onPress={() => this.refs.modal.open()}
           />
         </View>

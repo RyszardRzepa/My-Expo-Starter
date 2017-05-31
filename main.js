@@ -18,6 +18,8 @@ import CashierScreen from './screens/CashierScreen';
 import CreditCard from './components/CreditCard';
 import FillCreditCard from './screens/CreditCardScreen';
 
+import colors from './theme/colors';
+
 const config = {
   apiKey: configKey.apiKey,
   authDomain: configKey.authDomain,
@@ -53,6 +55,9 @@ class App extends React.Component {
     }, {
       tabBarPosition: 'bottom',
       animationEnabled: true,
+      tabBarOptions: {
+        activeTintColor: colors.lightBlue,
+      }
     });
     
     const MainNavigator = StackNavigator({

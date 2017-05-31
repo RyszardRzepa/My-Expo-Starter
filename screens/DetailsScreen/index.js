@@ -13,7 +13,7 @@ class DetailsScreen extends Component {
   static navigationOptions = {
     title: 'Cafe Details',
     headerRight: (<Text>0</Text>),
-    headerTitleStyle: { alignSelf: 'center'}
+    headerTitleStyle: { alignSelf: 'center' },
   };
   
   navigateCallback = (route, prop) => {

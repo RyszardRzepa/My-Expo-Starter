@@ -8,6 +8,9 @@ import {
   Dimensions
 } from 'react-native';
 import { Components } from "expo";
+import { Icon } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
+
 import styles from './styles';
 
 import CustomCallout from './CustomCallout';
@@ -25,6 +28,7 @@ class Map extends React.Component {
     super(props);
     
     this.state = {
+      isReadyMedia: true,
       open: false,
       region: {
         latitude: LATITUDE,
@@ -36,19 +40,31 @@ class Map extends React.Component {
   }
   
   render () {
-    {
-      if (!this.props.cafesInfo) {
-        return <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ActivityIndicator animating size="large"/>
+    if (!this.props.cafesInfo) {
+      return <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#5dbdff'
+        }}
+      >
+        <View style={styles.block}>
+          <Animatable.View
+            animation="pulse"
+            easing="ease-out"
+            iterationCount="infinite"
+            ref="view"
+          >
+            <Icon
+              name="map"
+              size={110}
+              iconStyle={{ color: '#468dbf' }}
+            />
+          </Animatable.View>
         </View>
-      }
+      </View>
     }
     
     return (
@@ -63,7 +79,7 @@ class Map extends React.Component {
           {this.props.cafesInfo.map((item) => {
             const { location, address, image, menu, pinCode, name } = item;
             
-            return <Components.MapView.Marker
+            return <Components.MapView.Marker.Animated
               key={location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
@@ -71,20 +87,18 @@ class Map extends React.Component {
                 latitude: location.latitude,
                 longitude: location.longitude
               }}
+              image={require('../../assets/icons/ccLogo.png')}
             >
-              <Components.MapView.Callout tooltip style={styles.customView}>
+              <Components.MapView.Callout onPress={ () => this.props.navigation('details', { address, image, menu, pinCode, name })} tooltip style={styles.customView}>
                 <CustomCallout>
-                  <TouchableOpacity
-                    onPress={() => this.props.navigation('details', { address, image, menu, pinCode, name })}>
-                    <Image
-                      source={{ uri: image }}
-                      style={{ height: 60 }}
-                    />
-                    <Text style={{ color: '#27313c' }}>{address}</Text>
-                  </TouchableOpacity>
+                  <Image
+                    source={{ uri: image }}
+                    style={{ height: 60 }}
+                  />
+                  <Text numberOfLines={1} style={{ color: '#27313c' }}>{address}</Text>
                 </CustomCallout>
               </Components.MapView.Callout>
-            </Components.MapView.Marker>
+            </Components.MapView.Marker.Animated>
           })}
         </Components.MapView>
       </View>

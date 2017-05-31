@@ -21,7 +21,8 @@ const styles = {
     width: 80,
     height: 80,
     borderWidth: 1,
-    borderColor: '#dcd5d9'
+    borderColor: '#dcd5d9',
+    backgroundColor: '#484848'
   },
   basketContentContainer: {
     flex: 2,
@@ -40,9 +41,11 @@ const styles = {
     margin: 5,
   },
   pinCodeInfo: {
+    color: '#fff',
     fontFamily: 'raleway-semibold',
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 15,
+    marginTop: 15,
     marginHorizontal: 10,
     textAlign: 'center'
   },
