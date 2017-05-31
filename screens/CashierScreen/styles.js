@@ -22,7 +22,7 @@ const styles = {
     height: 80,
     borderWidth: 1,
     borderColor: '#dcd5d9',
-    backgroundColor: '#484848'
+    backgroundColor: '#3c3c3c'
   },
   basketContentContainer: {
     flex: 2,

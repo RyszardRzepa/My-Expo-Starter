@@ -14,6 +14,7 @@ class DetailsScreen extends Component {
     title: 'Cafe Details',
     headerRight: (<Text>0</Text>),
     headerTitleStyle: { alignSelf: 'center' },
+    headerStyle: { backgroundColor: '#59bcfe' }
   };
   
   navigateCallback = (route, prop) => {
