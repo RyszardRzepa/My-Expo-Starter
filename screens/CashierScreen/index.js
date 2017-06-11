@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View,
+import {
+  View,
   Text,
   Dimensions,
   ScrollView,
@@ -9,7 +10,8 @@ import { View,
 } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { cashierConfirmOrder } from '../../actions';
+
+import { cashierConfirmOrder, clearCart } from '../../actions';
 import styles from './styles';
 
 const { height, width } = Dimensions.get('window');
@@ -26,7 +28,8 @@ class CashierScreen extends Component {
   };
   
   navigateTo = () => {
-    this.props.navigation.goBack()
+    this.props.navigation.goBack();
+    this.props.clearCart();
   };
   
   onPinCodeClick = async (pin) => {
@@ -40,10 +43,12 @@ class CashierScreen extends Component {
         'loading...',
         [
           {
-            text: 'OK', onPress: () =>
-          {
-            this.props.cashierConfirmOrder(total, this.props.navigation.state.params,
-            this.navigateTo);
+            text: 'OK', onPress: () => {
+            this.props.cashierConfirmOrder(
+              total,
+              this.props.navigation.state.params,
+              this.navigateTo
+            );
           }
           },
         ],
@@ -85,7 +90,6 @@ class CashierScreen extends Component {
   };
   
   render () {
-    console.tron.log(this.props.navigation.state.params)
     const { name, address } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
@@ -131,4 +135,4 @@ class CashierScreen extends Component {
   }
 }
 
-export default connect(null, { cashierConfirmOrder })(CashierScreen);
+export default connect(null, { cashierConfirmOrder, clearCart })(CashierScreen);

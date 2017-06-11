@@ -184,8 +184,13 @@ class Cart extends Component {
   
   renderBasket = () => {
     return (
-      <Modal onClosed={() => this.setState({ toggleFooter: true })} style={styles.basketModal} position={"bottom"}
-             ref={"modal"} swipeArea={150}>
+      <Modal
+        isOpen={this.props.isModalOpen}
+        onClosed={() => this.setState({ toggleFooter: true })}
+        style={styles.basketModal}
+        position={"bottom"}
+        ref={"modal"}
+        swipeArea={150}>
         <View
           style={styles.clearBasket}>
           <View />
@@ -297,14 +302,20 @@ class Cart extends Component {
         this.setState({ toggleFooter: false })
       }}>
         <View
-          style={{ justifyContent: 'center', height: height * 0.07, width, backgroundColor: colors.superLightGrey, flexDirection: 'row' }}>
+          style={{
+            justifyContent: 'center',
+            height: height * 0.07,
+            width,
+            backgroundColor: colors.superLightGrey,
+            flexDirection: 'row'
+          }}>
           <Icon
             containerStyle={{ padding: 5 }}
             size={24}
             name='shopping-basket'
             color={colors.lightBlack}
           />
-          <View style={{ justifyContent: 'center',  padding: 5 }}>
+          <View style={{ justifyContent: 'center', padding: 5 }}>
             <Text style={{ fontSize: 16 }}> Total:</Text>
           </View>
           <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
@@ -359,7 +370,8 @@ function mapStateToProps ({ cart, auth }) {
     cart: cart.cartItems,
     totalCartItems: cart.totalCartItems,
     totalCartPrice: cart.totalCartPrice,
-    userData: auth.userData
+    userData: auth.userData,
+    isModalOpen: cart.closeModal
   }
 }
 

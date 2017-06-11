@@ -1,35 +1,59 @@
-import React, { Component } from 'react';
-import { Text } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
+import { Icon } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
 import Cart from '../../components/Cart';
+import Header from '../../components/common/Header';
+import styles from './styles';
 
 class DetailsScreen extends Component {
-  componentWillMount () {
-    this.props.fetchUserData()
-  }
-  
   static navigationOptions = {
-    title: 'Cafe Details',
-    headerRight: (<Text>0</Text>),
-    headerTitleStyle: { alignSelf: 'center' },
-    headerStyle: { backgroundColor: '#59bcfe' }
+    header: false,
   };
   
+  componentWillMount () {
+    this.props.fetchUserData();
+  }
+  
+  componentWillReceiveProps (nextProps) {
+    this.renderUserCredits(nextProps.userData.credits);
+  }
+  
   navigateCallback = (route, prop) => {
-    this.props.navigation.navigate(route, prop)
+    this.props.navigation.navigate(route, prop);
+  };
+  
+  renderUserCredits = (credits) => {
+    return credits ? credits : this.props.userData.credits;
   };
   
   render () {
     return (
-      <Cart
-        data={this.props.navigation.state.params}
-        navigation={this.navigateCallback}
-      />
+      <View style={{ flex: 1 }}>
+        <Header>
+          <Icon
+            name="keyboard-arrow-left"
+            size={35}
+            color="#fff"
+            onPress={() => this.props.navigation.goBack()}
+          />
+          <Text style={styles.headerTitle}>Details Screen</Text>
+          <Text style={styles.credits}>{this.renderUserCredits()} NOK</Text>
+        </Header>
+        <Cart
+          data={this.props.navigation.state.params}
+          navigation={this.navigateCallback}
+        />
+      </View>
     )
   }
 }
+
+DetailsScreen.propTypes = {
+  userData: PropTypes.object
+};
 
 DetailsScreen.defaultProps = {
   userData: {

@@ -1,7 +1,8 @@
 import { FETCH_CAFES_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
-  isLoading: true
+  isLoading: true,
+  cafesInfo: []
 };
 
 export default function cafesReducer (state = INITIAL_STATE, action) {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   Dimensions,
@@ -35,7 +35,7 @@ class MapScreen extends Component {
   
   navigateCallback = (route, prop) => {
     this.props.navigation.navigate(route, prop)
-  }
+  };
   
   render () {
     return (
@@ -67,6 +67,10 @@ class MapScreen extends Component {
     );
   }
 }
+
+MapScreen.propTypes = {
+  cafesInfo: PropTypes.array
+};
 
 function mapStateToProps (state) {
   return {
