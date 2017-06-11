@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -19,7 +19,6 @@ class DetailsScreen extends Component {
   
   componentWillReceiveProps (nextProps) {
     this.renderUserCredits(nextProps.userData.credits);
-    console.tron.log(nextProps.userData)
   }
   
   navigateCallback = (route, prop) => {
@@ -41,7 +40,7 @@ class DetailsScreen extends Component {
             onPress={() => this.props.navigation.goBack()}
           />
           <Text style={styles.headerTitle}>Details Screen</Text>
-          <Text style={styles.credits}>{this.renderUserCredits()}nok</Text>
+          <Text style={styles.credits}>{this.renderUserCredits()} NOK</Text>
         </Header>
         <Cart
           data={this.props.navigation.state.params}
@@ -51,6 +50,10 @@ class DetailsScreen extends Component {
     )
   }
 }
+
+DetailsScreen.propTypes = {
+  userData: PropTypes.object
+};
 
 DetailsScreen.defaultProps = {
   userData: {

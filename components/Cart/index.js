@@ -185,6 +185,7 @@ class Cart extends Component {
   renderBasket = () => {
     return (
       <Modal
+        isOpen={this.props.isModalOpen}
         onClosed={() => this.setState({ toggleFooter: true })}
         style={styles.basketModal}
         position={"bottom"}
@@ -369,7 +370,8 @@ function mapStateToProps ({ cart, auth }) {
     cart: cart.cartItems,
     totalCartItems: cart.totalCartItems,
     totalCartPrice: cart.totalCartPrice,
-    userData: auth.userData
+    userData: auth.userData,
+    isModalOpen: cart.closeModal
   }
 }
 

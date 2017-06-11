@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, Text, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, Button, List, ListItem } from 'react-native-elements';
@@ -25,7 +25,7 @@ const list = [
 
 ];
 
-class DeckScreen extends Component {
+class ProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
     tabBarIcon: ({ tintColor }) => {
@@ -71,10 +71,14 @@ class DeckScreen extends Component {
   }
 }
 
+ProfileScreen.propTypes = {
+  user: PropTypes.object
+};
+
 mapStateToProps = ({ auth }) => {
   return {
     user: auth.user
   }
 };
 
-export default connect(mapStateToProps)(DeckScreen);
+export default connect(mapStateToProps)(ProfileScreen);

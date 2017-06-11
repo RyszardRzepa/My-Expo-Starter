@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   Text,
-  ActivityIndicator,
-  TouchableOpacity,
   Image,
   Dimensions
 } from 'react-native';
-import { Components } from "expo";
+import { MapView } from "expo";
 import { Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
@@ -23,7 +21,7 @@ const LONGITUDE = 10.757933;
 const LATITUDE_DELTA = 0.1122;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class Map extends React.Component {
+class Map extends Component {
   constructor (props) {
     super(props);
     
@@ -69,17 +67,16 @@ class Map extends React.Component {
     
     return (
       <View style={styles.container}>
-        <Components.MapView
+        <MapView
           showUSerLocation
           loadingBackgroundColor="#f9f5ed"
-          provider={this.props.provider}
           style={styles.map}
           initialRegion={this.state.region}
         >
           {this.props.cafesInfo.map((item) => {
             const { location, address, image, menu, pinCode, name } = item;
             
-            return <Components.MapView.Marker.Animated
+            return <MapView.Marker.Animated
               key={location.latitude}
               showsUserLocation
               loadingBackgroundColor="#f9f5ed"
@@ -89,7 +86,7 @@ class Map extends React.Component {
               }}
               image={require('../../assets/icons/ccLogo.png')}
             >
-              <Components.MapView.Callout
+              <MapView.Callout
                 onPress={ () => this.props.navigation(
                   'details', { address, image, menu, pinCode, name }
                 )}
@@ -102,17 +99,17 @@ class Map extends React.Component {
                   />
                   <Text numberOfLines={1} style={{ color: '#27313c' }}>{address}</Text>
                 </CustomCallout>
-              </Components.MapView.Callout>
-            </Components.MapView.Marker.Animated>
+              </MapView.Callout>
+            </MapView.Marker.Animated>
           })}
-        </Components.MapView>
+        </MapView>
       </View>
     );
   }
 }
 
 Map.propTypes = {
-  provider: Components.MapView.ProviderPropType,
+  cafesInfo: PropTypes.array
 };
 
 export default Map;

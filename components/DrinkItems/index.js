@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { FlatList, TouchableWithoutFeedback, View, Text, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -43,7 +43,6 @@ class LibraryList extends Component {
   };
   
   renderDescription (item) {
-    console.log(this.state.drinkName, "::", item.name)
     if (this.state.drinkName === item.name) {
       return (
         <Text style={{ flex: 1 }}>
@@ -63,5 +62,9 @@ class LibraryList extends Component {
     );
   }
 }
+
+LibraryList.propType = {
+  data: PropTypes.object
+};
 
 export default connect(null)(LibraryList);

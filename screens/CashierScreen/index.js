@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { cashierConfirmOrder } from '../../actions';
+
+import { cashierConfirmOrder, clearCart } from '../../actions';
 import styles from './styles';
 
 const { height, width } = Dimensions.get('window');
@@ -27,7 +28,8 @@ class CashierScreen extends Component {
   };
   
   navigateTo = () => {
-    this.props.navigation.goBack()
+    this.props.navigation.goBack();
+    this.props.clearCart();
   };
   
   onPinCodeClick = async (pin) => {
@@ -133,4 +135,4 @@ class CashierScreen extends Component {
   }
 }
 
-export default connect(null, { cashierConfirmOrder })(CashierScreen);
+export default connect(null, { cashierConfirmOrder, clearCart })(CashierScreen);
