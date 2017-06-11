@@ -6,9 +6,7 @@ const Header = (props) => {
   
   return (
     <View style={viewStyle}>
-      <View>{props.iconLeft}</View>
-      <Text style={textStyle}>{props.headerText}</Text>
-      <Text style={textRight}>{props.textRight} NOK</Text>
+      {props.children}
     </View>
   );
 };
@@ -27,15 +25,6 @@ const styles = {
     elevation: 2,
     position: 'relative'
   },
-  textRight: {
-    fontSize: 18,
-    color: '#484848',
-    marginRight: 10,
-  },
-  textStyle: {
-    fontSize: 20,
-    color: '#fff'
-  }
 };
 
 // Make the component available to other parts of the app

@@ -64,10 +64,9 @@ export const fetchUserData = () => async dispatch => {
   const userRef = await firebase.database().ref(`/users/accounts/${userId}`);
   try {
     dispatch({ type: LOAD_USER_DATA_START });
-    userRef.once('value')
-      .then(data => {
-        dispatch({ type: LOAD_USER_DATA_SUCCESS, payload: data.val() })
-      })
+    userRef.on('value', data => {
+      dispatch({ type: LOAD_USER_DATA_SUCCESS, payload: data.val() })
+    })
   }
   catch (err) {
     console.tron.log("error user data loading", err)

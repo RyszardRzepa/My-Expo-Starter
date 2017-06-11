@@ -6,39 +6,43 @@ import { Icon } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
 import Cart from '../../components/Cart';
 import Header from '../../components/common/Header';
+import styles from './styles';
 
 class DetailsScreen extends Component {
-  componentWillMount () {
-    this.props.fetchUserData()
-  }
-  
   static navigationOptions = {
-    title: 'Cafe Details',
-    headerRight: (<Text>0</Text>),
-    headerTitleStyle: { alignSelf: 'center' },
-    headerStyle: { backgroundColor: '#59bcfe' },
     header: false,
   };
   
+  componentWillMount () {
+    this.props.fetchUserData();
+  }
+  
+  componentWillReceiveProps (nextProps) {
+    this.renderUserCredits(nextProps.userData.credits);
+    console.tron.log(nextProps.userData)
+  }
+  
   navigateCallback = (route, prop) => {
-    this.props.navigation.navigate(route, prop)
+    this.props.navigation.navigate(route, prop);
+  };
+  
+  renderUserCredits = (credits) => {
+    return credits ? credits : this.props.userData.credits;
   };
   
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <Header
-          headerText="Cafe Details"
-          textRight={this.props.userData.credits}
-          iconLeft={
-            <Icon
-              name="keyboard-arrow-left"
-              size={35}
-              color="#fff"
-              onPress={() => this.props.navigation.goBack()}
-            />
-          }
-        />
+        <Header>
+          <Icon
+            name="keyboard-arrow-left"
+            size={35}
+            color="#fff"
+            onPress={() => this.props.navigation.goBack()}
+          />
+          <Text style={styles.headerTitle}>Details Screen</Text>
+          <Text style={styles.credits}>{this.renderUserCredits()}</Text>
+        </Header>
         <Cart
           data={this.props.navigation.state.params}
           navigation={this.navigateCallback}
