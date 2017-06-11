@@ -1,5 +1,8 @@
 import firebase from 'firebase';
-import { CASHIER_CONFIRM_ORDER_START, CASHIER_CONFIRM_ORDER_SUCCESS, UPDATE_USER_CREDITS_SUCCESS } from './types';
+import { CASHIER_CONFIRM_ORDER_START,
+  CASHIER_CONFIRM_ORDER_SUCCESS,
+  UPDATE_USER_CREDITS_SUCCESS
+} from './types';
 
 export const cashierConfirmOrder = (total, order, navigateTo) => async dispatch => {
   try {

@@ -41,7 +41,7 @@ class DetailsScreen extends Component {
             onPress={() => this.props.navigation.goBack()}
           />
           <Text style={styles.headerTitle}>Details Screen</Text>
-          <Text style={styles.credits}>{this.renderUserCredits()}</Text>
+          <Text style={styles.credits}>{this.renderUserCredits()}nok</Text>
         </Header>
         <Cart
           data={this.props.navigation.state.params}

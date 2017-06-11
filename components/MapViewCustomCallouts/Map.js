@@ -89,7 +89,12 @@ class Map extends React.Component {
               }}
               image={require('../../assets/icons/ccLogo.png')}
             >
-              <Components.MapView.Callout onPress={ () => this.props.navigation('details', { address, image, menu, pinCode, name })} tooltip style={styles.customView}>
+              <Components.MapView.Callout
+                onPress={ () => this.props.navigation(
+                  'details', { address, image, menu, pinCode, name }
+                )}
+                tooltip style={styles.customView}
+              >
                 <CustomCallout>
                   <Image
                     source={{ uri: image }}
