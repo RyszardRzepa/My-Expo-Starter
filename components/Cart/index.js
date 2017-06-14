@@ -4,7 +4,6 @@ import {
   Dimensions,
   ScrollView,
   Text,
-  Image,
   LayoutAnimation,
   Alert,
   TouchableOpacity
@@ -15,6 +14,7 @@ import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import ElevatedView from 'react-native-elevated-view';
 
+import OrderView from '../OrderView';
 import {
   addDrinkToCart,
   removeItemFromCart,
@@ -201,46 +201,14 @@ class Cart extends Component {
             onPress={() => this.props.clearCart()}
           />
         </View>
-        <View style={styles.basketContentContainer}>
-          <Text style={styles.orderTitel}>Check the order!</Text>
-          <ScrollView style={{ width: width * 0.9 }}>
-            {this.props.cart.map((item, i) => {
-              if (item.count)
-                return <View key={i} style={styles.driver}>
-                  <View style={styles.avatarBox}>
-                    <Image style={styles.avatar} source={{ uri: item.image }}/>
-                  </View>
-                  <View style={styles.info}>
-                    <Text style={styles.name}>{item.name}</Text>
-                  </View>
-                  <View style={styles.info}>
-                    <Text style={styles.size}>{item.size}</Text>
-                  </View>
-                  <View>
-                    <Icon
-                      size={iconSize}
-                      name='add-circle-outline'
-                      color={iconColorPlus}
-                      onPress={
-                        () => this.props.addDrinkToCart(item.name, item.price, 1, item.size)
-                      }
-                    />
-                  </View>
-                  <View style={styles.pointsBox}>
-                    <Text style={styles.points}>{item.count}</Text>
-                  </View>
-                  <View>
-                    <Icon
-                      size={iconSize}
-                      name='remove-circle-outline'
-                      color={iconColorMinus}
-                      onPress={() => this.props.removeItemFromCart(item.name, item.size)}
-                    />
-                  </View>
-                </View>
-            })}
-          </ScrollView>
-        </View>
+        <OrderView
+          cart={this.props.cart}
+          title="Check The Order"
+          addDrinkToCart={this.props.addDrinkToCart}
+          removeItemFromCart={this.props.removeItemFromCart}
+          totalCartItems={this.props.totalCartItems}
+          totalCartPrice={this.props.totalCartPrice}
+        />
         <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <CheckBox
@@ -376,7 +344,7 @@ function mapStateToProps ({ cart, auth }) {
     totalCartItems: cart.totalCartItems,
     totalCartPrice: cart.totalCartPrice,
     userData: auth.userData,
-    isModalOpen: cart.closeModal
+    isModalOpen: cart.isModalOpen
   }
 }
 
