@@ -301,27 +301,32 @@ class Cart extends Component {
         this.refs.modal.open();
         this.setState({ toggleFooter: false })
       }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            height: height * 0.07,
-            width,
-            backgroundColor: colors.superLightGrey,
-            flexDirection: 'row'
-          }}>
-          <Icon
-            containerStyle={{ padding: 5 }}
-            size={24}
-            name='shopping-basket'
-            color={colors.lightBlack}
-          />
-          <View style={{ justifyContent: 'center', padding: 5 }}>
-            <Text style={{ fontSize: 16 }}> Total:</Text>
+          <View
+            style={{
+              justifyContent: 'center',
+              height: height * 0.07,
+              width,
+              backgroundColor: colors.superLightGrey,
+              flexDirection: 'row',
+              shadowColor: '#51ade8',
+              shadowOffset: { width: 0, height: 5 },
+              shadowOpacity: 0.2,
+              elevation: 5,
+              position: 'relative'
+            }}>
+            <Icon
+              containerStyle={{ padding: 5 }}
+              size={24}
+              name='shopping-basket'
+              color={colors.lightBlack}
+            />
+            <View style={{ justifyContent: 'center', padding: 5 }}>
+              <Text style={{ fontSize: 16 }}> Total:</Text>
+            </View>
+            <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
+              <Text style={{ fontSize: 16 }}> {this.props.totalCartPrice || 0} kr </Text>
+            </View>
           </View>
-          <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
-            <Text style={{ fontSize: 16 }}> {this.props.totalCartPrice || 0} kr </Text>
-          </View>
-        </View>
       </TouchableOpacity>
     }
   };

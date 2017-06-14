@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Image,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native';
 import { MapView } from "expo";
 import { Icon } from 'react-native-elements';
@@ -84,8 +85,8 @@ class Map extends Component {
                 latitude: location.latitude,
                 longitude: location.longitude
               }}
-              image={require('../../assets/icons/ccLogo.png')}
             >
+              <Image style={styles.markerImage} source={require('../../assets/icons/ccLogo.png')}/>
               <MapView.Callout
                 onPress={ () => this.props.navigation(
                   'details', { address, image, menu, pinCode, name }
