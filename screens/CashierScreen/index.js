@@ -6,17 +6,12 @@ import {
   ScrollView,
   Alert,
   TouchableOpacity,
-  Platform
 } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
-import Modal from 'react-native-modalbox';
 
 import { cashierConfirmOrder, clearCart } from '../../actions';
 import styles from './styles';
-import OrderView from "../../components/OrderView";
-
-const { height, width } = Dimensions.get('window');
 
 class CashierScreen extends Component {
   static navigationOptions = {
@@ -36,14 +31,12 @@ class CashierScreen extends Component {
   };
   
   onPinCodeClick = async (pin) => {
-    const { total } = this.props.navigation.state.params;
+    const { total, pinCode, name, address } = this.props.navigation.state.params;
     
     await this.setState({ pinCode: this.state.pinCode.concat(pin) });
     
-    if (this.state.pinCode === this.props.navigation.state.params.pinCode.toString()) {
-      
-      await this.refs.modal.open();
-      
+    if (this.state.pinCode === pinCode.toString()) {
+      this.props.navigation.navigate('receipt', {name, address});
       // Alert.alert(
       //   'Pin code Success',
       //   'loading...',
@@ -137,24 +130,6 @@ class CashierScreen extends Component {
             </View>
           </View>
         </View>
-        <Modal
-          style={{
-            height: height * 0.9,
-            width: width * 0.9,
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute', left: 0, right: 10, top: 10, bottom: 10
-          }}
-          position={"center"}
-          ref={"modal"}
-          swipeArea={150}
-        >
-          <OrderView
-            cart={this.props.cart}
-            title="Your Order Receipt"
-            totalCartPrice={this.props.totalCartPrice}
-          />
-        </Modal>
       </View>
     )
   }

@@ -32,7 +32,6 @@ const styles = {
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#f1f2f6'
-    
   },
   basketModal: {
     height: height * 0.8,
@@ -46,7 +45,6 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     borderColor: '#dcd5d9',
-    borderTopWidth: 0.5,
     borderBottomWidth: 0.5
   },
   orderTitel: {
@@ -62,8 +60,8 @@ const styles = {
     marginLeft: 10,
     marginRight: 10,
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f1f2f6'
+    borderBottomWidth: 0.8,
+    borderBottomColor: '#dedfe3'
   },
   avatarBox: {
     width: 35,

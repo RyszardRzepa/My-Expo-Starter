@@ -13,7 +13,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import ElevatedView from 'react-native-elevated-view';
-
+import CheckBoxComponent from '../CheckBox';
 import OrderView from '../OrderView';
 import {
   addDrinkToCart,
@@ -209,23 +209,10 @@ class Cart extends Component {
           totalCartItems={this.props.totalCartItems}
           totalCartPrice={this.props.totalCartPrice}
         />
-        <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <CheckBox
-              center
-              title='Yes'
-              checked={this.state.checked}
-              onPress={() => this.setState({ checked: !this.state.checked })}
-            />
-            <Text> Take away? </Text>
-            <CheckBox
-              center
-              title='No'
-              checked={!this.state.checked}
-              onPress={() => this.setState({ checked: !this.state.checked })}
-            />
-          </View>
-        </View>
+        <CheckBoxComponent
+          checked={this.state.checked}
+          onPress={() => this.setState({ checked: !this.state.checked })}
+        />
         <View style={styles.basketSummaryContainer}>
           <View style={styles.basketSummary}>
             <Text style={styles.size}> Items

@@ -3,7 +3,6 @@ import { View, Text, AsyncStorage, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, Button, List, ListItem } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
-import firebase from 'firebase';
 
 const list = [
   {
@@ -42,6 +41,26 @@ class ProfileScreen extends Component {
     this.props.fetchUserData();
   }
   
+  componentWillReceiveProps (nextProps) {
+    this.renderUserData(nextProps.userData);
+  }
+  
+  renderUserData = (props) => {
+    if(props)
+    return <View style={{ flexDirection: 'column', margin: 10 }}>
+      <Text style={{ fontSize: 20 }}>
+        {props.email}
+      </Text>
+      <Text style={{ fontSize: 20 }}>
+        {props.credits}
+      </Text>
+    </View>;
+    
+    return <Text>
+      Place for my email
+    </Text>
+  };
+  
   onLogOut = () => {
     AsyncStorage.removeItem('token');
     this.props.navigation.navigate('welcome');
@@ -56,14 +75,7 @@ class ProfileScreen extends Component {
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
           <View>
           </View>
-          <View style={{ flexDirection: 'column', margin: 10 }}>
-            <Text style={{ fontSize: 20 }}>
-              {this.props.userData.email}
-            </Text>
-            <Text style={{ fontSize: 20 }}>
-              {this.props.userData.credits}
-            </Text>
-          </View>
+          {this.renderUserData(this.props.userData)}
           <Image
             style={{ height: 80, width: 80 }}
             source={{ uri: "https://firebasestorage.googleapis.com/v0/b/coffeecloud-dee31.appspot.com/o/coffee_bars%2Fdrinks%2Fimages%2F649ff5d5-f38c-481b-8872-59f1f74c884c.png?alt=media&token=a465e79d-a8c9-4c37-82d5-150245ff71fb" }}

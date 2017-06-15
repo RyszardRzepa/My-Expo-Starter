@@ -17,6 +17,7 @@ import DetailsScreen from './screens/DetailsScreen';
 import CashierScreen from './screens/CashierScreen';
 import CreditCard from './components/CreditCard';
 import FillCreditCard from './screens/CreditCardScreen';
+import ReceiptScreen from './screens/ReceiptScreen';
 
 import colors from './theme/colors';
 
@@ -57,7 +58,7 @@ class App extends React.Component {
       animationEnabled: true,
       tabBarOptions: {
         activeTintColor: colors.lightBlue,
-      }
+      }, lazy: true,
     });
     
     const MainNavigator = StackNavigator({
@@ -66,7 +67,8 @@ class App extends React.Component {
       details: { screen: DetailsScreen },
       cashier: { screen: CashierScreen },
       credit_card: { screen: CreditCard },
-      fill_credit_card: { screen: FillCreditCard }
+      fill_credit_card: { screen: FillCreditCard },
+      receipt: { screen: ReceiptScreen }
     }, {
       navigationOptions: {
         headerTintColor: '#fff',
