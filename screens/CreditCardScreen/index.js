@@ -18,8 +18,11 @@ class CreditCard extends Component {
   };
   
   addCredits = () => {
-    console.tron.log("button clicked addCredits")
-    this.props.fillCreditCard(this.state.credits)
+    this.props.fillCreditCard(this.state.credits, this.navigateCallback)
+  };
+  
+  navigateCallback = (route, obj) => {
+    this.props.navigation.navigate(route, obj)
   };
   
   onValueChange = (key, value) => {

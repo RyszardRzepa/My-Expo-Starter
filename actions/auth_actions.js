@@ -54,7 +54,7 @@ export const registerUser = (email, password, redirect) => async dispatch => {
     await AsyncStorage.setItem('token', token);
     redirect();
   } catch (err) {
-    console.log(err);
+    console.log("problem to register user", err);
     dispatch({ type: REGISTER_USER_FAIL, payload: err })
   }
 };

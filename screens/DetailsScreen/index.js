@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
+import store from '../../store';
 import { Icon } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
 import Cart from '../../components/Cart';
@@ -11,10 +12,12 @@ import styles from './styles';
 class DetailsScreen extends Component {
   static navigationOptions = {
     header: false,
+    gesturesEnabled: false
   };
   
   componentWillMount () {
     this.props.fetchUserData();
+    store.dispatch({ type: 'ADD_DETAILS_SCREEN_ITEM', payload: this.props.navigation.state.params });
   }
   
   componentWillReceiveProps (nextProps) {
@@ -37,7 +40,7 @@ class DetailsScreen extends Component {
             name="keyboard-arrow-left"
             size={35}
             color="#fff"
-            onPress={() => this.props.navigation.goBack()}
+            onPress={() => this.props.navigation.navigate('map')}
           />
           <Text style={styles.headerTitle}>Details Screen</Text>
           <Text style={styles.credits}>{this.renderUserCredits()} NOK</Text>

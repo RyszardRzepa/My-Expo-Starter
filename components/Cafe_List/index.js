@@ -7,7 +7,7 @@ const { width, height } = Dimensions.get('window');
 
 class CafesList extends Component {
   state = {
-    loading: false,
+    isLoading: false,
     refreshing: false,
   };
   
@@ -42,7 +42,7 @@ class CafesList extends Component {
 }
 
 CafesList.propTypes = {
-  isLoading: PropTypes.boolean,
+  // isLoading: PropTypes.func,
   data: PropTypes.array
 };
 

@@ -12,7 +12,6 @@ const INITIAL_STATE = {
   cartItems: [],
   totalCartPrice: 0,
   totalCartItems: 0,
-  closeModal: false
 };
 
 export default cartReducer = (state = INITIAL_STATE, action) => {
@@ -30,7 +29,7 @@ export default cartReducer = (state = INITIAL_STATE, action) => {
     case COUNT_TOTAL_PRICE_CART:
       return { ...state, totalCartPrice: Immutable(action.payload) };
      case CASHIER_CONFIRM_ORDER_SUCCESS:
-       return { closeModal: false };
+       return { isModalOpen: false };
     default:
       return state;
   }

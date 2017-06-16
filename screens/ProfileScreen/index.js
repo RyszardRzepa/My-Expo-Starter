@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, Button, List, ListItem } from 'react-native-elements';
+import { fetchUserData } from '../../actions'
 
 const list = [
   {
@@ -22,16 +23,43 @@ const list = [
     navigate: 'map',
     color: '#3c3c3c'
   },
-
 ];
 
 class ProfileScreen extends Component {
   static navigationOptions = {
     title: 'Profile',
     tabBarIcon: ({ tintColor }) => {
-      return <Icon name="face" size={30} color={tintColor}/>;
+      return <Icon
+        name="face"
+        size={30}
+        color={tintColor}/>;
     },
-    header: false
+    header: false,
+    gesturesEnabled: false
+  };
+  
+  componentWillMount () {
+    this.props.fetchUserData();
+  }
+  
+  componentWillReceiveProps (nextProps) {
+    this.renderUserData(nextProps.userData);
+  }
+  
+  renderUserData = (props) => {
+    if(props)
+    return <View style={{ flexDirection: 'column', margin: 10 }}>
+      <Text style={{ fontSize: 20 }}>
+        {props.email}
+      </Text>
+      <Text style={{ fontSize: 20 }}>
+        {props.credits}
+      </Text>
+    </View>;
+    
+    return <Text>
+      Place for my email
+    </Text>
   };
   
   onLogOut = () => {
@@ -40,12 +68,19 @@ class ProfileScreen extends Component {
   };
   
   render () {
+    {
+      console.tron.log(this.props);
+    }
     return (
       <View style={{ marginVertical: 50, flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-          <Text>
-            User Name and image section
-          </Text>
+          <View>
+          </View>
+          {this.renderUserData(this.props.userData)}
+          <Image
+            style={{ height: 80, width: 80 }}
+            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/coffeecloud-dee31.appspot.com/o/coffee_bars%2Fdrinks%2Fimages%2F649ff5d5-f38c-481b-8872-59f1f74c884c.png?alt=media&token=a465e79d-a8c9-4c37-82d5-150245ff71fb" }}
+          />
         </View>
         <View style={{ justifyContent: 'space-between', flex: 2, flexDirection: 'column' }}>
           <List>
@@ -71,14 +106,20 @@ class ProfileScreen extends Component {
   }
 }
 
+ProfileScreen.defaultProps = {
+  userData: {}
+};
+
 ProfileScreen.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  userData: PropTypes.object
 };
 
 mapStateToProps = ({ auth }) => {
   return {
-    user: auth.user
+    user: auth.user,
+    userData: auth.userData
   }
 };
 
-export default connect(mapStateToProps)(ProfileScreen);
+export default connect(mapStateToProps, { fetchUserData })(ProfileScreen);

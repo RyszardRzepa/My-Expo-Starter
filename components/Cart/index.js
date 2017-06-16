@@ -4,7 +4,6 @@ import {
   Dimensions,
   ScrollView,
   Text,
-  Image,
   LayoutAnimation,
   Alert,
   TouchableOpacity
@@ -14,7 +13,8 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Modal from 'react-native-modalbox';
 import { connect } from 'react-redux';
 import ElevatedView from 'react-native-elevated-view';
-
+import CheckBoxComponent from '../CheckBox';
+import OrderView from '../OrderView';
 import {
   addDrinkToCart,
   removeItemFromCart,
@@ -201,63 +201,18 @@ class Cart extends Component {
             onPress={() => this.props.clearCart()}
           />
         </View>
-        <View style={styles.basketContentContainer}>
-          <Text style={styles.orderTitel}>Check the order!</Text>
-          <ScrollView style={{ width: width * 0.9 }}>
-            {this.props.cart.map((item, i) => {
-              if (item.count)
-                return <View key={i} style={styles.driver}>
-                  <View style={styles.avatarBox}>
-                    <Image style={styles.avatar} source={{ uri: item.image }}/>
-                  </View>
-                  <View style={styles.info}>
-                    <Text style={styles.name}>{item.name}</Text>
-                  </View>
-                  <View style={styles.info}>
-                    <Text style={styles.size}>{item.size}</Text>
-                  </View>
-                  <View>
-                    <Icon
-                      size={iconSize}
-                      name='add-circle-outline'
-                      color={iconColorPlus}
-                      onPress={
-                        () => this.props.addDrinkToCart(item.name, item.price, 1, item.size)
-                      }
-                    />
-                  </View>
-                  <View style={styles.pointsBox}>
-                    <Text style={styles.points}>{item.count}</Text>
-                  </View>
-                  <View>
-                    <Icon
-                      size={iconSize}
-                      name='remove-circle-outline'
-                      color={iconColorMinus}
-                      onPress={() => this.props.removeItemFromCart(item.name, item.size)}
-                    />
-                  </View>
-                </View>
-            })}
-          </ScrollView>
-        </View>
-        <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <CheckBox
-              center
-              title='Yes'
-              checked={this.state.checked}
-              onPress={() => this.setState({ checked: !this.state.checked })}
-            />
-            <Text> Take away? </Text>
-            <CheckBox
-              center
-              title='No'
-              checked={!this.state.checked}
-              onPress={() => this.setState({ checked: !this.state.checked })}
-            />
-          </View>
-        </View>
+        <OrderView
+          cart={this.props.cart}
+          title="Check The Order"
+          addDrinkToCart={this.props.addDrinkToCart}
+          removeItemFromCart={this.props.removeItemFromCart}
+          totalCartItems={this.props.totalCartItems}
+          totalCartPrice={this.props.totalCartPrice}
+        />
+        <CheckBoxComponent
+          checked={this.state.checked}
+          onPress={() => this.setState({ checked: !this.state.checked })}
+        />
         <View style={styles.basketSummaryContainer}>
           <View style={styles.basketSummary}>
             <Text style={styles.size}> Items
@@ -301,27 +256,32 @@ class Cart extends Component {
         this.refs.modal.open();
         this.setState({ toggleFooter: false })
       }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            height: height * 0.07,
-            width,
-            backgroundColor: colors.superLightGrey,
-            flexDirection: 'row'
-          }}>
-          <Icon
-            containerStyle={{ padding: 5 }}
-            size={24}
-            name='shopping-basket'
-            color={colors.lightBlack}
-          />
-          <View style={{ justifyContent: 'center', padding: 5 }}>
-            <Text style={{ fontSize: 16 }}> Total:</Text>
+          <View
+            style={{
+              justifyContent: 'center',
+              height: height * 0.07,
+              width,
+              backgroundColor: colors.superLightGrey,
+              flexDirection: 'row',
+              shadowColor: '#51ade8',
+              shadowOffset: { width: 0, height: 5 },
+              shadowOpacity: 0.2,
+              elevation: 5,
+              position: 'relative'
+            }}>
+            <Icon
+              containerStyle={{ padding: 5 }}
+              size={24}
+              name='shopping-basket'
+              color={colors.lightBlack}
+            />
+            <View style={{ justifyContent: 'center', padding: 5 }}>
+              <Text style={{ fontSize: 16 }}> Total:</Text>
+            </View>
+            <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
+              <Text style={{ fontSize: 16 }}> {this.props.totalCartPrice || 0} kr </Text>
+            </View>
           </View>
-          <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
-            <Text style={{ fontSize: 16 }}> {this.props.totalCartPrice || 0} kr </Text>
-          </View>
-        </View>
       </TouchableOpacity>
     }
   };
@@ -371,7 +331,7 @@ function mapStateToProps ({ cart, auth }) {
     totalCartItems: cart.totalCartItems,
     totalCartPrice: cart.totalCartPrice,
     userData: auth.userData,
-    isModalOpen: cart.closeModal
+    isModalOpen: cart.isModalOpen
   }
 }
 

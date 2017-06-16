@@ -5,7 +5,8 @@ const colors = {
   superLightGrey: '#cfcfcf',
   darkGrey: '#869292',
   lightBlack: '#242424',
-  darkWhite: '#FCFDFE'
+  darkWhite: '#FCFDFE',
+  brown: '#404040'
   
 };
 

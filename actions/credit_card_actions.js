@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-
+import { Alert } from 'react-native';
 import {
   FILL_CREDIT_CARD_START,
   FILL_CREDIT_CARD_SUCCESS,
@@ -7,7 +7,7 @@ import {
   REGISTER_CREDIT_CARD_SUCCESS
 } from './types';
 
-export const fillCreditCard = (amount) => async dispatch => {
+export const fillCreditCard = (amount, navigate) => async dispatch => {
   try {
     const userId = await firebase.auth().currentUser.uid;
     
@@ -30,6 +30,13 @@ export const fillCreditCard = (amount) => async dispatch => {
     });
     
     dispatch({ type: FILL_CREDIT_CARD_SUCCESS });
+    Alert.alert(
+      'Success',
+      `${amount} credits was added to your account`,
+      [
+        { text: 'OK', onPress: () => navigate('map') },
+      ], { cancelable: false }
+    );
   }
   catch (err) {
     console.tron.log(err)
@@ -40,7 +47,7 @@ export const registerCreditCard = () => async dispatch => {
   try {
     const userId = await firebase.auth().currentUser.uid;
     const userAccount = await firebase.database().ref('/users/accounts/' + userId);
-  
+    
     dispatch({ type: REGISTER_CREDIT_CARD_START });
     
     userAccount.update({

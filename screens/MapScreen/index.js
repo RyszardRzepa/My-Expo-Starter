@@ -23,14 +23,11 @@ class MapScreen extends Component {
     tabBarIcon: ({ tintColor }) => <Icon name="map" size={30} color={tintColor}/>,
     header: false,
     tabBarPosition: 'bottom',
+    gesturesEnabled: false
   };
   
   componentWillMount () {
     this.props.fetchCafes();
-  }
-  
-  componentDidMount () {
-    this.setState({ mapLoaded: true });
   }
   
   navigateCallback = (route, prop) => {

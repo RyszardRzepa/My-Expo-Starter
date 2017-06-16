@@ -1,10 +1,10 @@
 const config = {
-  apiKey : 'AIzaSyBaB_6jFIUG7q8lpYHbxvtsNzyVr0xDuXA',
-  authDomain : 'weather-forecast-9a2a5.firebaseapp.com',
-  databaseURL: "https://weather-forecast-9a2a5.firebaseio.com",
-  projectId: "weather-forecast-9a2a5",
-  storageBucket: "weather-forecast-9a2a5.appspot.com",
-  messagingSenderId: "317335334484"
+  apiKey: "AIzaSyBWZQJMh4uY4VB8f1H37XSPb5KYljrl9WI",
+  authDomain: "coffeecloud-dee31.firebaseapp.com",
+  databaseURL: "https://coffeecloud-dee31.firebaseio.com",
+  projectId: "coffeecloud-dee31",
+  storageBucket: "coffeecloud-dee31.appspot.com",
+  messagingSenderId: "908192445611"
 };
 
 export default config;

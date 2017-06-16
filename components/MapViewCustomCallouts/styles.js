@@ -49,6 +49,10 @@ const styles = {
     width: 140,
     height: 100,
   },
+  markerImage: {
+    height: 30,
+    width: 20
+  }
 };
 
 export default styles;

@@ -4,12 +4,12 @@ import _ from 'lodash';
 
 export const fetchCafes = () => {
   return (dispatch) => {
-    firebase.database().ref('/cafes/name').once('value').then(function (snapshot) {
+    firebase.database().ref('/coffee_bars/accounts').once('value').then(function (snapshot) {
       let items = [];
       
       snapshot.forEach((child) => {
         let menu = [];
-        _.map(child.val().meny, item => {
+        _.map(child.val().menu, item => {
           menu.push({
             name: item.name,
             image: item.image,
@@ -20,7 +20,7 @@ export const fetchCafes = () => {
         items.push({
           location: child.val().location,
           address: child.val().address,
-          image: child.val().image,
+          image: child.val().cafeImage,
           menu,
           pinCode: child.val().pinCode,
           name: child.val().name
