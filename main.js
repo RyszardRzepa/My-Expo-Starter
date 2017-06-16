@@ -78,6 +78,7 @@ class App extends React.Component {
         lazy: true,
         tabBarVisible: false
       },
+      headerMode: 'screen'
     });
     
     return (

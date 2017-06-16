@@ -4,14 +4,14 @@ import { CASHIER_CONFIRM_ORDER_START,
   UPDATE_USER_CREDITS_SUCCESS
 } from './types';
 
-export const cashierConfirmOrder = (total, order, navigateTo) => async dispatch => {
+export const cashierConfirmOrder = (order, total) => async dispatch => {
   try {
     const userId = firebase.auth().currentUser.uid;
     const userRef = firebase.database().ref(`/users/accounts/${userId}`);
     const userCredits = await userRef.once('value').then(user => user.val().credits);
     
     const creditCardOrdersRef = await firebase.database()
-      .ref('/credit_cards/accounts/' + userId + '/orders');
+      .ref(`/users/orders/${userId}/order`);
     
     await dispatch(updateUserCredits(total, userCredits, userRef));
     
@@ -20,11 +20,9 @@ export const cashierConfirmOrder = (total, order, navigateTo) => async dispatch 
     creditCardOrdersRef.push({ order, date: Date.now() });
     
     dispatch({ type: CASHIER_CONFIRM_ORDER_SUCCESS, payload: order });
-    
-    navigateTo();
   }
   catch (err) {
-    console.tron.log(err)
+    console.tron.log(`error saving order:: ${err}`)
   }
 };
 

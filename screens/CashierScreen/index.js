@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   Text,
-  Dimensions,
   ScrollView,
   Alert,
   TouchableOpacity,
@@ -10,7 +9,6 @@ import {
 import { Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import { cashierConfirmOrder, clearCart } from '../../actions';
 import styles from './styles';
 
 class CashierScreen extends Component {
@@ -25,34 +23,13 @@ class CashierScreen extends Component {
     isModalOpen: false
   };
   
-  navigateTo = () => {
-    this.props.navigation.goBack();
-    this.props.clearCart();
-  };
-  
   onPinCodeClick = async (pin) => {
-    const { total, pinCode, name, address } = this.props.navigation.state.params;
+    const { total, pinCode, name, address, takeAway } = this.props.navigation.state.params;
     
     await this.setState({ pinCode: this.state.pinCode.concat(pin) });
     
     if (this.state.pinCode === pinCode.toString()) {
-      this.props.navigation.navigate('receipt', {name, address});
-      // Alert.alert(
-      //   'Pin code Success',
-      //   'loading...',
-      //   [
-      //     {
-      //       text: 'OK', onPress: () => {
-      //       this.props.cashierConfirmOrder(
-      //         total,
-      //         this.props.navigation.state.params,
-      //         this.navigateTo
-      //       );
-      //     }
-      //     },
-      //   ],
-      //   { cancelable: false }
-      // );
+      this.props.navigation.navigate('receipt', {total, name,takeAway,address});
       await this.setState({ pinCode: '' });
     }
     if (this.state.pinCode.length > 3) {
@@ -135,6 +112,12 @@ class CashierScreen extends Component {
   }
 }
 
+CashierScreen.propTypes = {
+  cart: PropTypes.array,
+  totalCartItems: PropTypes.number,
+  totalCartPrice: PropTypes.number
+};
+
 mapStateToProps = ({ cart }) => {
   return {
     cart: cart.cartItems,
@@ -143,4 +126,4 @@ mapStateToProps = ({ cart }) => {
   }
 };
 
-export default connect(mapStateToProps, { cashierConfirmOrder, clearCart })(CashierScreen);
+export default connect(mapStateToProps)(CashierScreen);

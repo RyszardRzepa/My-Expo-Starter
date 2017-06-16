@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
+import store from '../../store';
 import { Icon } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
 import Cart from '../../components/Cart';
@@ -15,6 +16,7 @@ class DetailsScreen extends Component {
   
   componentWillMount () {
     this.props.fetchUserData();
+    store.dispatch({ type: 'ADD_DETAILS_SCREEN_ITEM', payload: this.props.navigation.state.params });
   }
   
   componentWillReceiveProps (nextProps) {

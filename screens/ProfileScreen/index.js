@@ -34,7 +34,8 @@ class ProfileScreen extends Component {
         size={30}
         color={tintColor}/>;
     },
-    header: false
+    header: false,
+    gesturesEnabled: false
   };
   
   componentWillMount () {
