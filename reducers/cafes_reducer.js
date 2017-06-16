@@ -11,7 +11,7 @@ export default function cafesReducer (state = INITIAL_STATE, action) {
     case FETCH_CAFES_SUCCESS:
       return { ...state, cafesInfo: action.payload, isLoading: false };
     case ADD_DETAILS_SCREEN_ITEM:
-      return { cafeDetails: action.payload };
+      return { ...state, cafeDetails: action.payload };
     default:
       return state;
   }

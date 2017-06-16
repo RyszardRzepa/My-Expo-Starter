@@ -12,6 +12,7 @@ import styles from './styles';
 class DetailsScreen extends Component {
   static navigationOptions = {
     header: false,
+    gesturesEnabled: false
   };
   
   componentWillMount () {
@@ -39,7 +40,7 @@ class DetailsScreen extends Component {
             name="keyboard-arrow-left"
             size={35}
             color="#fff"
-            onPress={() => this.props.navigation.goBack()}
+            onPress={() => this.props.navigation.navigate('map')}
           />
           <Text style={styles.headerTitle}>Details Screen</Text>
           <Text style={styles.credits}>{this.renderUserCredits()} NOK</Text>
