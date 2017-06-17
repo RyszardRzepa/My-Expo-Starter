@@ -8,6 +8,7 @@ const styles = {
     right: 50,
     width: 50,
     height: 50,
+    backgroundColor: 'transparent'
   },
 };
 

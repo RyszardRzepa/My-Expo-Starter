@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from "react";
-import { View, Dimensions, Text, FlatList } from "react-native";
+import { View, Dimensions, Text, FlatList, Platform } from "react-native";
 import { Divider, Tile, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import calculateDistance from '../../services/calculateDistance';
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,22 +13,41 @@ class CafesList extends Component {
   };
   
   renderItem (item) {
+    const { latitude, longitude } = this.props.userLocation.coords;
+    let distance = calculateDistance(
+      latitude, longitude, item.location.latitude, item.location.longitude, "K"
+    );
+    
     return (
       <View>
-        <Tile
-          onPress={() => this.props.navigation('details', item)}
-          imageSrc={{ uri: item.image }}
-          title={item.address}
-          featured
-          caption="Some Caption Text"
-          contentContainerStyle={{ height: 200 }}
-        />
+        <View>
+          <Tile
+            onPress={() => this.props.navigation('details', { item, distance })}
+            imageSrc={{ uri: item.image }}
+            title={item.name}
+            featured
+            caption={item.address}
+            height={220}
+            activeOpacity={0.5}
+            containerStyle={{ position: 'relative' }}
+          />
+        </View>
+        <View style={{ alignItems: 'center', position: 'absolute', right: 20, bottom: 20, flexDirection: 'row', }}>
+          <Icon
+            name="place"
+            size={30}
+            color="#fff"
+          />
+          <Text style={{ fontSize: 20, backgroundColor: 'transparent', color: '#fff' }}> {Math.round(distance * 1000)}
+            m</Text>
+        </View>
         <Divider style={{ backgroundColor: '#fff' }}/>
       </View>
     )
   }
   
   render () {
+    console.log("props from Cafelist", this.props.userLocation)
     return (
       <View style={{ flex: 1 }}>
         <FlatList
@@ -42,7 +62,6 @@ class CafesList extends Component {
 }
 
 CafesList.propTypes = {
-  // isLoading: PropTypes.func,
   data: PropTypes.array
 };
 

@@ -6,9 +6,11 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
-import { MapView } from "expo";
+import { MapView, Location, Permissions } from "expo";
 import { Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
+import  calculateDistance from '../../services/calculateDistance';
 
 import styles from './styles';
 
@@ -23,23 +25,19 @@ const LATITUDE_DELTA = 0.1122;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 class Map extends Component {
-  constructor (props) {
-    super(props);
-    
-    this.state = {
-      isReadyMedia: true,
-      open: false,
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
-    };
-  }
+  state = {
+    isReadyMedia: true,
+    open: false,
+    region: {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    },
+  };
   
   render () {
-    if (!this.props.cafesInfo) {
+    if (!this.props.cafesInfo || !this.props.userLocation) {
       return <View
         style={{
           flex: 1,
@@ -65,21 +63,28 @@ class Map extends Component {
         </View>
       </View>
     }
-    
+    if(this.props.userLocation.coords) {
+      console.log("props from Map: ", this.props);
+    }
     return (
       <View style={styles.container}>
         <MapView
-          showUSerLocation
+          showsUserLocation={true}
           loadingBackgroundColor="#f9f5ed"
           style={styles.map}
           initialRegion={this.state.region}
+          provider={this.props.provider}
         >
           {this.props.cafesInfo.map((item) => {
             const { location, address, image, menu, pinCode, name } = item;
+            let distance;
             
+            if (this.props.userLocation.coords) {
+              const { latitude, longitude } = this.props.userLocation.coords;
+              distance = calculateDistance(latitude, longitude, item.location.latitude, item.location.longitude, "K")
+            }
             return <MapView.Marker.Animated
               key={location.latitude}
-              showsUserLocation
               loadingBackgroundColor="#f9f5ed"
               coordinate={{
                 latitude: location.latitude,
@@ -88,8 +93,7 @@ class Map extends Component {
             >
               <Image style={styles.markerImage} source={require('../../assets/icons/ccLogo.png')}/>
               <MapView.Callout
-                onPress={ () => this.props.navigation(
-                  'details', { address, image, menu, pinCode, name }
+                onPress={ () => this.props.navigation('details', { item, distance }
                 )}
                 tooltip style={styles.customView}
               >
@@ -110,7 +114,14 @@ class Map extends Component {
 }
 
 Map.propTypes = {
-  cafesInfo: PropTypes.array
+  cafesInfo: PropTypes.array,
+  provider: MapView.ProviderPropType,
 };
 
-export default Map;
+mapStateToProps = ({ cafes }) => {
+  return {
+    cafesLocation: cafes.cafesInfo,
+  }
+};
+
+export default connect(mapStateToProps, { calculateDistance })(Map);
