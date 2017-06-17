@@ -2,11 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import {
   View,
   Dimensions,
+  TouchableOpacity,
+  Text
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
+
 import Map from '../../components/MapViewCustomCallouts/Map';
 import Modal from 'react-native-modalbox';
+import { Location, Permissions } from "expo";
 
 import colors from '../../theme/colors';
 import styles from './styles';
@@ -26,9 +31,27 @@ class MapScreen extends Component {
     gesturesEnabled: false
   };
   
+  state = {
+    location: {},
+    errorMessage: 'uppss',
+  };
+  
   componentWillMount () {
+    this._getLocationAsync();
     this.props.fetchCafes();
   }
+  
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+    
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  };
   
   navigateCallback = (route, prop) => {
     this.props.navigation.navigate(route, prop)
@@ -38,25 +61,24 @@ class MapScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Map
+          userLocation={this.state.location}
           navigation={this.navigateCallback.bind(this)}
           cafesInfo={this.props.cafesInfo}
         />
         <View style={styles.icon}>
-          <Icon
-            containerStyle={{ backgroundColor: colors.darkWhite }}
-            size={26}
-            raised
-            name='free-breakfast'
-            underlayColor="#EFEBE9"
-            color={colors.darkBrown}
-            onPress={() => this.refs.modal.open()}
-          />
+          <TouchableOpacity onPress={() => this.refs.modal.open()}>
+          <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite"
+                           style={{ textAlign: 'center', fontSize: 40 }}>
+              <Text>☕</Text>
+            ️</Animatable.Text>
+          </TouchableOpacity>
         </View>
         <Modal style={styles.modal} position={"bottom"} ref={"modal"} swipeArea={20}>
           <View style={{ flex: 1, width: screen.width }}>
             <CafesList
               data={this.props.cafesInfo}
               navigation={this.navigateCallback.bind(this)}
+              userLocation={this.state.location}
             />
           </View>
         </Modal>

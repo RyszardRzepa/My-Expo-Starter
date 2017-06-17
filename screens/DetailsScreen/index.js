@@ -33,6 +33,7 @@ class DetailsScreen extends Component {
   };
   
   render () {
+    console.log("Detail Screen navigation params",this.props.navigation.state.params)
     return (
       <View style={{ flex: 1 }}>
         <Header>
@@ -46,7 +47,7 @@ class DetailsScreen extends Component {
           <Text style={styles.credits}>{this.renderUserCredits()} NOK</Text>
         </Header>
         <Cart
-          data={this.props.navigation.state.params}
+          data={this.props.navigation.state.params.item}
           navigation={this.navigateCallback}
         />
       </View>
