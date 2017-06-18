@@ -9,6 +9,7 @@ import Auth from '../../components/Auth';
 class WelcomeScreen extends Component {
   static navigationOptions = {
     header: false,
+    gesturesEnabled: false
   };
   
   componentDidMount () {

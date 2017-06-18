@@ -1,29 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, AsyncStorage, Image } from 'react-native';
+import { View, Text, AsyncStorage, Image, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon, Button, List, ListItem } from 'react-native-elements';
+import { Icon, List, ListItem } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
-
-const list = [
-  {
-    title: 'Fill your coffee card',
-    icon: 'account-balance-wallet',
-    navigate: 'fill_credit_card',
-    color: '#3c3c3c'
-  },
-  {
-    title: 'Register credit card',
-    icon: 'credit-card',
-    navigate: 'credit_card',
-    color: '#3c3c3c'
-  },
-  {
-    title: 'Receipt',
-    icon: 'receipt',
-    navigate: 'map',
-    color: '#3c3c3c'
-  },
-];
 
 class ProfileScreen extends Component {
   static navigationOptions = {
@@ -47,15 +26,15 @@ class ProfileScreen extends Component {
   }
   
   renderUserData = (props) => {
-    if(props)
-    return <View style={{ flexDirection: 'column', margin: 10 }}>
-      <Text style={{ fontSize: 20 }}>
-        {props.email}
-      </Text>
-      <Text style={{ fontSize: 20 }}>
-        {props.credits}
-      </Text>
-    </View>;
+    if (props)
+      return <View style={{ flexDirection: 'column', margin: 10, alignItems: 'center' }}>
+        <Text style={{ fontSize: 20 }}>
+          {props.email}
+        </Text>
+        <Text style={{ fontSize: 20 }}>
+          {props.credits} credits
+        </Text>
+      </View>;
     
     return <Text>
       Place for my email
@@ -68,35 +47,63 @@ class ProfileScreen extends Component {
   };
   
   render () {
-    {
-      console.tron.log(this.props);
-    }
+    const list = [
+      {
+        title: 'Fill your coffee card',
+        icon: 'account-balance-wallet',
+        navigate: 'fill_credit_card',
+        color: '#3c3c3c'
+      },
+      {
+        title: 'Register credit card',
+        icon: 'credit-card',
+        navigate: 'credit_card',
+        color: '#3c3c3c'
+      },
+      {
+        title: 'Order History',
+        icon: 'receipt',
+        navigate: 'order_history',
+        color: '#3c3c3c',
+        data: this.props.userData
+      },
+      {
+        title: 'Settings',
+        icon: 'settings',
+        navigate: 'order_history',
+        color: '#a2bafe',
+        data: this.props.userData
+      },
+    ];
+   
     return (
-      <View style={{ marginVertical: 50, flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+      <View style={{ marginTop: 50, flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
           <View>
           </View>
           {this.renderUserData(this.props.userData)}
           <Image
             style={{ height: 80, width: 80 }}
-            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/coffeecloud-dee31.appspot.com/o/coffee_bars%2Fdrinks%2Fimages%2F649ff5d5-f38c-481b-8872-59f1f74c884c.png?alt=media&token=a465e79d-a8c9-4c37-82d5-150245ff71fb" }}
+            source={require('../../assets/icons/user.png')}
           />
         </View>
-        <View style={{ justifyContent: 'space-between', flex: 2, flexDirection: 'column' }}>
+        <View style={{ flex: 2 }}>
           <List>
             {
               list.map((item, i) => (
                 <ListItem
                   key={i}
                   title={item.title}
-                  leftIcon={{ name: item.icon }}
-                  onPress={() => this.props.navigation.navigate(item.navigate)}
+                  leftIcon={{ name: item.icon, style: { color: item.color} }}
+                  onPress={() => this.props.navigation.navigate(item.navigate, item.data)}
                 />
               ))
             }
           </List>
+        </View>
+        <View style={{ backgroundColor: '#47b1e8', height: 40, alignItems: 'center' }}>
           <Button
-            light
+            color="#fff"
             title="Logout"
             onPress={() => this.onLogOut()}
           />

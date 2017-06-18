@@ -18,6 +18,7 @@ import CashierScreen from './screens/CashierScreen';
 import CreditCard from './components/CreditCard';
 import FillCreditCard from './screens/CreditCardScreen';
 import ReceiptScreen from './screens/ReceiptScreen';
+import OrderHistory from './screens/OrderHistory';
 
 import colors from './theme/colors';
 
@@ -68,7 +69,8 @@ class App extends React.Component {
       cashier: { screen: CashierScreen },
       credit_card: { screen: CreditCard },
       fill_credit_card: { screen: FillCreditCard },
-      receipt: { screen: ReceiptScreen }
+      receipt: { screen: ReceiptScreen },
+      order_history: { screen: OrderHistory}
     }, {
       navigationOptions: {
         headerTintColor: '#fff',

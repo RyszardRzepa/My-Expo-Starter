@@ -3,7 +3,8 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
-  Text
+  Text,
+  Image
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
@@ -66,12 +67,22 @@ class MapScreen extends Component {
           cafesInfo={this.props.cafesInfo}
         />
         <View style={styles.icon}>
-          <TouchableOpacity onPress={() => this.refs.modal.open()}>
-          <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite"
-                           style={{ textAlign: 'center', fontSize: 40 }}>
-              <Text>☕</Text>
-            ️</Animatable.Text>
-          </TouchableOpacity>
+          <View style={styles.block}>
+            <TouchableOpacity onPress={() => this.refs.modal.open()}>
+              <Animatable.View
+                animation="pulse"
+                easing="ease-in-back"
+                iterationCount="infinite"
+                ref="view"
+                direction="normal"
+              >
+                  <Image
+                    source={require('../../assets/icons/cafe2.png')}
+                    style={{ height: 40, width: 40 }}
+                  />
+              </Animatable.View>
+            </TouchableOpacity>
+          </View>
         </View>
         <Modal style={styles.modal} position={"bottom"} ref={"modal"} swipeArea={20}>
           <View style={{ flex: 1, width: screen.width }}>

@@ -11,13 +11,13 @@ export const cashierConfirmOrder = (order, total) => async dispatch => {
     const userCredits = await userRef.once('value').then(user => user.val().credits);
     
     const creditCardOrdersRef = await firebase.database()
-      .ref(`/users/orders/${userId}/order`);
+      .ref(`/users/orders`);
     
     await dispatch(updateUserCredits(total, userCredits, userRef));
     
     dispatch({ type: CASHIER_CONFIRM_ORDER_START });
     
-    creditCardOrdersRef.push({ order, date: Date.now() });
+    creditCardOrdersRef.child(userId).push({ order, date: Date.now() });
     
     dispatch({ type: CASHIER_CONFIRM_ORDER_SUCCESS, payload: order });
   }

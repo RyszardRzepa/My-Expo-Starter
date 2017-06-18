@@ -13,7 +13,6 @@ const IMAGE_WIDTH = metrics.DEVICE_WIDTH
 
 if (Platform.OS === 'android') UIManager.setLayoutAnimationEnabledExperimental(true)
 export default class AuthScreen extends Component {
-
   state = {
     visibleForm: null // Can be: null | SIGNUP | LOGIN
   }
