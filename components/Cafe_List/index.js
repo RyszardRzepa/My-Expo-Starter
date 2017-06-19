@@ -61,7 +61,7 @@ class CafesList extends Component {
   }
 }
 
-CafesList.propTypes = {
+CafesListPropTypes = {
   data: PropTypes.array
 };
 

@@ -33,11 +33,12 @@ class DetailsScreen extends Component {
   };
   
   render () {
-    console.log("Detail Screen navigation params",this.props.navigation.state.params)
+    console.log("Detail Screen navigation params", this.props.navigation.state.params)
     return (
       <View style={{ flex: 1 }}>
         <Header>
           <Icon
+            underlayColor='transparent'
             name="keyboard-arrow-left"
             size={35}
             color="#fff"
@@ -55,7 +56,7 @@ class DetailsScreen extends Component {
   }
 }
 
-DetailsScreen.propTypes = {
+DetailsScreenPropTypes = {
   userData: PropTypes.object
 };
 

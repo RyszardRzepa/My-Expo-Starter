@@ -112,7 +112,7 @@ class CashierScreen extends Component {
   }
 }
 
-CashierScreen.propTypes = {
+CashierScreenPropTypes = {
   cart: PropTypes.array,
   totalCartItems: PropTypes.number,
   totalCartPrice: PropTypes.number

@@ -30,7 +30,7 @@ class PriceMarker extends React.Component {
   }
 }
 
-PriceMarker.propTypes = propTypes;
+PriceMarkerPropTypes = propTypes;
 PriceMarker.defaultProps = defaultProps;
 
 const styles = StyleSheet.create({

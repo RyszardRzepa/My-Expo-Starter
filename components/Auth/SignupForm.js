@@ -11,7 +11,6 @@ import metrics from '../../config/metrics'
 import { registerUser } from '../../actions';
 
 class SignupForm extends Component {
-  static propTypes = {}
 
   state = {
     email: '',

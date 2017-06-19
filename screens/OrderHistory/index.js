@@ -1,36 +1,52 @@
 import React, { Component, PropTypes } from 'react';
 import { View, FlatList, Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ListItem, List } from 'react-native-elements';
+import moment from 'moment';
 import { connect } from 'react-redux';
+import colors from '../../theme/colors';
+
 import { fetchUserOrders } from '../../actions';
 
 class OrderHistory extends Component {
+  static navigationOptions = {
+    title: 'Order History',
+  };
   
   componentWillMount () {
     this.props.fetchUserOrders()
   };
   
   renderItem = ({ item }) => {
-    console.log("items from rder history list", item,)
     return (
-      <ListItem
-      key={item.date}
-      />
+      <List containerStyle={{ marginTop: 0, borderTopWidth: 0 }}>
+        <ListItem
+          key={item.date}
+          title={item.order.name}
+          subtitle={moment(item.date).format('MMM Do YY')}
+          rightTitle={`${item.order.total.toString()} nok`}
+          onPress={() => this.props.navigation.navigate('order_history_detail', item)}
+        />
+      </List>
     )
   };
   
   render () {
-    console.log("Order History user data", this.props)
     return (
-      <FlatList
-        data={this.props.orders}
-        renderItem={(item) => this.renderItem(item)}
-      />
+      <View>
+        <View style={{ alignItems: 'center', margin: 10 }}>
+          <Text style={{ fontSize: 18, color: colors.darkGrey }}> Orders</Text>
+        </View>
+        <FlatList
+          data={this.props.orders}
+          renderItem={(item) => this.renderItem(item)}
+          keyExtractor={(item) => item.date}
+        />
+      </View>
     )
   }
 }
 
-OrderHistory.propTypes = {
+OrderHistoryPropTypes = {
   orders: PropTypes.array,
   isLoading: PropTypes.bool,
   error: PropTypes.object

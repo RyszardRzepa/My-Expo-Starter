@@ -113,7 +113,7 @@ class Map extends Component {
   }
 }
 
-Map.propTypes = {
+MapPropTypes = {
   cafesInfo: PropTypes.array,
   provider: MapView.ProviderPropType,
 };

@@ -10,7 +10,6 @@ import metrics from '../../config/metrics'
 import { loginUser } from '../../actions';
 
 class LoginForm extends Component {
-  static propTypes = {}
 
   state = {
     email: '',

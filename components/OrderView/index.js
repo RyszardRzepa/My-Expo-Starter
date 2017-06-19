@@ -49,7 +49,7 @@ class OrderView extends Component {
       <View style={[styles.basketContentContainer]}>
         <Text style={[styles.orderTitel, this.props.titleStyle]}>{this.props.title}</Text>
         {this.props.children}
-        <ScrollView style={[{ width }, this.props.style]}>
+        <ScrollView style={[{ width: width * 0.95 }, this.props.style]}>
           {this.props.cart.map((item, i) => {
             if (item.count)
               return <View key={i} style={styles.driver}>
