@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import  { View, Text, Dimensions } from 'react-native';
-import { Button, Divider } from 'react-native-elements';
+import  { View, Dimensions, Button } from 'react-native';
 import { connect } from 'react-redux';
 
 import { clearCart, cashierConfirmOrder } from '../../actions';
@@ -27,17 +26,21 @@ class ReceiptScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Receipt
-          name={name}
+          title='Your Order Receipt'
+          cafeName={name}
           takeAway={takeAway}
           total={total}
           address={address}
           totalCartPrice={totalCartPrice}
           cart={cart}
         />
-        <Button
-          title="OK"
-          buttonStyle={{ height: height * 0.08, backgroundColor: '#51ade8' }}
-          onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}/>
+        <View style={{ height: height * 0.08, backgroundColor: '#51ade8', justifyContent: 'center' }}>
+          <Button
+            color='#fff'
+            title="OK"
+            onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}
+          />
+        </View>
       </View>
     )
   }

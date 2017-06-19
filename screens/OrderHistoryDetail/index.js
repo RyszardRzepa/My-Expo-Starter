@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import Receipt from '../../components/Receipt';
 
 class OrderHistoryDetail extends Component {
   static navigationOptions = {
-    title: 'Order History',
+    title: 'Order Receipt',
   };
+  
   render () {
-    console.log("details order history", this.props);
+    const { address, name, takeAway, total, cart } = this.props.navigation.state.params.order;
     return (
-      <View>
-        <Text>
-          Order History detail
-        </Text>
-      </View>
+      <Receipt
+        title='Your Order Receipt'
+        cafeName={name}
+        takeAway={takeAway}
+        address={address}
+        totalCartPrice={total}
+        cart={cart}
+      />
     )
   }
 }

@@ -38,6 +38,7 @@ class DetailsScreen extends Component {
       <View style={{ flex: 1 }}>
         <Header>
           <Icon
+            containerStyle={{ backgroundColor: 'transparent'}}
             name="keyboard-arrow-left"
             size={35}
             color="#fff"

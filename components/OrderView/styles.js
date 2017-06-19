@@ -44,8 +44,6 @@ const styles = {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    borderColor: '#dcd5d9',
-    borderBottomWidth: 0.5
   },
   orderTitel: {
     fontFamily: 'raleway-semibold',

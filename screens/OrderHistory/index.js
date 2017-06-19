@@ -3,6 +3,7 @@ import { View, FlatList, Text } from 'react-native';
 import { ListItem, List } from 'react-native-elements';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import colors from '../../theme/colors';
 
 import { fetchUserOrders } from '../../actions';
 
@@ -31,11 +32,16 @@ class OrderHistory extends Component {
   
   render () {
     return (
-      <FlatList
-        data={this.props.orders}
-        renderItem={(item) => this.renderItem(item)}
-        keyExtractor={(item) => item.date}
-      />
+      <View>
+        <View style={{ alignItems: 'center', margin: 10 }}>
+          <Text style={{ fontSize: 18, color: colors.darkGrey }}> Orders</Text>
+        </View>
+        <FlatList
+          data={this.props.orders}
+          renderItem={(item) => this.renderItem(item)}
+          keyExtractor={(item) => item.date}
+        />
+      </View>
     )
   }
 }
