@@ -41,11 +41,6 @@ class ProfileScreen extends Component {
     </Text>
   };
   
-  onLogOut = () => {
-    AsyncStorage.removeItem('token');
-    this.props.navigation.navigate('welcome');
-  };
-  
   render () {
     const list = [
       {
@@ -70,7 +65,7 @@ class ProfileScreen extends Component {
       {
         title: 'Settings',
         icon: 'settings',
-        navigate: 'order_history',
+        navigate: 'settings',
         color: '#a2bafe',
         data: this.props.userData
       },
@@ -100,11 +95,6 @@ class ProfileScreen extends Component {
               ))
             }
           </List>
-        </View>
-        <View style={{ backgroundColor: '#47b1e8', height: 40, alignItems: 'center', justifyContent: 'center'  }}>
-          <TouchableOpacity  onPress={() => this.onLogOut()}>
-            <Text style={{ fontSize: 20, color: '#fff'}}> Logout </Text>
-          </TouchableOpacity>
         </View>
       </View>
     );

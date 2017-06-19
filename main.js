@@ -20,6 +20,7 @@ import FillCreditCard from './screens/CreditCardScreen';
 import ReceiptScreen from './screens/ReceiptScreen';
 import OrderHistory from './screens/OrderHistory';
 import OrderHistoryDetail from './screens/OrderHistoryDetail';
+import Settings from './screens/SettingsScreen';
 
 import colors from './theme/colors';
 
@@ -73,6 +74,7 @@ class App extends React.Component {
       receipt: { screen: ReceiptScreen },
       order_history: { screen: OrderHistory},
       order_history_detail: { screen: OrderHistoryDetail},
+      settings: { screen: Settings},
     }, {
       navigationOptions: {
         headerTintColor: '#fff',
