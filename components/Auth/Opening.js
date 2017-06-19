@@ -6,10 +6,6 @@ import CustomButton from '../common/CustomButton'
 import metrics from '../../config/metrics'
 
 export default class Opening extends Component {
-  static propTypes = {
-    onCreateAccountPress: PropTypes.func.isRequired,
-    onSignInPress: PropTypes.func.isRequired
-  }
 
   render () {
     return (
@@ -39,6 +35,11 @@ export default class Opening extends Component {
       </View>
     )
   }
+}
+
+OpeningPropTypes = {
+  onCreateAccountPress: PropTypes.func.isRequired,
+  onSignInPress: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({

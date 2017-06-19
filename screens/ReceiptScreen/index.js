@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import  { View, Dimensions, Button } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import  { View, Dimensions, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+import styles from './styles';
 import { clearCart, cashierConfirmOrder } from '../../actions';
 import Receipt from "../../components/Receipt";
 
@@ -34,16 +35,22 @@ class ReceiptScreen extends Component {
           totalCartPrice={totalCartPrice}
           cart={cart}
         />
-        <View style={{ height: height * 0.08, backgroundColor: '#51ade8', justifyContent: 'center' }}>
-          <Button
-            color='#fff'
-            title="OK"
-            onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}
-          />
+        <View
+          style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}>
+            <Text style={{ fontSize: 20, color: '#fff' }}> OK </Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
   }
+}
+
+ReceiptScreenPropTypes = {
+  cart: PropTypes.array,
+  totalCartPrice: PropTypes.num,
+  totalCartItems: PropTypes.num,
+  cafeDetails: PropTypes.object
 }
 
 mapStateToProps = ({ cart, cafes }) => {

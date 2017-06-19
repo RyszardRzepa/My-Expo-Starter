@@ -98,7 +98,7 @@ class MapScreen extends Component {
   }
 }
 
-MapScreen.propTypes = {
+MapScreenPropTypes = {
   cafesInfo: PropTypes.array
 };
 

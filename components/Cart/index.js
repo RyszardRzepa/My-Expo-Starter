@@ -313,7 +313,7 @@ class Cart extends Component {
   }
 }
 
-Cart.propTypes = {
+CartPropTypes = {
   cart: React.PropTypes.array,
   userData: React.PropTypes.object,
   totalCartItems: React.PropTypes.number,

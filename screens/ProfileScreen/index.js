@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, AsyncStorage, Image, Button } from 'react-native';
+import { View, Text, AsyncStorage, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, List, ListItem } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
@@ -101,12 +101,10 @@ class ProfileScreen extends Component {
             }
           </List>
         </View>
-        <View style={{ backgroundColor: '#47b1e8', height: 40, alignItems: 'center' }}>
-          <Button
-            color="#fff"
-            title="Logout"
-            onPress={() => this.onLogOut()}
-          />
+        <View style={{ backgroundColor: '#47b1e8', height: 40, alignItems: 'center', justifyContent: 'center'  }}>
+          <TouchableOpacity  onPress={() => this.onLogOut()}>
+            <Text style={{ fontSize: 20, color: '#fff'}}> Logout </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -117,7 +115,7 @@ ProfileScreen.defaultProps = {
   userData: {}
 };
 
-ProfileScreen.propTypes = {
+ProfileScreenPropTypes = {
   user: PropTypes.object,
   userData: PropTypes.object
 };

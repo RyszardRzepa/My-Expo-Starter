@@ -17,7 +17,7 @@ const CustomButton = ({ onPress, isEnabled, isLoading, text, buttonStyle, textSt
   )
 }
 
-CustomButton.propTypes = {
+CustomButtonPropTypes = {
   onPress: PropTypes.func,
   isEnabled: PropTypes.bool,
   isLoading: PropTypes.bool,

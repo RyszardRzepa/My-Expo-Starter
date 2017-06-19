@@ -21,7 +21,7 @@ const TouchableView = ({ isRippleDisabled, rippleColor, children, style, ...prop
   }
 }
 
-TouchableView.propTypes = {
+TouchableViewPropTypes = {
   isRippleDisabled: PropTypes.bool,
   rippleColor: PropTypes.string,
   children: PropTypes.any,

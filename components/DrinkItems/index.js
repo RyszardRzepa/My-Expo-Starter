@@ -63,7 +63,7 @@ class LibraryList extends Component {
   }
 }
 
-LibraryList.propType = {
+LibraryListPropTypes = {
   data: PropTypes.object
 };
 

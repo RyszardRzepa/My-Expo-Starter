@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { View, Text, Image, Dimensions } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { View, Text, Dimensions } from 'react-native';
 import OrderView from '../OrderView';
 import styles from './styles';
 import colors from '../../theme/colors';
@@ -66,5 +66,14 @@ class Receipt extends Component {
     )
   }
 }
+
+ReceiptPropTypes = {
+  title: PropTypes.string,
+  address: PropTypes.string,
+  cafeName: PropTypes.string,
+  takeAway: PropTypes.bool,
+  totalCartPrice: PropTypes.num,
+  cart: PropTypes.array
+};
 
 export default Receipt;

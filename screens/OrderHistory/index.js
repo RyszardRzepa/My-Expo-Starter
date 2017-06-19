@@ -46,7 +46,7 @@ class OrderHistory extends Component {
   }
 }
 
-OrderHistory.propTypes = {
+OrderHistoryPropTypes = {
   orders: PropTypes.array,
   isLoading: PropTypes.bool,
   error: PropTypes.object
