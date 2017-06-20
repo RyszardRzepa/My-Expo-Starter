@@ -1,0 +1,11 @@
+CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR/AppAuth
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+GCC_TREAT_WARNINGS_AS_ERRORS = YES
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/AppAuth" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Amplitude-iOS" "${PODS_ROOT}/Headers/Public/Analytics" "${PODS_ROOT}/Headers/Public/AppAuth" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/Branch" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/Crashlytics" "${PODS_ROOT}/Headers/Public/ExpoKit" "${PODS_ROOT}/Headers/Public/FBAudienceNetwork" "${PODS_ROOT}/Headers/Public/FBSDKCoreKit" "${PODS_ROOT}/Headers/Public/FBSDKLoginKit" "${PODS_ROOT}/Headers/Public/FBSDKShareKit" "${PODS_ROOT}/Headers/Public/Fabric" "${PODS_ROOT}/Headers/Public/FirebaseAnalytics" "${PODS_ROOT}/Headers/Public/FirebaseCore" "${PODS_ROOT}/Headers/Public/FirebaseInstanceID" "${PODS_ROOT}/Headers/Public/GPUImage" "${PODS_ROOT}/Headers/Public/GTMOAuth2" "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" "${PODS_ROOT}/Headers/Public/Google" "${PODS_ROOT}/Headers/Public/GoogleMaps" "${PODS_ROOT}/Headers/Public/GoogleSignIn" "${PODS_ROOT}/Headers/Public/GoogleToolboxForMac" "${PODS_ROOT}/Headers/Public/React" "${PODS_ROOT}/Headers/Public/Yoga" "${PODS_ROOT}/Headers/Public/lottie-ios"
+OTHER_LDFLAGS = -framework "SafariServices"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}
+PODS_TARGET_SRCROOT = ${PODS_ROOT}/AppAuth
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
+SKIP_INSTALL = YES

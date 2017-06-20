@@ -1,0 +1,1 @@
+../../../ExpoKit/ios/Exponent/Versioned/Modules/Api/EXGyroscope.h

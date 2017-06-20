@@ -14,8 +14,6 @@ const styles = {
     marginLeft: 10,
     marginRight: 10,
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f1f2f6'
   },
   buttonStyle: {
     width: 80,
@@ -26,7 +24,7 @@ const styles = {
   },
   basketContentContainer: {
     flex: 2,
-    width: width * 0.8,
+    width,
     flexDirection: 'column',
     alignItems: 'center'
   },

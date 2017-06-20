@@ -27,12 +27,13 @@ import colors from '../../theme/colors';
 import styles from './styles';
 
 const { width, height } = Dimensions.get('window');
-const iconSize = 30;
-const iconColorMinus = '#f94057';
-const iconColorPlus = '#2cc860';
+const iconSize = 35;
+const basketIconSize = 25;
+const iconColorMinus = colors.lightGrey;
+const iconColorPlus = colors.lightGrey;
 
 const CustomLayoutAnimation = {
-  duration: 100,
+  duration: 250,
   create: {
     type: LayoutAnimation.Types.linear,
     property: LayoutAnimation.Properties.opacity,
@@ -94,76 +95,82 @@ class Cart extends Component {
     }
   };
   
+  renderMinusButton = (item, name, size) => {
+    if (item > 0) {
+      return <View>
+        <Icon
+          size={iconSize}
+          name='remove-circle'
+          color={iconColorMinus}
+          onPress={() => this.props.removeItemFromCart(name, size)}
+        />
+      </View>
+    }
+  };
+  
   //TODO simplify renderAddToCart function
   renderAddToCart = ({ small, medium }, size, name, image) => {
     if (small && medium) {
       return (
         <View style={{ marginHorizontal: 5, backgroundColor: '#fff' }}>
-          <ElevatedView
-            elevation={5}
-          >
+          <ElevatedView elevation={5}>
             <View style={styles.productTypeRow}>
-              <Text style={styles.drinkName}>{size.small}</Text>
-              <Text style={styles.drinkPrice}>{small} kr</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <View>
-                  <Icon
-                    size={iconSize}
-                    name='add-circle-outline'
-                    color={iconColorPlus}
-                    onPress={
-                      () => this.checkCredits
-                      (name, small, 1, size.small, image, this.props.addDrinkToCart)
-                    }
-                  />
-                </View>
-                <View style={styles.pointsBox}>
+              <View style={styles.productInfoContainer}>
+                <Text style={styles.drinkName}>{size.small}</Text>
+                <Text style={styles.drinkPrice}>{small} kr</Text>
+              </View>
+              <View style={styles.iconPlusMinusContainer}>
+                <Icon
+                  size={iconSize}
+                  name='add-circle'
+                  color={iconColorPlus}
+                  onPress={
+                    () => this.checkCredits
+                    (name, small, 1, size.small, image, this.props.addDrinkToCart)
+                  }
+                />
+                <View style={{
+                  flexDirection: 'row',
+                }}>
                   {this.props.cart.map((item, i) => {
                     if (item.name === name && item.price === small) {
-                      return <Text style={styles.points} key={i}>{item.count}</Text>
+                      return <View key={i} style={{ flexDirection: 'row' }}>
+                        <Text style={styles.points}>{item.count}</Text>
+                        {this.renderMinusButton(item.count, name, size.small)}
+                      </View>
                     }
                   })}
-                </View>
-                <View>
-                  <Icon
-                    size={iconSize}
-                    name='remove-circle-outline'
-                    color={iconColorMinus}
-                    onPress={() => this.props.removeItemFromCart(name, size.small)}
-                  />
                 </View>
               </View>
             </View>
             
             <View style={styles.productTypeRow}>
-              <Text style={styles.drinkName}>{size.medium}</Text>
-              <Text style={styles.drinkPrice}>{medium} kr</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <View>
-                  <Icon
-                    size={iconSize}
-                    name='add-circle-outline'
-                    color={iconColorPlus}
-                    onPress={
-                      () => this.checkCredits
-                      (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
-                    }
-                  />
-                </View>
-                <View style={styles.pointsBox}>
+              <View style={styles.productInfoContainer}
+              >
+                <Text style={styles.drinkName}>{size.medium}</Text>
+                <Text style={styles.drinkPrice}>{medium} kr</Text>
+              </View>
+              <View style={styles.iconPlusMinusContainer}>
+                <Icon
+                  size={iconSize}
+                  name='add-circle'
+                  color={iconColorPlus}
+                  onPress={
+                    () => this.checkCredits
+                    (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
+                  }
+                />
+                <View style={{
+                  flexDirection: 'row',
+                }}>
                   {this.props.cart.map((item, i) => {
                     if (item.name === name && item.price === medium) {
-                      return <Text style={styles.points} key={i}>{item.count}</Text>
+                      return <View key={i} style={{ flexDirection: 'row' }}>
+                        <Text style={styles.points}>{item.count}</Text>
+                        {this.renderMinusButton(item.count, name, size.medium)}
+                      </View>
                     }
                   })}
-                </View>
-                <View>
-                  <Icon
-                    size={iconSize}
-                    name='remove-circle-outline'
-                    color={iconColorMinus}
-                    onPress={() => this.props.removeItemFromCart(name, size.medium)}
-                  />
                 </View>
               </View>
             </View>
@@ -191,19 +198,26 @@ class Cart extends Component {
         position={"bottom"}
         ref={"modal"}
         swipeArea={150}>
-        <View
-          style={styles.clearBasket}>
-          <View />
-          <Icon
-            size={iconSize}
+        
+        <OrderView
+          icon={<Icon
+            containerStyle={{ flex: 1 }}
+            size={basketIconSize}
             name='remove-shopping-cart'
             color={iconColorMinus}
-            onPress={() => this.props.clearCart()}
-          />
-        </View>
-        <OrderView
+            onPress={() => {
+              Alert.alert(
+                'Empty basket',
+                `Are you sure you want to empty your basket?`,
+                [
+                  { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+                  { text: 'Yes', onPress: () => this.props.clearCart(), style: { color: 'red' } },
+                ]
+              );
+            }}
+          />}
           cart={this.props.cart}
-          title="Check The Order"
+          title="Your basket"
           addDrinkToCart={this.props.addDrinkToCart}
           removeItemFromCart={this.props.removeItemFromCart}
           totalCartItems={this.props.totalCartItems}
@@ -222,7 +236,17 @@ class Cart extends Component {
               <Text style={styles.name}> {this.props.totalCartPrice || 0} kr</Text>
             </Text>
           </View>
-          <Button onPress={() => this.onConfirmOrder()} raised title='Confirm Order'/>
+          <TouchableOpacity onPress={() => this.onConfirmOrder()}>
+            <View
+              style={{ backgroundColor: colors.orange,
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: height * 0.07
+              }}
+            >
+              <Text style={{ color: '#fff', fontSize: 18 }}> Confirm Purchase</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </Modal>
     )
@@ -256,32 +280,28 @@ class Cart extends Component {
         this.refs.modal.open();
         this.setState({ toggleFooter: false })
       }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              height: height * 0.07,
-              width,
-              backgroundColor: colors.superLightGrey,
-              flexDirection: 'row',
-              shadowColor: '#51ade8',
-              shadowOffset: { width: 0, height: 5 },
-              shadowOpacity: 0.2,
-              elevation: 5,
-              position: 'relative'
-            }}>
-            <Icon
-              containerStyle={{ padding: 5 }}
-              size={24}
-              name='shopping-basket'
-              color={colors.lightBlack}
-            />
-            <View style={{ justifyContent: 'center', padding: 5 }}>
-              <Text style={{ fontSize: 16 }}> Total:</Text>
-            </View>
-            <View style={{ justifyContent: 'center', padding: 5, width: 80 }}>
-              <Text style={{ fontSize: 16 }}> {this.props.totalCartPrice || 0} kr </Text>
-            </View>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: height * 0.07,
+            width,
+            backgroundColor: colors.orange,
+            flexDirection: 'row',
+          }}>
+          <Icon
+            containerStyle={{ padding: 5 }}
+            size={24}
+            name='shopping-basket'
+            color='#fff'
+          />
+          <View>
+            <Text style={{ fontSize: 18, color: '#fff' }}> Total:</Text>
           </View>
+          <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: 80 }}>
+            <Text style={{ fontSize: 18, color: "#fff" }}> {this.props.totalCartPrice || 0} kr </Text>
+          </View>
+        </View>
       </TouchableOpacity>
     }
   };

@@ -1,0 +1,186 @@
+PODS:
+  - Amplitude-iOS (3.14.1)
+  - Analytics (3.6.1)
+  - AppAuth (0.9.1)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - Branch (0.14.12):
+    - Branch/Core (= 0.14.12)
+    - Branch/without-IDFA (= 0.14.12)
+  - Branch/Core (0.14.12)
+  - Branch/without-IDFA (0.14.12)
+  - CocoaLumberjack (3.2.0):
+    - CocoaLumberjack/Default (= 3.2.0)
+    - CocoaLumberjack/Extensions (= 3.2.0)
+  - CocoaLumberjack/Default (3.2.0)
+  - CocoaLumberjack/Extensions (3.2.0):
+    - CocoaLumberjack/Default
+  - Crashlytics (3.8.4):
+    - Fabric (~> 1.6.3)
+  - ExpoKit/Core (1.16.2):
+    - Amplitude-iOS (~> 3.8)
+    - Analytics (~> 3.5)
+    - AppAuth (~> 0.4)
+    - Branch (~> 0.14.12)
+    - CocoaLumberjack (~> 3.0)
+    - Crashlytics (~> 3.8)
+    - Fabric (~> 1.6)
+    - FBAudienceNetwork (~> 4.22)
+    - FBSDKCoreKit (~> 4.15)
+    - FBSDKLoginKit (~> 4.15)
+    - FBSDKShareKit (~> 4.15)
+    - Google/SignIn (~> 3.0)
+    - GoogleMaps (~> 2.2.0)
+    - GPUImage (~> 0.1.7)
+    - lottie-ios (~> 1.5.1)
+  - ExpoKit/CPP (1.16.2):
+    - ExpoKit/Core
+  - Fabric (1.6.11)
+  - FBAudienceNetwork (4.23.0)
+  - FBSDKCoreKit (4.23.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.23.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.23.0):
+    - FBSDKCoreKit
+  - FirebaseAnalytics (3.9.0):
+    - FirebaseCore (~> 3.6)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCore (3.6.0):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (1.0.10):
+    - FirebaseCore (~> 3.6)
+  - Google/Core (3.1.0):
+    - FirebaseAnalytics (~> 3.2)
+  - Google/SignIn (3.1.0):
+    - Google/Core
+    - GoogleSignIn (~> 4.0)
+  - GoogleMaps (2.2.0):
+    - GoogleMaps/Maps (= 2.2.0)
+  - GoogleMaps/Base (2.2.0)
+  - GoogleMaps/Maps (2.2.0):
+    - GoogleMaps/Base
+  - GoogleSignIn (4.0.2):
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.1)
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
+  - GPUImage (0.1.7)
+  - GTMOAuth2 (1.1.4):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.1.10):
+    - GTMSessionFetcher/Full (= 1.1.10)
+  - GTMSessionFetcher/Core (1.1.10)
+  - GTMSessionFetcher/Full (1.1.10):
+    - GTMSessionFetcher/Core (= 1.1.10)
+  - lottie-ios (1.5.1)
+  - React/ART (0.44.0):
+    - React/Core
+  - React/Core (0.44.0):
+    - React/cxxreact
+    - Yoga (= 0.44.0.React)
+  - React/cxxreact (0.44.0):
+    - React/jschelpers
+  - React/DevSupport (0.44.0):
+    - React/Core
+    - React/RCTWebSocket
+  - React/jschelpers (0.44.0)
+  - React/RCTActionSheet (0.44.0):
+    - React/Core
+  - React/RCTAnimation (0.44.0):
+    - React/Core
+  - React/RCTCameraRoll (0.44.0):
+    - React/Core
+    - React/RCTImage
+  - React/RCTGeolocation (0.44.0):
+    - React/Core
+  - React/RCTImage (0.44.0):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTNetwork (0.44.0):
+    - React/Core
+  - React/RCTText (0.44.0):
+    - React/Core
+  - React/RCTVibration (0.44.0):
+    - React/Core
+  - React/RCTWebSocket (0.44.0):
+    - React/Core
+  - Yoga (0.44.0.React)
+
+DEPENDENCIES:
+  - ExpoKit/Core (from `http://github.com/expo/expo.git`, tag `ios/1.16.2`)
+  - ExpoKit/CPP (from `http://github.com/expo/expo.git`, tag `ios/1.16.2`)
+  - React/ART (from `../node_modules/react-native`)
+  - React/Core (from `../node_modules/react-native`)
+  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTCameraRoll (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
+  - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  ExpoKit:
+    :git: http://github.com/expo/expo.git
+    :tag: ios/1.16.2
+  React:
+    :path: ../node_modules/react-native
+  Yoga:
+    :path: ../node_modules/react-native/ReactCommon/yoga
+
+CHECKOUT OPTIONS:
+  ExpoKit:
+    :git: http://github.com/expo/expo.git
+    :tag: ios/1.16.2
+
+SPEC CHECKSUMS:
+  Amplitude-iOS: 4a3c8807b2ea5369dc11e87e23825bff01e5a922
+  Analytics: 32f2d1e0e5499c493450192726b0b42d43606b82
+  AppAuth: f7d9a2ce4ffe79a62a8b0c1d0938e88d9809b846
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Branch: f63d9cf82ac09747349a73184a0b739d28781c4d
+  CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
+  Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
+  ExpoKit: ca3a4d22ba57fb01c9e03da55d48eb62bfd72cb6
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  FBAudienceNetwork: 20a0e3d20e377dbb6708365e4c6d0711bf08ca97
+  FBSDKCoreKit: d7829f5a69901cd7296105328e4c3c3fc7da6518
+  FBSDKLoginKit: 6b92bd65f319d669d2b0730e49db495ef1660566
+  FBSDKShareKit: 65751c3b9937ab9d594e6c37611ecc115ceeb448
+  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
+  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
+  Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
+  GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
+  GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  lottie-ios: f680a7c4cb7a567ecf258fde0f967913aff111b8
+  React: d2077cc20245ccdc8bfe1fdc002f2003318ae8d8
+  Yoga: a92a5d8e128905bf9f29c82f870192a6e873dd98
+
+PODFILE CHECKSUM: aede4b656b3afff18bbbd028a666fc0533d7158a
+
+COCOAPODS: 1.2.1

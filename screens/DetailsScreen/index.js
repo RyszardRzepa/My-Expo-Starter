@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity,Platform, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import store from '../../store';
@@ -8,6 +8,7 @@ import { fetchUserData } from '../../actions'
 import Cart from '../../components/Cart';
 import Header from '../../components/common/Header';
 import styles from './styles';
+import colors from '../../theme/colors';
 
 class DetailsScreen extends Component {
   static navigationOptions = {
@@ -42,10 +43,19 @@ class DetailsScreen extends Component {
             name="keyboard-arrow-left"
             size={35}
             color="#fff"
-            onPress={() => this.props.navigation.navigate('map')}
+            onPress={() => this.props.navigation.goBack(null)}
           />
-          <Text style={styles.headerTitle}>Details Screen</Text>
-          <Text style={styles.credits}>{this.renderUserCredits()} NOK</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('fill_credit_card')}>
+            <View style={[{ flexDirection: 'row', marginTop: Platform.OS === 'ios' ? 10 : 0, marginBottom: 15, justifyContent: 'center', alignItems: 'center' }]}>
+              <Image
+                source={require('../../assets/icons/whiteLogo.png')}
+                style={{ height: 35, width: 22 }}
+                resizeMode="stretch"
+              />
+              <Text style={styles.credits}>{this.renderUserCredits()} kr</Text>
+            </View>
+          </TouchableOpacity>
+          <View></View>
         </Header>
         <Cart
           data={this.props.navigation.state.params.item}

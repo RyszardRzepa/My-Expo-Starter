@@ -79,7 +79,7 @@ class App extends React.Component {
       navigationOptions: {
         headerTintColor: '#fff',
         headerStyle: {
-          backgroundColor: '#00adf5',
+          backgroundColor: '#008CCA',
         },
         lazy: true,
         tabBarVisible: false
