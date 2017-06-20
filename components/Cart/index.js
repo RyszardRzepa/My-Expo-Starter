@@ -286,7 +286,7 @@ class Cart extends Component {
             justifyContent: 'center',
             height: height * 0.07,
             width,
-            backgroundColor: colors.orange,
+            backgroundColor: colors.darkBrown,
             flexDirection: 'row',
           }}>
           <Icon

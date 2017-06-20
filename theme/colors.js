@@ -1,12 +1,13 @@
 const colors = {
   lightBlue: '#59bcfe',
-  darkBrown: '#5e3b1a',
+  darkBrown: '#b5b5b5',
   superLightGrey: '#cfcfcf',
   darkGrey: '#869292',
   lightGrey: '#b4b4b4',
   lightBlack: '#242424',
   darkWhite: '#FCFDFE',
   brown: '#404040',
+  
   
   orange: '#ee7836',
   green: '#1EBBA6',

@@ -40,14 +40,17 @@ class OrderView extends Component {
   
   countItem = (item) => {
     if (!this.props.addDrinkToCart)
-      return <Text style={styles.name}>{item.count}</Text>
+      return (
+        <View style={{ flex: 1, alignItems: 'flex-end'}}>
+          <Text style={styles.name}>{item.count}</Text>
+        </View>
+        )
   };
   
   render () {
     return (
       <View style={[styles.basketContentContainer]}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{ flex: 1 }}/>
           <View style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -61,7 +64,7 @@ class OrderView extends Component {
         {this.props.children}
         <Divider style={{ marginHorizontal: 10, width }}/>
         
-        <ScrollView style={[{ width: width * 0.95 }, this.props.style]}>
+        <ScrollView style={[{ width }, this.props.style]}>
           {this.props.cart.map((item, i) => {
             if (item.count)
               return <View key={i} style={styles.productTypeRow}>

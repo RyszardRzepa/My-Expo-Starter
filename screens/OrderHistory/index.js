@@ -33,9 +33,6 @@ class OrderHistory extends Component {
   render () {
     return (
       <View>
-        <View style={{ alignItems: 'center', margin: 10 }}>
-          <Text style={{ fontSize: 18, color: colors.darkGrey }}> Orders</Text>
-        </View>
         <FlatList
           data={this.props.orders}
           renderItem={(item) => this.renderItem(item)}
