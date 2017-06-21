@@ -60,7 +60,7 @@ class Receipt extends Component {
               <Text style={{ fontSize: 15 }}> {totalCartPrice}kr </Text>
             </View>
           </View>
-          <Divider style={{ margin: 10, height: 0.7 }}/>
+          <Divider style={{ width, height: 0.7, marginTop: 10 }}/>
         </View>
       </View>
     )

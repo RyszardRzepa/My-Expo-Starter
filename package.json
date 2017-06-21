@@ -18,7 +18,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "react": "16.0.0-alpha.6",
-    "react-native": "^0.44.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
     "react-native-animatable": "^1.2.0",
     "react-native-collapsible": "^0.8.0",
     "react-native-credit-card-input": "^0.3.3",
@@ -33,7 +33,6 @@
     "redux-logger": "^3.0.1",
     "redux-persist": "^4.6.0",
     "redux-thunk": "^2.2.0",
-    "rn-placeholder": "0.0.4",
     "seamless-immutable": "^7.1.2"
   },
   "devDependencies": {

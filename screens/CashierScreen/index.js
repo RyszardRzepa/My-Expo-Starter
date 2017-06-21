@@ -5,11 +5,14 @@ import {
   ScrollView,
   Alert,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import { Button, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import styles from './styles';
+
+const { width, height } = Dimensions.get('window');
 
 class CashierScreen extends Component {
   static navigationOptions = {
@@ -73,7 +76,7 @@ class CashierScreen extends Component {
           <View style={styles.basketContentContainer}>
             <Text style={styles.cafeName}>{name}</Text>
             <Text style={styles.cafeAddress}>{address}</Text>
-            <ScrollView style={{ width: 280 }}>
+            <ScrollView style={{ width }}>
               {this.props.navigation.state.params.cart.map((item, i) => {
                 return <View key={i} style={styles.orderContainer}>
                   <View style={styles.info}>
@@ -87,10 +90,11 @@ class CashierScreen extends Component {
                   </View>
                 </View>
               })}
+              <Divider style={{ width }}/>
             </ScrollView>
           </View>
           
-          <Divider style={{ height: 1, backgroundColor: '#ccc5c9', margin: 20 }}/>
+          <Divider style={{ height: 1, backgroundColor: '#ccc5c9', marginTop: 20, marginBottom: 20 }}/>
           
           <View style={{ backgroundColor: '#484848', flex: 3 }}>
             <Text style={styles.pinCodeInfo}>

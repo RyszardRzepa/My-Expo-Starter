@@ -1,12 +1,17 @@
+import { Platform } from 'react-native';
+
 const styles = {
   credits: {
-    fontSize: 18,
-    color: '#484848',
+    fontSize: 22,
+    fontWeight: '400',
+    color: '#ffffff',
     marginRight: 10,
+    marginLeft: 5
   },
-  headerTitle: {
-    fontSize: 20,
-    color: '#fff'
+  headerCredits: { flexDirection: 'row',
+    marginTop: Platform.OS === 'ios' ? 10 : 0, marginBottom: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };
 

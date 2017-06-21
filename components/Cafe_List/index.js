@@ -29,6 +29,7 @@ class CafesList extends Component {
             caption={item.address}
             height={220}
             activeOpacity={0.5}
+            imageContainerStyle={{ backgroundColor: '#d9dade' }}
             containerStyle={{ position: 'relative' }}
           />
         </View>

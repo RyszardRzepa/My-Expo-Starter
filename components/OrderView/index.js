@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, Dimensions, Image } from 'react-native';
 import { Icon, Divider } from 'react-native-elements';
 
+import colors from '../../theme/colors';
 import styles from './styles';
 
-const iconSize = 30;
-const iconColorMinus = '#f94057';
-const iconColorPlus = '#2cc860';
+const iconSize = 35;
+const iconColorMinus = colors.lightGrey;
+const iconColorPlus = colors.lightGrey;
 const { width, height } = Dimensions.get('window');
 
 class OrderView extends Component {
@@ -14,22 +15,20 @@ class OrderView extends Component {
     const { addDrinkToCart, removeItemFromCart } = this.props;
     if (addDrinkToCart && removeItemFromCart) {
       return (
-        <View style={{ flexDirection: 'row' }}>
-          <View>
+        <View style={styles.iconPlusMinusContainer}>
             <Icon
               size={iconSize}
-              name='add-circle-outline'
+              name='add-circle'
               color={iconColorPlus}
               onPress={() => this.props.addDrinkToCart(item.name, item.price, 1, item.size)}
             />
-          </View>
           <View style={styles.pointsBox}>
             <Text style={styles.points}>{item.count}</Text>
           </View>
           <View>
             <Icon
               size={iconSize}
-              name='remove-circle-outline'
+              name='remove-circle'
               color={iconColorMinus}
               onPress={() => this.props.removeItemFromCart(item.name, item.size)}
             />
@@ -41,18 +40,34 @@ class OrderView extends Component {
   
   countItem = (item) => {
     if (!this.props.addDrinkToCart)
-      return <Text style={styles.name}>{item.count}</Text>
+      return (
+        <View style={{ flex: 1, alignItems: 'flex-end'}}>
+          <Text style={styles.name}>{item.count}</Text>
+        </View>
+        )
   };
   
   render () {
     return (
       <View style={[styles.basketContentContainer]}>
-        <Text style={[styles.orderTitel, this.props.titleStyle]}>{this.props.title}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 2,
+          }}>
+            <Text style={[styles.orderTitel, this.props.titleStyle]}>{this.props.title}</Text>
+          </View>
+          {this.props.icon}
+        </View>
+        
         {this.props.children}
-        <ScrollView style={[{ width: width * 0.95 }, this.props.style]}>
+        <Divider style={{ marginHorizontal: 10, width }}/>
+        
+        <ScrollView style={[{ width }, this.props.style]}>
           {this.props.cart.map((item, i) => {
             if (item.count)
-              return <View key={i} style={styles.driver}>
+              return <View key={i} style={styles.productTypeRow}>
                 <View style={styles.avatarBox}>
                   <Image style={styles.avatar} source={{ uri: item.image }}/>
                 </View>

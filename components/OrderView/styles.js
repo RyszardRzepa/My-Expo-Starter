@@ -20,18 +20,13 @@ const styles = {
     flex: 1,
     backgroundColor: '#fff'
   },
-  avatarStyle: {
-    height: 45,
-    width: 45
-  },
   productTypeRow: {
     margin: 10,
     marginVertical: 10,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f1f2f6'
+    
   },
   basketModal: {
     height: height * 0.8,
@@ -44,6 +39,9 @@ const styles = {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    borderColor: '#dcd5d9',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
   },
   orderTitel: {
     fontFamily: 'raleway-semibold',
@@ -58,8 +56,8 @@ const styles = {
     marginLeft: 10,
     marginRight: 10,
     paddingVertical: 10,
-    borderBottomWidth: 0.8,
-    borderBottomColor: '#dedfe3'
+    borderBottomWidth: 1,
+    borderBottomColor: '#f1f2f6'
   },
   avatarBox: {
     width: 35,
@@ -83,6 +81,17 @@ const styles = {
   info: {
     marginTop: 5,
     flex: 1,
+  },
+  productInfoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  iconPlusMinusContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'flex-end'
   },
   size: {
     fontFamily: 'raleway-light',
@@ -112,9 +121,10 @@ const styles = {
   },
   pointsBox: {
     alignItems: 'center',
-    width: 10,
+    flexDirection: 'row'
   },
   points: {
+    alignSelf: 'center',
     color: '#3c3c3c',
     fontFamily: 'raleway-semibold',
     textAlign: 'right',
@@ -135,10 +145,10 @@ const styles = {
     borderBottomColor: '#f1f2f6'
   },
   totalNumberItemsBasket: {
-      fontFamily: 'raleway-medium',
-      fontSize: 16,
-      lineHeight: 20,
-      color: '#444'
+    fontFamily: 'raleway-medium',
+    fontSize: 16,
+    lineHeight: 20,
+    color: '#444'
   }
 };
 
