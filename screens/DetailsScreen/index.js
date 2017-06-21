@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Text, View, TouchableOpacity,Platform, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Platform, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import store from '../../store';
@@ -38,27 +38,28 @@ class DetailsScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <Header>
-          <Icon
-            underlayColor='transparent'
-            name="keyboard-arrow-left"
-            size={35}
-            color="#fff"
-            onPress={() => this.props.navigation.goBack(null)}
-          />
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('fill_credit_card')}>
-            <View style={[{ flexDirection: 'row', marginTop: Platform.OS === 'ios' ? 10 : 0, marginBottom: 15, justifyContent: 'center', alignItems: 'center' }]}>
-              <Image
-                source={require('../../assets/icons/whiteLogo.png')}
-                style={{ height: 35, width: 22 }}
-                resizeMode="stretch"
-              />
-              <Text style={styles.credits}>{this.renderUserCredits()} kr</Text>
-            </View>
-          </TouchableOpacity>
-          <View></View>
+            <Icon
+              underlayColor='transparent'
+              name="keyboard-arrow-left"
+              size={37}
+              color="#fff"
+              onPress={() => this.props.navigation.goBack(null)}
+            />
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('fill_credit_card')}>
+              <View style={styles.headerCredits}>
+                <Image
+                  source={require('../../assets/icons/whiteLogo.png')}
+                  style={{ height: 35, width: 22 }}
+                  resizeMode="stretch"
+                />
+                <Text style={styles.credits}>{this.renderUserCredits()} kr</Text>
+              </View>
+            </TouchableOpacity>
+            <View></View>
         </Header>
         <Cart
           data={this.props.navigation.state.params.item}
+          distance={this.props.navigation.state.params.distance}
           navigation={this.navigateCallback}
         />
       </View>

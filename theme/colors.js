@@ -9,7 +9,7 @@ const colors = {
   brown: '#404040',
   
   
-  orange: '#ee7836',
+  orange: '#ff556c',
   green: '#1EBBA6',
   grey: '#958378',
 };

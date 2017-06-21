@@ -238,7 +238,8 @@ class Cart extends Component {
           </View>
           <TouchableOpacity onPress={() => this.onConfirmOrder()}>
             <View
-              style={{ backgroundColor: colors.orange,
+              style={{
+                backgroundColor: colors.orange,
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: height * 0.07
@@ -280,26 +281,39 @@ class Cart extends Component {
         this.refs.modal.open();
         this.setState({ toggleFooter: false })
       }}>
-        <View
-          style={{
+        
+        <View>
+          <View style={{
             alignItems: 'center',
             justifyContent: 'center',
             height: height * 0.07,
             width,
-            backgroundColor: colors.darkBrown,
             flexDirection: 'row',
           }}>
-          <Icon
-            containerStyle={{ padding: 5 }}
-            size={24}
-            name='shopping-basket'
-            color='#fff'
-          />
-          <View>
-            <Text style={{ fontSize: 18, color: '#fff' }}> Total:</Text>
-          </View>
-          <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: 80 }}>
-            <Text style={{ fontSize: 18, color: "#fff" }}> {this.props.totalCartPrice || 0} kr </Text>
+            <ElevatedView
+              elevation={5}
+            >
+              <View style={{
+                backgroundColor: colors.darkBrown,
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: width * 0.97,
+                flexDirection: 'row',
+              }}>
+                <Icon
+                  containerStyle={{ padding: 5 }}
+                  size={24}
+                  name='shopping-basket'
+                  color='#fff'
+                />
+                <View>
+                  <Text style={{ fontSize: 18, color: '#fff' }}> Total:</Text>
+                </View>
+                <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: 80 }}>
+                  <Text style={{ fontSize: 18, color: "#fff" }}> {this.props.totalCartPrice || 0} kr </Text>
+                </View>
+              </View>
+            </ElevatedView>
           </View>
         </View>
       </TouchableOpacity>
@@ -307,17 +321,32 @@ class Cart extends Component {
   };
   
   render () {
-    const { image, address } = this.props.data;
+    const { image, address, name } = this.props.data;
     return (
       <View style={{ flex: 1, backgroundColor: '#f1f2f3' }}>
         <View>
           <Tile
             height={200}
             imageSrc={{ uri: image }}
-            title={address}
+            title={name}
             featured
-            caption="Some Caption Text"
+            imageContainerStyle={{ backgroundColor: '#d9dade' }}
+            caption={address}
+            activeOpacity={0.5}
           />
+          <View style={{ alignItems: 'center', position: 'absolute', right: 20, bottom: 20, flexDirection: 'row', }}>
+            <Icon
+              name="place"
+              size={30}
+              color="#fff"
+            />
+            <Text style={{
+              fontSize: 20,
+              backgroundColor: 'transparent',
+              color: '#fff'
+            }}> {Math.round(this.props.distance * 1000)}
+              m</Text>
+          </View>
         </View>
         <ScrollView style={{ position: 'relative' }}>
           <Accordion
