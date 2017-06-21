@@ -83,11 +83,11 @@ class Cart extends Component {
     
     if (credits <= totalCartPrice || (credits - totalCartPrice) < price) {
       Alert.alert(
-        'Add Credits',
-        `you have only ${credits - totalCartPrice} credits left`,
+        `you have ${credits - totalCartPrice} credits left`,
+        `Do you want to add credits?`,
         [
           { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-          { text: 'OK', onPress: () => console.log('OK Pressed!') },
+          { text: 'OK', onPress: () => this.props.navigation('fill_credit_card')},
         ]
       );
     } else {

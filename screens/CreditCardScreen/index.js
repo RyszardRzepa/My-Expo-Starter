@@ -21,8 +21,8 @@ class CreditCard extends Component {
     this.props.fillCreditCard(this.state.credits, this.navigateCallback)
   };
   
-  navigateCallback = (route, obj) => {
-    this.props.navigation.navigate(route, obj)
+  navigateCallback = () => {
+    this.props.navigation.goBack()
   };
   
   onValueChange = (key, value) => {

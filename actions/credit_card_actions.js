@@ -34,7 +34,7 @@ export const fillCreditCard = (amount, navigate) => async dispatch => {
       'Success',
       `${amount} credits was added to your account`,
       [
-        { text: 'OK', onPress: () => navigate('map') },
+        { text: 'OK', onPress: () => navigate() },
       ], { cancelable: false }
     );
   }

@@ -7,16 +7,10 @@ class CheckBoxComponent extends Component {
     return (
       <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 10 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <CheckBox
-            center
-            title='Yes'
-            checked={this.props.checked}
-            onPress={this.props.onPress}
-          />
           <Text> Take away? </Text>
           <CheckBox
             center
-            title='No'
+            title='Yes'
             checked={!this.props.checked}
             onPress={this.props.onPress}
           />

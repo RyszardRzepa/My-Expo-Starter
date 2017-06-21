@@ -15,6 +15,12 @@ const styles = {
     marginRight: 10,
     paddingVertical: 10,
   },
+  buttonContainer: {
+    height: height * 0.08,
+    backgroundColor: '#51ade8',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   buttonStyle: {
     width: 80,
     height: 80,
