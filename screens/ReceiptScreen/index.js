@@ -35,12 +35,12 @@ class ReceiptScreen extends Component {
           totalCartPrice={totalCartPrice}
           cart={cart}
         />
-        <View
-          style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}>
+        <TouchableOpacity onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}>
+          <View
+            style={styles.buttonContainer}>
             <Text style={{ fontSize: 20, color: '#fff' }}> OK </Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
     )
   }
