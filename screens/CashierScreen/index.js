@@ -6,7 +6,8 @@ import {
   Alert,
   TouchableOpacity,
   Dimensions,
-  LayoutAnimation
+  LayoutAnimation,
+  TouchableHighlight
 } from 'react-native';
 import { Button, Divider, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -91,12 +92,12 @@ class CashierScreen extends Component {
           totalCartPrice={totalCartPrice}
           cart={cart}
         />
-        <TouchableOpacity activeOpacity={0.8} onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}>
+        <TouchableHighlight underlayColor="#fff" activeOpacity={0.8} onPress={() => this.confirmReceipt({ address, name, takeAway, total, cart }, total)}>
           <View
             style={styles.buttonContainer}>
             <Text style={{ fontSize: 20, color: '#fff' }}> OK </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>;
   };
   

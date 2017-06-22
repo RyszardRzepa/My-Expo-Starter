@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import { View, Dimensions, Text, FlatList, Platform } from "react-native";
+import { View, Dimensions, Text, FlatList, TextInput, Platform } from "react-native";
 import { Divider, Tile, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import calculateDistance from '../../services/calculateDistance';
@@ -10,10 +10,17 @@ class CafesList extends Component {
   state = {
     isLoading: false,
     refreshing: false,
+    text: ''
   };
   
+  componentWillUpdate (nextProps, nextState) {
+    if (nextState.text !== this.state.text) {
+      this.props.searchCafes(nextState.text)
+    }
+  }
+  
   renderItem (item) {
-    const { latitude, longitude } = this.props.userLocation.coords;
+    const { latitude, longitude } = this.props.userLocation.coords || {};
     let distance = calculateDistance(
       latitude, longitude, item.location.latitude, item.location.longitude, "K"
     );
@@ -48,13 +55,20 @@ class CafesList extends Component {
   }
   
   render () {
-    console.log("props from Cafelist", this.props.userLocation)
     return (
       <View style={{ flex: 1 }}>
+        <View style={{ backgroundColor: '#fff', }}>
+          <TextInput
+            placeholder='Search cafe'
+            style={{ height: 40, margin: 5, borderRadius: 20, backgroundColor: '#d9dade', textAlign: 'center' }}
+            onChangeText={(text) => this.setState({ text })}
+            value={this.state.text}
+          />
+        </View>
         <FlatList
           removeClippedSubviews={false}
           keyExtractor={item => item.location.latitude}
-          data={this.props.data}
+          data={this.props.cafeInfo || this.props.data}
           renderItem={({ item }) => this.renderItem(item)}
         />
       </View>
@@ -66,7 +80,10 @@ CafesListPropTypes = {
   data: PropTypes.array
 };
 
-mapStateToProps = ({ cafes }) => {
-  return { isLoading: cafes.isLoading }
+mapStateToProps = ({ cafes, search }) => {
+  return {
+    isLoading: cafes.isLoading,
+    cafeInfo: search.cafeInfoSearch
+  }
 };
 export default connect(mapStateToProps)(CafesList);

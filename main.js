@@ -17,7 +17,7 @@ import DetailsScreen from './screens/DetailsScreen';
 import CashierScreen from './screens/CashierScreen';
 import CreditCard from './components/CreditCard';
 import FillCreditCard from './screens/CreditCardScreen';
-import ReceiptScreen from './screens/ReceiptScreen';
+import SearchScreen from './screens/SearchScreen';
 import OrderHistory from './screens/OrderHistory';
 import OrderHistoryDetail from './screens/OrderHistoryDetail';
 import Settings from './screens/SettingsScreen';
@@ -55,6 +55,7 @@ class App extends React.Component {
     
     const TabNav = TabNavigator({
       map: { screen: MapScreen },
+      search: { screen: SearchScreen },
       profile: { screen: ProfileScreen },
     }, {
       tabBarPosition: 'bottom',
@@ -71,7 +72,6 @@ class App extends React.Component {
       cashier: { screen: CashierScreen },
       credit_card: { screen: CreditCard },
       fill_credit_card: { screen: FillCreditCard },
-      receipt: { screen: ReceiptScreen },
       order_history: { screen: OrderHistory},
       order_history_detail: { screen: OrderHistoryDetail},
       settings: { screen: Settings},

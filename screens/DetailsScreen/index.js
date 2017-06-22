@@ -9,6 +9,7 @@ import Cart from '../../components/Cart';
 import Header from '../../components/common/Header';
 import styles from './styles';
 import colors from '../../theme/colors';
+import ElevatedView from "react-native-elevated-view";
 
 class DetailsScreen extends Component {
   static navigationOptions = {
@@ -45,15 +46,15 @@ class DetailsScreen extends Component {
               color="#fff"
               onPress={() => this.props.navigation.goBack(null)}
             />
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('fill_credit_card')}>
-              <View style={styles.headerCredits}>
+            <TouchableOpacity
+              style={styles.headerCredits}
+              onPress={() => this.props.navigation.navigate('fill_credit_card')}>
                 <Image
                   source={require('../../assets/icons/whiteLogo.png')}
                   style={{ height: 35, width: 22 }}
                   resizeMode="stretch"
                 />
                 <Text style={styles.credits}>{this.renderUserCredits()} kr</Text>
-              </View>
             </TouchableOpacity>
             <View></View>
         </Header>

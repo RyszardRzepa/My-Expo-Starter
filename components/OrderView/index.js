@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, Text, ScrollView, Dimensions, Image } from 'react-native';
 import { Icon, Divider } from 'react-native-elements';
 
@@ -16,12 +16,12 @@ class OrderView extends Component {
     if (addDrinkToCart && removeItemFromCart) {
       return (
         <View style={styles.iconPlusMinusContainer}>
-            <Icon
-              size={iconSize}
-              name='add-circle'
-              color={iconColorPlus}
-              onPress={() => this.props.addDrinkToCart(item.name, item.price, 1, item.size)}
-            />
+          <Icon
+            size={iconSize}
+            name='add-circle'
+            color={iconColorPlus}
+            onPress={() => this.props.addDrinkToCart(item.name, item.price, 1, item.size)}
+          />
           <View style={styles.pointsBox}>
             <Text style={styles.points}>{item.count}</Text>
           </View>
@@ -41,10 +41,10 @@ class OrderView extends Component {
   countItem = (item) => {
     if (!this.props.addDrinkToCart)
       return (
-        <View style={{ flex: 1, alignItems: 'flex-end'}}>
+        <View style={{ flex: 1, alignItems: 'flex-end' }}>
           <Text style={styles.name}>{item.count}</Text>
         </View>
-        )
+      )
   };
   
   render () {
@@ -86,5 +86,15 @@ class OrderView extends Component {
     )
   }
 }
+OrderView.defaultProps = {
+  cart: []
+};
+
+OrderViewPropTypes = {
+  cart: PropTypes.array,
+  addDrinkToCart: PropTypes.num,
+  removeItemFromCart: PropTypes.num
+  
+};
 
 export default OrderView;

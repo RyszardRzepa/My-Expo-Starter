@@ -1,5 +1,5 @@
 import  firebase from 'firebase';
-import { FETCH_CAFES_SUCCESS, FETCH_USER_LOCATION_SUCCESS, CALCULATE_DISTANCE_SUCCESS, CALCULATE_DISTANCE_START, FETCH_USER_LOCATION_ERROR} from './types';
+import { FETCH_CAFES_SUCCESS } from './types';
 import _ from 'lodash';
 
 export const fetchCafes = () => {

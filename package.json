@@ -5,6 +5,7 @@
   "author": null,
   "main": "main.js",
   "scripts": {
+    "react-devtools": "react-devtools",
     "test": "node node_modules/jest/bin/jest.js"
   },
   "jest": {
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "jest-expo": "0.4.0",
+    "react-devtools": "^2.3.3",
     "reactotron-react-native": "^1.11.0",
     "reactotron-redux": "^1.11.0"
   }

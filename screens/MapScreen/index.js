@@ -17,9 +17,9 @@ import { Location, Permissions } from "expo";
 import colors from '../../theme/colors';
 import styles from './styles';
 import CafesList from '../../components/Cafe_List';
-import { fetchCafes } from '../../actions';
+import { fetchCafes, searchCafes } from '../../actions';
 
-const screen = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class MapScreen extends Component {
   
@@ -85,11 +85,12 @@ class MapScreen extends Component {
           </View>
         </View>
         <Modal style={styles.modal} position={"bottom"} ref={"modal"} swipeArea={20}>
-          <View style={{ flex: 1, width: screen.width }}>
+          <View style={{ flex: 1, width}}>
             <CafesList
               data={this.props.cafesInfo}
               navigation={this.navigateCallback.bind(this)}
               userLocation={this.state.location}
+              searchCafes={this.props.searchCafes.bind(this)}
             />
           </View>
         </Modal>
@@ -108,4 +109,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchCafes })(MapScreen);
+export default connect(mapStateToProps, { fetchCafes, searchCafes })(MapScreen);
