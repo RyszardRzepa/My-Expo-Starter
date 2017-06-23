@@ -1,6 +1,7 @@
 # Coffee cloud app
 
 ![alt text](https://github.com/RyszardRzepa/My-Expo-Starter/blob/master/assets/images/ccGif1.gif "gif nr 1")
+![alt text](https://github.com/RyszardRzepa/My-Expo-Starter/blob/master/assets/images/ccGif1.gif "gif nr 2")
 ## dependencies
 
 The following
