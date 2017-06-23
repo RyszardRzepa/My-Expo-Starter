@@ -34,10 +34,11 @@ class CafesList extends Component {
             title={item.name}
             featured
             caption={item.address}
-            height={220}
+            height={150}
             activeOpacity={0.5}
-            imageContainerStyle={{ backgroundColor: '#d9dade' }}
+            imageContainerStyle={{ backgroundColor: '#6fdbff' }}
             containerStyle={{ position: 'relative' }}
+            overlayContainerStyle={{ backgroundColor: ' rgba(0, 0, 0, 0.35)' }}
           />
         </View>
         <View style={{ alignItems: 'center', position: 'absolute', right: 20, bottom: 20, flexDirection: 'row', }}>
@@ -57,10 +58,12 @@ class CafesList extends Component {
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ backgroundColor: '#fff', }}>
+        <View style={{ backgroundColor: '#eeeeee', margin: 5, flexDirection: 'row' }}>
+          <Icon containerStyle={{ height: 40, marginLeft: 5 }} name="search" color="grey" size={20}/>
           <TextInput
-            placeholder='Search cafe'
-            style={{ height: 40, margin: 5, borderRadius: 20, backgroundColor: '#d9dade', textAlign: 'center' }}
+            underlineColorAndroid='transparent'
+            placeholder='Search for cafe'
+            style={{ backgroundColor: '#eeeeee', flex: 4, textAlign: 'center' }}
             onChangeText={(text) => this.setState({ text })}
             value={this.state.text}
           />

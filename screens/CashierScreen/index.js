@@ -166,7 +166,7 @@ class CashierScreen extends Component {
           </View>
           
           <Divider style={{ height: 1, backgroundColor: '#ccc5c9', marginTop: 20, marginBottom: 20 }}/>
-          <View style={{ backgroundColor: '#484848', flex: 3 }}>
+          <View style={{ backgroundColor: '#484848', flex: 3, width }}>
             <Text style={styles.pinCodeInfo}>
               Show your phone to the cashier to enter pin code
             </Text>
