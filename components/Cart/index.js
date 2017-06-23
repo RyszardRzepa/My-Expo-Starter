@@ -77,21 +77,21 @@ class Cart extends Component {
     );
   };
   
-  checkCredits = (name, price, num, size, image, callback) => {
+  checkCredits = (name, price, num, size, image, addDrinkToCart) => {
     const { credits } = this.props.userData;
     const { totalCartPrice } = this.props;
     
-    if (credits <= totalCartPrice || (credits - totalCartPrice) < price) {
-      Alert.alert(
-        'Add Credits',
-        `you have only ${credits - totalCartPrice} credits left`,
+    if (credits <= totalCartPrice || (credits - totalCartPrice) < price || credits < price) {
+      return Alert.alert(
+        `you have ${totalCartPrice === undefined ? credits : credits - totalCartPrice} credits left`,
+        `Do you want to add credits?`,
         [
           { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-          { text: 'OK', onPress: () => console.log('OK Pressed!') },
+          { text: 'OK', onPress: () => this.props.navigation('fill_credit_card') },
         ]
       );
     } else {
-      return callback(name, price, num, size, image);
+      return addDrinkToCart(name, price, num, size, image);
     }
   };
   
@@ -326,13 +326,14 @@ class Cart extends Component {
       <View style={{ flex: 1, backgroundColor: '#f1f2f3' }}>
         <View>
           <Tile
-            height={200}
+            height={150}
             imageSrc={{ uri: image }}
             title={name}
             featured
             imageContainerStyle={{ backgroundColor: '#d9dade' }}
             caption={address}
             activeOpacity={0.5}
+            overlayContainerStyle={{ backgroundColor: ' rgba(0, 0, 0, 0.35)' }}
           />
           <View style={{ alignItems: 'center', position: 'absolute', right: 20, bottom: 20, flexDirection: 'row', }}>
             <Icon

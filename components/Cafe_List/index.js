@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import { View, Dimensions, Text, FlatList, Platform } from "react-native";
+import { View, Dimensions, Text, FlatList, TextInput, Platform } from "react-native";
 import { Divider, Tile, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import calculateDistance from '../../services/calculateDistance';
@@ -10,10 +10,17 @@ class CafesList extends Component {
   state = {
     isLoading: false,
     refreshing: false,
+    text: ''
   };
   
+  componentWillUpdate (nextProps, nextState) {
+    if (nextState.text !== this.state.text) {
+      this.props.searchCafes(nextState.text)
+    }
+  }
+  
   renderItem (item) {
-    const { latitude, longitude } = this.props.userLocation.coords;
+    const { latitude, longitude } = this.props.userLocation.coords || {};
     let distance = calculateDistance(
       latitude, longitude, item.location.latitude, item.location.longitude, "K"
     );
@@ -27,10 +34,11 @@ class CafesList extends Component {
             title={item.name}
             featured
             caption={item.address}
-            height={220}
+            height={150}
             activeOpacity={0.5}
-            imageContainerStyle={{ backgroundColor: '#d9dade' }}
+            imageContainerStyle={{ backgroundColor: '#6fdbff' }}
             containerStyle={{ position: 'relative' }}
+            overlayContainerStyle={{ backgroundColor: ' rgba(0, 0, 0, 0.35)' }}
           />
         </View>
         <View style={{ alignItems: 'center', position: 'absolute', right: 20, bottom: 20, flexDirection: 'row', }}>
@@ -48,13 +56,22 @@ class CafesList extends Component {
   }
   
   render () {
-    console.log("props from Cafelist", this.props.userLocation)
     return (
       <View style={{ flex: 1 }}>
+        <View style={{ backgroundColor: '#eeeeee', margin: 5, flexDirection: 'row' }}>
+          <Icon containerStyle={{ height: 40, marginLeft: 5 }} name="search" color="grey" size={20}/>
+          <TextInput
+            underlineColorAndroid='transparent'
+            placeholder='Search for cafe'
+            style={{ backgroundColor: '#eeeeee', flex: 4, textAlign: 'center' }}
+            onChangeText={(text) => this.setState({ text })}
+            value={this.state.text}
+          />
+        </View>
         <FlatList
           removeClippedSubviews={false}
           keyExtractor={item => item.location.latitude}
-          data={this.props.data}
+          data={this.props.cafeInfo || this.props.data}
           renderItem={({ item }) => this.renderItem(item)}
         />
       </View>
@@ -66,7 +83,10 @@ CafesListPropTypes = {
   data: PropTypes.array
 };
 
-mapStateToProps = ({ cafes }) => {
-  return { isLoading: cafes.isLoading }
+mapStateToProps = ({ cafes, search }) => {
+  return {
+    isLoading: cafes.isLoading,
+    cafeInfo: search.cafeInfoSearch
+  }
 };
 export default connect(mapStateToProps)(CafesList);

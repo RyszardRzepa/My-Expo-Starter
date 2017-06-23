@@ -1,6 +1,9 @@
+import { Dimensions } from 'react-native';
+const { height } = Dimensions.get('window');
+
 const styles = {
   modal: {
-    height: 380
+    height: height * 0.8
   },
   icon: {
     position: "absolute",
