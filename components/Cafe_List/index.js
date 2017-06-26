@@ -58,12 +58,12 @@ class CafesList extends Component {
   render () {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ backgroundColor: '#eeeeee', margin: 5, flexDirection: 'row' }}>
+        <View style={{ backgroundColor: '#eeeeee',  margin: 5,  borderRadius: 5, flexDirection: 'row' }}>
           <Icon containerStyle={{ height: 40, marginLeft: 5 }} name="search" color="grey" size={20}/>
           <TextInput
             underlineColorAndroid='transparent'
             placeholder='Search for cafe'
-            style={{ backgroundColor: '#eeeeee', flex: 4, textAlign: 'center' }}
+            style={{ backgroundColor: '#eeeeee',  borderRadius: 5, flex: 4, textAlign: 'center' }}
             onChangeText={(text) => this.setState({ text })}
             value={this.state.text}
           />

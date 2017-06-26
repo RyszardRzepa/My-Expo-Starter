@@ -1,18 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, AsyncStorage, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon, List, ListItem } from 'react-native-elements';
 import { fetchUserData } from '../../actions'
 
 class ProfileScreen extends Component {
   static navigationOptions = {
-    title: 'Profile',
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon
-        name="face"
-        size={30}
-        color={tintColor}/>;
-    },
     header: false,
     gesturesEnabled: false
   };
@@ -70,15 +63,15 @@ class ProfileScreen extends Component {
         data: this.props.userData
       },
     ];
-   
+    
     return (
-      <View style={{ marginTop: 50, flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
-        <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}>
-          <View>
+      <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+        <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', flexDirection: 'row' }}>
+          <View style={{ marginTop: 50 }}>
+            {this.renderUserData(this.props.userData)}
           </View>
-          {this.renderUserData(this.props.userData)}
           <Image
-            style={{ height: 80, width: 80 }}
+            style={{ height: 80, marginTop: 50, width: 80 }}
             source={require('../../assets/icons/user.png')}
           />
         </View>
@@ -89,7 +82,7 @@ class ProfileScreen extends Component {
                 <ListItem
                   key={i}
                   title={item.title}
-                  leftIcon={{ name: item.icon, style: { color: item.color} }}
+                  leftIcon={{ name: item.icon, style: { color: item.color } }}
                   onPress={() => this.props.navigation.navigate(item.navigate, item.data)}
                 />
               ))
