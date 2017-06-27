@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, ScrollView, Dimensions, Image } from 'react-native';
 import { Icon, Divider } from 'react-native-elements';
+import moment from 'moment';
 
 import colors from '../../theme/colors';
 import styles from './styles';
@@ -11,6 +12,35 @@ const iconColorPlus = colors.lightGrey;
 const { width, height } = Dimensions.get('window');
 
 class OrderView extends Component {
+  
+  showReceiptTitle = (props) => {
+    if (!this.props.date) {
+      return <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        {props.cashierReceiptView ? <View /> : <View style={{ flex: 1 }}/> }
+        <View style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 2,
+        }}>
+          <Text style={[styles.orderTitel, this.props.titleStyle]}>{props.title}</Text>
+        </View>
+        {props.icon}
+      </View>
+    } else {
+      return <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{ flex: 1 }}/>
+        <Image source={require('../../assets/icons/ccLogo.png')}/>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View>
+            <Text style={{ fontSize: 18 }}>Coffee Cloud</Text>
+            <Text style={{ fontSize: 14 }}>Org.nr: 9821234</Text>
+            <Text style={{ fontSize: 14 }}>Date: {moment(props.date).format('MMM Do YY')}</Text>
+          </View>
+        </View>
+      </View>
+    }
+  };
+  
   renderIconsAddToCart = (item) => {
     const { addDrinkToCart, removeItemFromCart } = this.props;
     if (addDrinkToCart && removeItemFromCart) {
@@ -50,17 +80,7 @@ class OrderView extends Component {
   render () {
     return (
       <View style={[styles.basketContentContainer]}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <View style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 2,
-          }}>
-            <Text style={[styles.orderTitel, this.props.titleStyle]}>{this.props.title}</Text>
-          </View>
-          {this.props.icon}
-        </View>
-        
+        {this.showReceiptTitle(this.props)}
         {this.props.children}
         <Divider style={{ marginHorizontal: 10, width }}/>
         

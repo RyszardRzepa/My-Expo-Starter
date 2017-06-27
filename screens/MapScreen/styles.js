@@ -3,6 +3,8 @@ const { height } = Dimensions.get('window');
 
 const styles = {
   modal: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     height: height * 0.8
   },
   icon: {

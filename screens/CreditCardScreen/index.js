@@ -33,7 +33,7 @@ class CreditCard extends Component {
 
   render () {
     return (
-      <View style={{ flex: 1, marginTop: 100, }}>
+      <View style={{ flex: 1, marginTop: 100 }}>
         <Picker
           style={{ width }}
           selectedValue={this.state.credits}

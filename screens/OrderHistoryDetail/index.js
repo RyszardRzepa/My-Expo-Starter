@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
+
 import Receipt from '../../components/Receipt';
 
 class OrderHistoryDetail extends Component {
@@ -9,14 +11,18 @@ class OrderHistoryDetail extends Component {
   render () {
     const { address, name, takeAway, total, cart } = this.props.navigation.state.params.order;
     return (
-      <Receipt
-        title='Your Order Receipt'
-        cafeName={name}
-        takeAway={takeAway}
-        address={address}
-        totalCartPrice={total}
-        cart={cart}
-      />
+      <View style={{ flex :1 }}>
+        <View style={{ height: 10, backgroundColor: '#fff' }}/>
+        <Receipt
+          title='Your Order Receipt'
+          cafeName={name}
+          takeAway={takeAway}
+          address={address}
+          totalCartPrice={total}
+          cart={cart}
+          date={this.props.navigation.state.params.date}
+        />
+      </View>
     )
   }
 }

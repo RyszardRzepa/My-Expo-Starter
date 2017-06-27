@@ -40,7 +40,6 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     borderColor: '#dcd5d9',
-    borderTopWidth: 0.5,
     borderBottomWidth: 0.5,
   },
   orderTitel: {
