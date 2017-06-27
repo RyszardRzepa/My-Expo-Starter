@@ -13,7 +13,7 @@ const { width, height } = Dimensions.get('window');
 
 class OrderView extends Component {
   
-  showReceipt = (props) => {
+  showReceiptTitle = (props) => {
     if (!this.props.date) {
       return <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {props.cashierReceiptView ? <View /> : <View style={{ flex: 1 }}/> }
@@ -80,8 +80,7 @@ class OrderView extends Component {
   render () {
     return (
       <View style={[styles.basketContentContainer]}>
-        {this.showReceipt(this.props)}
-        
+        {this.showReceiptTitle(this.props)}
         {this.props.children}
         <Divider style={{ marginHorizontal: 10, width }}/>
         
