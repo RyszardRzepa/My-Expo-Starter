@@ -6,6 +6,7 @@ import { fetchUserData } from '../../actions'
 
 class ProfileScreen extends Component {
   static navigationOptions = {
+    tabBarIcon: ({ tintColor }) => <Icon name="perm-identity" size={30} color={tintColor}/>,
     header: false,
     gesturesEnabled: false
   };
