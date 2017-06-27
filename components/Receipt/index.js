@@ -16,7 +16,7 @@ class Receipt extends Component {
   };
   
   render () {
-    const { title, address, cafeName, takeAway, totalCartPrice, cart } = this.props;
+    const { title, address, cafeName, takeAway, totalCartPrice, cart, date } = this.props;
     return (
       <View style={{ backgroundColor: '#fff', flex: 1 }}>
         <OrderView
@@ -25,6 +25,8 @@ class Receipt extends Component {
           cart={cart}
           title={title}
           totalCartPrice={totalCartPrice}
+          date={date}
+          cashierReceiptView={true}
         >
           <View style={{ alignItems: 'center', marginBottom: 10 }}>
             <Text style={[styles.cafeName, {
