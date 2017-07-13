@@ -9,7 +9,7 @@ const styles = {
   bubble: {
     width: 140,
     flexDirection: 'row',
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     backgroundColor: '#fefefe',
     paddingHorizontal: 5,
     paddingVertical: 5,
@@ -47,7 +47,7 @@ const styles = {
   },
   customView: {
     width: 140,
-    height: 100,
+    height: 30,
   },
   markerImage: {
     height: 30,

@@ -6,7 +6,7 @@ import {
   Dimensions,
   Platform
 } from 'react-native';
-import { MapView, Location, Permissions } from "expo";
+import { MapView } from "expo";
 import { Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
@@ -36,7 +36,7 @@ class Map extends Component {
     },
   };
   
-  render () {
+  render(){
     if (!this.props.cafesInfo || !this.props.userLocation) {
       return <View
         style={{
@@ -63,9 +63,7 @@ class Map extends Component {
         </View>
       </View>
     }
-    if(this.props.userLocation.coords) {
-      console.log("props from Map: ", this.props);
-    }
+    
     return (
       <View style={styles.container}>
         <MapView
@@ -75,7 +73,7 @@ class Map extends Component {
           initialRegion={this.state.region}
           provider={this.props.provider}
         >
-          {this.props.cafesInfo.map((item) => {
+          {this.props.cafesInfo.map((item) =>{
             const { location, address, image, menu, pinCode, name } = item;
             let distance;
             
@@ -118,10 +116,5 @@ MapPropTypes = {
   provider: MapView.ProviderPropType,
 };
 
-mapStateToProps = ({ cafes }) => {
-  return {
-    cafesLocation: cafes.cafesInfo,
-  }
-};
 
-export default connect(mapStateToProps, { calculateDistance })(Map);
+export default connect(null, { calculateDistance })(Map);
