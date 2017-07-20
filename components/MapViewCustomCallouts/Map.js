@@ -26,7 +26,6 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 class Map extends Component {
   state = {
-    isReadyMedia: true,
     open: false,
     region: {
       latitude: LATITUDE,
@@ -35,6 +34,18 @@ class Map extends Component {
       longitudeDelta: LONGITUDE_DELTA,
     },
   };
+  
+  componentDidMount () {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({ position });
+      },
+      (error) => {
+        console.log(alert(error));
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
   
   render () {
     if (!this.props.cafesInfo || !this.props.userLocation) {
@@ -63,9 +74,11 @@ class Map extends Component {
         </View>
       </View>
     }
+    
     if(this.props.userLocation.coords) {
       console.log("props from Map: ", this.props);
     }
+    
     return (
       <View style={styles.container}>
         <MapView

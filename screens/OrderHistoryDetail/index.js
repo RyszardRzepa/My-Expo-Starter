@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import Receipt from '../../components/Receipt';
 
@@ -22,6 +22,7 @@ class OrderHistoryDetail extends Component {
           cart={cart}
           date={this.props.navigation.state.params.date}
         />
+        <Text> Receipt nr. 3232</Text>
       </View>
     )
   }
