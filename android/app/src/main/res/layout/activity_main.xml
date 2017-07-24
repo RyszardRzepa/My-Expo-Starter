@@ -1,0 +1,53 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/hpp_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Hosted Payment Page"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/native_registration_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Native Card Registration"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/make_transaction_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Make transaction"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/list_credit_cards_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="List credit cards"
+                android:padding="10dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

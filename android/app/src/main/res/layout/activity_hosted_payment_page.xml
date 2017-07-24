@@ -1,0 +1,18 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <com.bambora.nativepayment.webview.CreditCardRegistrationWebView
+        android:id="@+id/register_credit_card_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:card_number_hint="Card number"
+        app:card_expiry_hint="MM/YY"
+        app:card_cvv_hint="CVV/CVC"
+        app:submit_button_text="Save card" />
+
+</RelativeLayout>
