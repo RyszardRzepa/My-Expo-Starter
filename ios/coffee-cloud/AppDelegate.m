@@ -3,6 +3,9 @@
 #import "AppDelegate.h"
 #import "ExpoKit.h"
 #import "EXViewController.h"
+#import <BNPayment/BNPayment.h>
+
+#define MERCHANT_ID @"T224691301"
 
 @interface AppDelegate ()
 
@@ -23,6 +26,11 @@
     [_rootViewController loadReactApplication];
     [_window makeKeyAndVisible];
     
+    NSError *error;
+    [BNPaymentHandler setupWithMerchantAccount:MERCHANT_ID // Required.
+                                       baseUrl:nil // Optional. Overrides the URL to the SDK backend.
+                                         debug:NO // Optional. Enables logging in Xcode when set to YES.
+                                         error:&error];
     return YES;
 }
 

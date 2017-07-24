@@ -6,7 +6,9 @@ import {
   Text,
   LayoutAnimation,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
+  NativeModules,
+  Platform
 } from "react-native";
 import { Tile, List, ListItem, Icon, Button, CheckBox } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -217,7 +219,7 @@ class Cart extends Component {
             }}
           />}
           cart={this.props.cart}
-          title="Your basket"
+          title="Your baskets"
           addDrinkToCart={this.props.addDrinkToCart}
           removeItemFromCart={this.props.removeItemFromCart}
           totalCartItems={this.props.totalCartItems}
@@ -265,15 +267,81 @@ class Cart extends Component {
       );
       return;
     }
-    this.props.navigation('cashier',
-      {
-        cart: this.props.cart,
-        pinCode, name, address,
-        takeAway: this.state.checked,
-        total: this.props.totalCartPrice
-      }
-    )
+
+    //get credit card count
+    if (Platform.OS === 'android') {
+      NativeModules.Payment.getCreditCardCount((callback) => {
+        if (callback === 0) {
+          this.goToRegisterCardView();
+        } else {
+          this.makePayment();
+        }
+      });
+    } else {
+      NativeModules.Payment.getCreditCardCount((callback, events) => {
+        if (callback) {
+          if (callback === "0") {
+            this.goToRegisterCardView();
+          } else {
+            this.makePayment();
+          }
+        } else {
+          alert("error");
+        }
+      });
+    }
   };
+
+  goToRegisterCardView = () => {
+    if (Platform.OS === 'android') {
+      NativeModules.Payment.goToRegisterCardView((callback) => {
+        if (callback === "success") {
+          this.makePayment();
+        }
+      });
+    } else {
+      NativeModules.Payment.goToRegisterCardView((callback, events) => {
+        if (callback === "success") {
+          this.makePayment();
+        }
+      });
+    }
+  };
+
+  makePayment = () => {
+    const { address, name, pinCode } = this.props.data;
+    if (Platform.OS === 'android') {
+      NativeModules.Payment.makePayment((callback) => {
+        if (callback === "paid") {
+          this.props.navigation('cashier',
+            {
+              cart: this.props.cart,
+              pinCode,
+              name,
+              address,
+              takeAway: this.state.checked,
+              total: this.props.totalCartPrice
+            }
+          )
+        }
+      });
+    } else {
+      NativeModules.Payment.makePayment((callback, events) => {
+        if (callback === "paid") {
+          this.props.navigation('cashier',
+            {
+              cart: this.props.cart,
+              pinCode,
+              name,
+              address,
+              takeAway: this.state.checked,
+              total: this.props.totalCartPrice
+            }
+          )
+        }
+      });
+    }
+  }
   
   showFooter = () => {
     if (this.state.toggleFooter) {

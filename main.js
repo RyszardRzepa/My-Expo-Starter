@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase';
 
 import registerForNotifications from './services/push_notifications';
-import configKey from './config';
+// import configKey from './config';
 import store from './store';
 
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -24,12 +24,12 @@ import Settings from './screens/SettingsScreen';
 import colors from './theme/colors';
 
 const config = {
-  apiKey: configKey.apiKey,
-  authDomain: configKey.authDomain,
-  databaseURL: configKey.databaseURL,
-  projectId: configKey.projectId,
-  storageBucket: configKey.storageBucket,
-  messagingSenderId: configKey.messagingSenderId
+  apiKey: "AIzaSyBWZQJMh4uY4VB8f1H37XSPb5KYljrl9WI",
+  authDomain: "coffeecloud-dee31.firebaseapp.com",
+  databaseURL: "https://coffeecloud-dee31.firebaseio.com",
+  projectId: "coffeecloud-dee31",
+  storageBucket: "coffeecloud-dee31.appspot.com",
+  messagingSenderId: "908192445611"
 };
 firebase.initializeApp(config);
 console.ignoredYellowBox = ['Setting a timer', 'Back android'];

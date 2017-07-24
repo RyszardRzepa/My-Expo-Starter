@@ -84,7 +84,9 @@ class ProfileScreen extends Component {
                   key={i}
                   title={item.title}
                   leftIcon={{ name: item.icon, style: { color: item.color } }}
-                  onPress={() => this.props.navigation.navigate(item.navigate, item.data)}
+                  onPress={() => {
+                    this.props.navigation.navigate(item.navigate, item.data);}
+                  }
                 />
               ))
             }
