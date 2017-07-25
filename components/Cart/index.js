@@ -279,29 +279,29 @@ class Cart extends Component {
 
     //get credit card count
     if (Platform.OS === 'android') {
-      NativeModules.Payment.getCreditCardCount((callback) => {
-        if (callback === 0) {
+      NativeModules.Payment.getCreditCardCount((callback) => { // getting registered credit cards count
+        if (callback === 0) { // if equals 0 then display alert and go to regist view
           Alert.alert(
             'No Credit Cards',
-            'Do you want register credit cart?',
+            'Do you want register a credit card?',
             [
               {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
               {text: 'OK', onPress: () => this.goToRegisterCardView()},
             ],
             { cancelable: false }
           );
-        } else {
+        } else { 
           this.setState({ isLoading: true });
-          this.makePayment();
+          this.makePayment(); // if there is more than 1 registered cards then handle payment
         }
       });
     } else {
-      NativeModules.Payment.getCreditCardCount((callback, events) => {
+      NativeModules.Payment.getCreditCardCount((callback, events) => { // getting registered credit cards count
         if (callback) {
-          if (callback === "0") {
+          if (callback === "0") { // if equals 0 then display alert and go to regist view
             Alert.alert(
               'No Credit Cards',
-              'Do you want register credit cart?',
+              'Do you want register a credit card?',
               [
                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {text: 'OK', onPress: () => this.goToRegisterCardView()},
@@ -310,7 +310,7 @@ class Cart extends Component {
             );
           } else {
             this.setState({ isLoading: true });
-            this.makePayment();
+            this.makePayment(); // if there is more than 1 registered cards then handle payment
           }
         } else {
           alert("error");
@@ -321,17 +321,17 @@ class Cart extends Component {
 
   goToRegisterCardView = () => {
     if (Platform.OS === 'android') {
-      NativeModules.Payment.goToRegisterCardView((callback) => {
+      NativeModules.Payment.goToRegisterCardView((callback) => { // calling native module to move to the register view
         if (callback === "success") {
           this.setState({ isLoading: true });
-          this.makePayment();
+          this.makePayment(); // when the registering credit card finished, it directly do the payment with the card
         }
       });
     } else {
-      NativeModules.Payment.goToRegisterCardView((callback, events) => {
+      NativeModules.Payment.goToRegisterCardView((callback, events) => { // calling native module to move to the register view
         if (callback === "success") {
           this.setState({ isLoading: true });
-          this.makePayment();
+          this.makePayment(); // when the registering credit card finished, it directly do the payment with the card
         }
       });
     }
@@ -340,10 +340,10 @@ class Cart extends Component {
   makePayment = () => {
     const { address, name, pinCode } = this.props.data;
     if (Platform.OS === 'android') {
-      NativeModules.Payment.makePayment((callback) => {
+      NativeModules.Payment.makePayment(this.props.totalCartPrice, "NOK", (callback) => { // calling native module to handle the payment with specific price and code
         this.setState({ isLoading: false });
         if (callback === "paid") {
-          this.props.navigation('cashier',
+          this.props.navigation('cashier', // if payment is success then go to pin code input view and if failed then show alert
             {
               cart: this.props.cart,
               pinCode,
@@ -356,7 +356,7 @@ class Cart extends Component {
         }
       });
     } else {
-      NativeModules.Payment.makePayment((callback, events) => {
+      NativeModules.Payment.makePayment(this.props.totalCartPrice, "NOK", (callback, events) => { // calling native module to handle the payment with specific price and code
         this.setState({ isLoading: false });
         if (callback === "paid") {
           this.props.navigation('cashier',

@@ -1,9 +1,10 @@
 package coffee.cloud;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.telecom.Call;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bambora.nativepayment.handlers.BNPaymentHandler;
@@ -13,10 +14,12 @@ import com.bambora.nativepayment.models.PaymentSettings;
 import com.bambora.nativepayment.models.creditcard.CreditCard;
 import com.bambora.nativepayment.network.RequestError;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.JavaScriptModuleRegistry;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import android.app.AlertDialog.Builder;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -28,7 +31,8 @@ import coffee.cloud.adapter.CardListAdapter;
 public class Payment extends ReactContextBaseJavaModule {
 
     Callback _callback = null;
-    static Callback _forceCallback = null;
+    int _amount = 0;
+    String _currency = "";
 
     private static final String DURATION_SHORT_KEY = "SHORT";
     private static final String DURATION_LONG_KEY = "LONG";
@@ -75,20 +79,42 @@ public class Payment extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void goToRegisterCardView(Callback callback) {
-        _forceCallback = callback;
         Intent intent = new Intent(getCurrentActivity(), NativeCardRegistrationActivity.class);
         getCurrentActivity().startActivity(intent);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        getCurrentActivity().finish();
     }
 
     @ReactMethod
-    public void makePayment(Callback callback) {
+    public void makePayment(int amount, String currency, Callback callback) {
         _callback = callback;
+        _amount = amount;
+        _currency = currency;
         BNPaymentHandler.getInstance().getRegisteredCreditCards(getReactApplicationContext(), new CreditCardManager.IOnCreditCardRead() {
             @Override
             public void onCreditCardRead(List<CreditCard> creditCards) {
                 showCardListDialog(creditCards);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void unregisterCreditCard(final Callback callback) {
+        BNPaymentHandler.getInstance().getRegisteredCreditCards(getReactApplicationContext(), new CreditCardManager.IOnCreditCardRead() {
+            @Override
+            public void onCreditCardRead(List<CreditCard> creditCards) {
+                if (creditCards.size() == 0) {
+                    callback.invoke("success");
+                    showDialog("No credit cards registered", "There is nothing to remove.");
+                } else {
+                    for (int i = 0; i < creditCards.size(); i++) {
+                        BNPaymentHandler.getInstance().deleteCreditCard(getReactApplicationContext(), creditCards.get(i).getCreditCardToken(), new CreditCardManager.IOnCreditCardDeleted() {
+                            @Override
+                            public void onCreditCardDeleted() {
+                            }
+                        });
+                    }
+                    showDialog("credit cards removed", "Credit cards removed successfully.");
+                    callback.invoke("success");
+                }
             }
         });
     }
@@ -115,8 +141,8 @@ public class Payment extends ReactContextBaseJavaModule {
     private void makeTransaction(CreditCard creditCard) {
         String paymentId = "test-payment-" + new Date().getTime();
         PaymentSettings paymentSettings = new PaymentSettings();
-        paymentSettings.amount = 100;
-        paymentSettings.currency = "SEK";
+        paymentSettings.amount = _amount;
+        paymentSettings.currency = _currency;
         paymentSettings.comment = "This is a test transaction.";
         paymentSettings.creditCardToken = creditCard.getCreditCardToken();
         BNPaymentHandler.getInstance().makeTransaction(paymentId, paymentSettings, new ITransactionListener() {
