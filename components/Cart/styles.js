@@ -152,6 +152,15 @@ const styles = {
       fontSize: 16,
       lineHeight: 20,
       color: '#444'
+  },
+  loadingScene: {
+    position: "absolute",
+    width: width,
+    height: height,
+    alignSelf: "stretch",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    alignItems: "center",
+    justifyContent: "center"
   }
 };
 

@@ -8,7 +8,8 @@ import {
   Alert,
   TouchableOpacity,
   NativeModules,
-  Platform
+  Platform,
+  ActivityIndicator
 } from "react-native";
 import { Tile, List, ListItem, Icon, Button, CheckBox } from 'react-native-elements';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -50,6 +51,7 @@ class Cart extends Component {
   state = {
     checked: true,
     toggleFooter: true,
+    isLoading: false,
   };
   
   componentWillUpdate () {
@@ -192,6 +194,7 @@ class Cart extends Component {
   }
   
   renderBasket = () => {
+    const { isLoading } = this.state;
     return (
       <Modal
         isOpen={this.props.isModalOpen}
@@ -251,6 +254,12 @@ class Cart extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        {
+          isLoading &&
+            <View style={styles.loadingScene}>
+              <ActivityIndicator animating={true} size="small" color="white" />
+            </View>
+        }
       </Modal>
     )
   };
@@ -272,8 +281,17 @@ class Cart extends Component {
     if (Platform.OS === 'android') {
       NativeModules.Payment.getCreditCardCount((callback) => {
         if (callback === 0) {
-          this.goToRegisterCardView();
+          Alert.alert(
+            'No Credit Cards',
+            'Do you want register credit cart?',
+            [
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+              {text: 'OK', onPress: () => this.goToRegisterCardView()},
+            ],
+            { cancelable: false }
+          );
         } else {
+          this.setState({ isLoading: true });
           this.makePayment();
         }
       });
@@ -281,8 +299,17 @@ class Cart extends Component {
       NativeModules.Payment.getCreditCardCount((callback, events) => {
         if (callback) {
           if (callback === "0") {
-            this.goToRegisterCardView();
+            Alert.alert(
+              'No Credit Cards',
+              'Do you want register credit cart?',
+              [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => this.goToRegisterCardView()},
+              ],
+              { cancelable: false }
+            );
           } else {
+            this.setState({ isLoading: true });
             this.makePayment();
           }
         } else {
@@ -296,12 +323,14 @@ class Cart extends Component {
     if (Platform.OS === 'android') {
       NativeModules.Payment.goToRegisterCardView((callback) => {
         if (callback === "success") {
+          this.setState({ isLoading: true });
           this.makePayment();
         }
       });
     } else {
       NativeModules.Payment.goToRegisterCardView((callback, events) => {
         if (callback === "success") {
+          this.setState({ isLoading: true });
           this.makePayment();
         }
       });
@@ -312,6 +341,7 @@ class Cart extends Component {
     const { address, name, pinCode } = this.props.data;
     if (Platform.OS === 'android') {
       NativeModules.Payment.makePayment((callback) => {
+        this.setState({ isLoading: false });
         if (callback === "paid") {
           this.props.navigation('cashier',
             {
@@ -327,6 +357,7 @@ class Cart extends Component {
       });
     } else {
       NativeModules.Payment.makePayment((callback, events) => {
+        this.setState({ isLoading: false });
         if (callback === "paid") {
           this.props.navigation('cashier',
             {
@@ -387,6 +418,18 @@ class Cart extends Component {
       </TouchableOpacity>
     }
   };
+
+  showLoading = () => {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.loadingScene}>
+          <ActivityIndicator animating={true} size="small" color="white" />
+        </View>
+      );
+    } else {
+      return <View/>
+    }
+  };
   
   render () {
     const { image, address, name } = this.props.data;
@@ -426,6 +469,7 @@ class Cart extends Component {
         </ScrollView>
         {this.renderBasket()}
         {this.showFooter()}
+        {this.showLoading()}
       </View>
     );
   }
