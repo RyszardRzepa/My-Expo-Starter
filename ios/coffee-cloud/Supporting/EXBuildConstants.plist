@@ -4,11 +4,5 @@
 <dict>
 	<key>developmentUrl</key>
 	<string>exp11e53dabd68a463fa0ec33877690a207://qj-eab.tunacoder.my-expo-starter.exp.direct:80</string>
-	<key>isManifestVerificationBypassed</key>
-	<true/>
-	<key>isShell</key>
-	<true/>
-	<key>manifestUrl</key>
-	<string>exp://exp.host/@ryszardrzepa/coffee-cloud</string>
 </dict>
 </plist>

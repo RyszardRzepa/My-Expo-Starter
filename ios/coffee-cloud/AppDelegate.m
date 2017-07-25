@@ -5,7 +5,7 @@
 #import "EXViewController.h"
 #import <BNPayment/BNPayment.h>
 
-#define MERCHANT_ID @"T224691301"
+#define MERCHANT_ID @"T638003301"
 
 @interface AppDelegate ()
 
