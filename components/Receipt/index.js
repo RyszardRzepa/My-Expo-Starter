@@ -19,6 +19,7 @@ class Receipt extends Component {
     const { title, address, cafeName, takeAway, totalCartPrice, cart, date } = this.props;
     return (
       <View style={{ backgroundColor: '#fff', flex: 1 }}>
+        <View style={{ marginTop: 50 }}/>
         <OrderView
           style={{ backgroundColor: '#f6f6f6', marginHorizontal: 20 }}
           titleStyle={{ marginTop: height * 0.1 }}

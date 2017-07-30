@@ -10,7 +10,7 @@ const colors = {
   
   
   orange: '#27ae60',
-  green: '#1EBBA6',
+  green: '#27ae60',
   grey: '#958378',
 };
 

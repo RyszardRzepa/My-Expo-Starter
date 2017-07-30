@@ -120,6 +120,18 @@ class Cart extends Component {
                 <Text style={styles.drinkPrice}>{small} kr</Text>
               </View>
               <View style={styles.iconPlusMinusContainer}>
+                <View style={{
+                  flexDirection: 'row',
+                }}>
+                  {this.props.cart.map((item, i) => {
+                    if (item.name === name && item.price === small) {
+                      return <View key={i} style={{ flexDirection: 'row' }}>
+                        {this.renderMinusButton(item.count, name, size.small)}
+                        <Text style={styles.points}>{item.count}</Text>
+                      </View>
+                    }
+                  })}
+                </View>
                 <Icon
                   size={iconSize}
                   name='add-circle'
@@ -129,18 +141,6 @@ class Cart extends Component {
                     (name, small, 1, size.small, image, this.props.addDrinkToCart)
                   }
                 />
-                <View style={{
-                  flexDirection: 'row',
-                }}>
-                  {this.props.cart.map((item, i) => {
-                    if (item.name === name && item.price === small) {
-                      return <View key={i} style={{ flexDirection: 'row' }}>
-                        <Text style={styles.points}>{item.count}</Text>
-                        {this.renderMinusButton(item.count, name, size.small)}
-                      </View>
-                    }
-                  })}
-                </View>
               </View>
             </View>
             
@@ -151,6 +151,18 @@ class Cart extends Component {
                 <Text style={styles.drinkPrice}>{medium} kr</Text>
               </View>
               <View style={styles.iconPlusMinusContainer}>
+                <View style={{
+                  flexDirection: 'row',
+                }}>
+                  {this.props.cart.map((item, i) => {
+                    if (item.name === name && item.price === medium) {
+                      return <View key={i} style={{ flexDirection: 'row' }}>
+                        {this.renderMinusButton(item.count, name, size.medium)}
+                        <Text style={styles.points}>{item.count}</Text>
+                      </View>
+                    }
+                  })}
+                </View>
                 <Icon
                   size={iconSize}
                   name='add-circle'
@@ -160,18 +172,6 @@ class Cart extends Component {
                     (name, medium, 1, size.medium, image, this.props.addDrinkToCart)
                   }
                 />
-                <View style={{
-                  flexDirection: 'row',
-                }}>
-                  {this.props.cart.map((item, i) => {
-                    if (item.name === name && item.price === medium) {
-                      return <View key={i} style={{ flexDirection: 'row' }}>
-                        <Text style={styles.points}>{item.count}</Text>
-                        {this.renderMinusButton(item.count, name, size.medium)}
-                      </View>
-                    }
-                  })}
-                </View>
               </View>
             </View>
           </ElevatedView>
@@ -294,7 +294,7 @@ class Cart extends Component {
               elevation={5}
             >
               <View style={{
-                backgroundColor: colors.darkBrown,
+                backgroundColor: colors.green,
                 alignItems: 'center',
                 justifyContent: 'center',
                 width: width * 0.97,

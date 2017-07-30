@@ -66,9 +66,9 @@ class ProfileScreen extends Component {
     ];
     
     return (
-      <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
-        <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', flexDirection: 'row' }}>
-          <View style={{ marginTop: 50 }}>
+      <View style={{ backgroundColor: '#fff', flex: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+        <View style={{ flex: 1, backgroundColor: '#f6f6f6', justifyContent: 'center', flexDirection: 'row' }}>
+          <View style={{ marginTop: 50,  }}>
             {this.renderUserData(this.props.userData)}
           </View>
           <Image
@@ -76,16 +76,20 @@ class ProfileScreen extends Component {
             source={require('../../assets/icons/user.png')}
           />
         </View>
-        <View style={{ flex: 2 }}>
-          <List>
+        <View style={{ flex: 2, }}>
+          <List
+            containerStyle={{ borderTopWidth: 0.5, borderBottomWidth: 0, borderBottomColor: '#e0e7ef'}}
+          >
             {
               list.map((item, i) => (
-                <ListItem
-                  key={i}
-                  title={item.title}
-                  leftIcon={{ name: item.icon, style: { color: item.color } }}
-                  onPress={() => this.props.navigation.navigate(item.navigate, item.data)}
-                />
+                <View key={i}>
+                  <ListItem
+                    underlayColor="#E9F0F8"
+                    title={item.title}
+                    leftIcon={{ name: item.icon, style: { color: item.color } }}
+                    onPress={() => this.props.navigation.navigate(item.navigate, item.data)}
+                  />
+                </View>
               ))
             }
           </List>

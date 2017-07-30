@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Platform
 } from "react-native";
 import { connect } from 'react-redux';
 import  calculateDistance from '../../services/calculateDistance';
@@ -17,8 +18,8 @@ import MapView from "react-native-maps";
 
 const { width, height } = Dimensions.get("window");
 
-const CARD_HEIGHT = height / 3.5;
-const CARD_WIDTH = CARD_HEIGHT - 30;
+const CARD_HEIGHT = height / 3;
+const CARD_WIDTH = CARD_HEIGHT - 10;
 let distance;
 
 class screens extends Component {
@@ -31,15 +32,15 @@ class screens extends Component {
     },
   };
   
-  componentWillMount(){
+  componentWillMount () {
     this.index = 0;
     this.animation = new Animated.Value(0);
   }
   
-  componentDidMount(){
+  componentDidMount () {
     // We should detect when scrolling has stopped then animate
     // We should just debounce the event listener here
-    this.animation.addListener(({ value }) =>{
+    this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
       if (index >= this.props.cafesInfo.length) {
         index = this.props.cafesInfo.length - 1;
@@ -49,7 +50,7 @@ class screens extends Component {
       }
       
       clearTimeout(this.regionTimeout);
-      this.regionTimeout = setTimeout(() =>{
+      this.regionTimeout = setTimeout(() => {
         if (this.index !== index) {
           this.index = index;
           const { location } = this.props.cafesInfo[index];
@@ -66,16 +67,17 @@ class screens extends Component {
     });
   }
   
-  render(){
-    const interpolations = this.props.cafesInfo.map((marker, index) =>{
+  render () {
+    const interpolations = this.props.cafesInfo.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
         index * CARD_WIDTH,
         ((index + 1) * CARD_WIDTH),
       ];
-      const scale = this.animation.interpolate({
+      
+      const scaleMarker = this.animation.interpolate({
         inputRange,
-        outputRange: [0.4, 0.5, 0.4],
+        outputRange: [0.4, 0.6, 0.4],
         extrapolate: "clamp",
       });
       const scaleCard = this.animation.interpolate({
@@ -84,7 +86,7 @@ class screens extends Component {
         extrapolate: "clamp",
       });
       
-      return { scale, scaleCard };
+      return { scaleMarker, scaleCard };
     });
     
     return (
@@ -96,29 +98,30 @@ class screens extends Component {
           style={styles.container}
         >
           
-          {this.props.cafesInfo.map((marker, index) =>{
+          {this.props.cafesInfo.map((marker, index) => {
             const scaleStyle = {
               transform: [
                 {
-                  scale: interpolations[index].scale,
+                  scale: interpolations[index].scaleMarker,
                 },
               ],
             };
             return (
-              <MapView.Marker.Animated key={index} coordinate={marker.location}>
+              <MapView.Marker.Animated
+                title={marker.name}
+                onCalloutPress={
+                  () => this.props.navigation('details', { item: marker, distance })
+                }
+                showCallout={true}
+                key={index}
+                coordinate={marker.location}
+              >
                 <Animated.View style={[scaleStyle]}>
                   <Image
-                    style={styles.markerImage}
+                    style={Platform.OS === 'android' ? { height: 30, width: 20 } : {}}
                     source={require('../../assets/icons/ccLogo.png')}
                   />
                 </Animated.View>
-                  <MapView.Callout
-                    onPress={ () => this.props.navigation('details', { item: marker, distance }
-                    )}
-                    tooltip={false}
-                  >
-                      <Text numberOfLines={1} style={{ color: '#27313c' }}>{marker.name}</Text>
-                  </MapView.Callout>
               </MapView.Marker.Animated>
             );
           })}
@@ -143,7 +146,7 @@ class screens extends Component {
           style={styles.scrollView}
           contentContainerStyle={styles.endPadding}
         >
-          {this.props.cafesInfo.map((marker, index) =>{
+          {this.props.cafesInfo.map((marker, index) => {
               if (this.props.userLocation.coords) {
                 const { latitude, longitude } = this.props.userLocation.coords;
                 distance = calculateDistance(latitude, longitude, marker.location.latitude, marker.location.longitude, "K")
@@ -157,32 +160,34 @@ class screens extends Component {
                 ],
               };
               return <TouchableOpacity
-                activeOpacity={0.5}
+                activeOpacity={0.4}
                 key={index}
                 onPress={ () => this.props.navigation('details', { item: marker, distance })}
               >
-                <Animated.View style={[styles.card, scaleCardStyle]}>
-                  <Image
-                    source={{ uri: marker.image }}
-                    style={styles.cardImage}
-                    resizeMode="cover"
-                  >
-                    <Text style={{
-                      color: '#fff',
-                      fontWeight: '500',
-                      backgroundColor: 'transparent',
-                      position: 'absolute',
-                      bottom: 10,
-                      right: 10
-                    }}>{Math.round((distance * 1000))} m</Text>
-                  </Image>
-                  <View style={styles.textContent}>
-                    <Text numberOfLines={1} style={styles.cardtitle}>{marker.name}</Text>
-                    <Text numberOfLines={1} style={styles.cardDescription}>
-                      {marker.address}
-                    </Text>
-                  </View>
-                </Animated.View>
+                  <Animated.View style={[styles.card]}>
+                      <Image
+                        source={{ uri: marker.image }}
+                        style={styles.cardImage}
+                        resizeMode="cover"
+                        borderTopLeftRadius={10}
+                        borderTopRightRadius={10}
+                      >
+                        <Text style={{
+                          color: '#fff',
+                          fontWeight: '500',
+                          backgroundColor: 'transparent',
+                          position: 'absolute',
+                          bottom: 10,
+                          right: 10
+                        }}>{Math.round((distance * 1000))} m</Text>
+                      </Image>
+                    <View style={styles.textContent}>
+                      <Text numberOfLines={1} style={styles.cardTitle}>{marker.name}</Text>
+                      <Text numberOfLines={1} style={styles.cardDescription}>
+                        {marker.address}
+                      </Text>
+                    </View>
+                  </Animated.View>
               </TouchableOpacity>
             }
           )}
@@ -192,7 +197,7 @@ class screens extends Component {
   }
 }
 
-mapStateToProps = ({ cafes }) =>{
+mapStateToProps = ({ cafes }) => {
   return {
     cafesInfo: cafes.cafesInfo,
   }
@@ -210,13 +215,15 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingVertical: 10,
-    paddingHorizontal: 20
+    paddingHorizontal: 50
   },
   endPadding: {
     paddingRight: width - CARD_WIDTH,
   },
   card: {
-    elevation: 2,
+    overflow: 'hidden',
+    borderRadius: 10,
+    elevation: 3,
     backgroundColor: "#FFF",
     marginHorizontal: 10,
     shadowColor: "#000",
@@ -225,24 +232,21 @@ const styles = StyleSheet.create({
     shadowOffset: { x: 2, y: -2 },
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
-    overflow: "hidden",
   },
   cardImage: {
-    flex: 3,
-    width: "100%",
-    height: "100%",
-    alignSelf: "center",
+    flex: 2,
   },
   textContent: {
     flex: 1,
+    marginLeft: 10,
+    justifyContent: 'center'
   },
-  cardtitle: {
-    fontSize: 12,
-    marginTop: 5,
+  cardTitle: {
+    fontSize: 16,
     fontWeight: "bold",
   },
   cardDescription: {
-    fontSize: 12,
+    fontSize: 14,
     color: "#444",
   },
 });

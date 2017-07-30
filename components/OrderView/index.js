@@ -27,17 +27,17 @@ class OrderView extends Component {
         {props.icon}
       </View>
     } else {
-      return <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={{ flex: 1 }}/>
-        <Image source={require('../../assets/icons/ccLogo.png')}/>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <View>
-            <Text style={{ fontSize: 18 }}>Coffee Cloud</Text>
-            <Text style={{ fontSize: 14 }}>Org.nr: 9821234</Text>
-            <Text style={{ fontSize: 14 }}>Date: {moment(props.date).format('MMM Do YY')}</Text>
-          </View>
-        </View>
-      </View>
+      // return <View style={{ flex: 1, flexDirection: 'row' }}>
+      //   <View style={{ flex: 1 }}/>
+      //   <Image source={require('../../assets/icons/ccLogo.png')}/>
+      //   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      //     <View>
+      //       <Text style={{ fontSize: 18 }}>Coffee Cloud</Text>
+      //       <Text style={{ fontSize: 14 }}>Org.nr: 9821234</Text>
+      //       <Text style={{ fontSize: 14 }}>Date: {moment(props.date).format('MMM Do YY')}</Text>
+      //     </View>
+      //   </View>
+      // </View>
     }
   };
   

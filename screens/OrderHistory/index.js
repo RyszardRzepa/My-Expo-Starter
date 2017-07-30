@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { ListItem, List } from 'react-native-elements';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -17,16 +17,18 @@ class OrderHistory extends Component {
   };
   
   renderItem = ({ item }) => {
+    
     return (
-      <List containerStyle={{ marginTop: 0, borderTopWidth: 0 }}>
-        <ListItem
-          key={item.date}
-          title={item.order.name}
-          subtitle={moment(item.date).format('MMM Do YY')}
-          rightTitle={`${item.order.total.toString()} nok`}
-          onPress={() => this.props.navigation.navigate('order_history_detail', item)}
-        />
-      </List>
+        <List containerStyle={{ marginTop: 0, borderTopWidth: 0 }}>
+          <ListItem
+            key={item.date}
+            underlayColor="#E9F0F8"
+            title={item.order.name}
+            subtitle={moment(item.date).format('MMM Do YY')}
+            rightTitle={`${item.order.total.toString()} nok`}
+            onPress={() => this.props.navigation.navigate('order_history_detail', item)}
+          />
+        </List>
     )
   };
   
