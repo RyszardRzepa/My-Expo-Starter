@@ -46,15 +46,6 @@ class OrderView extends Component {
     if (addDrinkToCart && removeItemFromCart) {
       return (
         <View style={styles.iconPlusMinusContainer}>
-          <Icon
-            size={iconSize}
-            name='add-circle'
-            color={iconColorPlus}
-            onPress={() => this.props.addDrinkToCart(item.name, item.price, 1, item.size)}
-          />
-          <View style={styles.pointsBox}>
-            <Text style={styles.points}>{item.count}</Text>
-          </View>
           <View>
             <Icon
               size={iconSize}
@@ -63,6 +54,15 @@ class OrderView extends Component {
               onPress={() => this.props.removeItemFromCart(item.name, item.size)}
             />
           </View>
+          <View style={styles.pointsBox}>
+            <Text style={styles.points}>{item.count}</Text>
+          </View>
+          <Icon
+            size={iconSize}
+            name='add-circle'
+            color={iconColorPlus}
+            onPress={() => this.props.addDrinkToCart(item.name, item.price, 1, item.size)}
+          />
         </View>
       )
     }
